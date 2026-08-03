@@ -4,6 +4,7 @@ description: DUMMY PLACEHOLDER. A short recap of our latest harvest cycle and wh
 date: 2026-07-20
 image: ../../assets/journal/first-harvest-of-the-season.jpg
 imageAlt: DUMMY PLACEHOLDER cover image for the first harvest of the season article
+draft: true
 ---
 
 DUMMY PLACEHOLDER copy — replace with the real story before launch (see `docs/content-guide.md`).

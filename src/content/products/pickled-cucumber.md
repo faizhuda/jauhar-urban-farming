@@ -10,5 +10,5 @@ category: processed
 draft: true
 inStock: false
 featured: false
-order: 2
+order: 6
 ---

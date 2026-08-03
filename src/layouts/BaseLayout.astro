@@ -13,9 +13,11 @@ interface Props {
   /** Meta description unik per halaman, ≤155 karakter (PRD §9.1). */
   description: string;
   ogImage?: string;
+  /** Cegah indexing (mis. halaman 404) — melewati canonical & menambah meta robots noindex. */
+  noindex?: boolean;
 }
 
-const { title, description, ogImage } = Astro.props;
+const { title, description, ogImage, noindex = false } = Astro.props;
 const fullTitle = title.includes(SITE.name) ? title : `${title} — ${SITE.name}`;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const ogImageUrl = new URL(ogImage ?? ogDefault.src, Astro.site);
@@ -30,7 +32,7 @@ const ogImageUrl = new URL(ogImage ?? ogDefault.src, Astro.site);
 
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
-    <link rel="canonical" href={canonical} />
+    {noindex ? <meta name="robots" content="noindex" /> : <link rel="canonical" href={canonical} />}
 
     {/* Open Graph + Twitter Card: preview share WhatsApp/sosmed (PRD §9.1) */}
     <meta property="og:type" content="website" />
@@ -57,13 +59,6 @@ const ogImageUrl = new URL(ogImage ?? ogDefault.src, Astro.site);
 
     {/* Font self-hosted via @fontsource (lihat src/styles/global.css) — tidak ada
        request pihak ketiga ke Google Fonts, mengurangi FCP (PRD §10.3) */}
-
-    {/* Dijalankan sebelum paint pertama:
-       - html.js       -> mengaktifkan state awal scroll-reveal (fallback no-JS aman)
-       - html.no-splash -> splash hanya tampil sekali per sesi tab
-       PENTING: script ini inline & diizinkan lewat CSP hash (bukan 'unsafe-inline'),
-       lihat vercel.json. Kalau isi script ini diubah, hash sha256 di vercel.json
-       WAJIB dihitung ulang, atau browser akan diam-diam memblokir eksekusinya. */}
   </head>
   <body class="flex min-h-screen flex-col">
     <a

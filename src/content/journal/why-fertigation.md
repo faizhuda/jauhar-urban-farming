@@ -4,6 +4,7 @@ description: DUMMY PLACEHOLDER. A look at why fertigation fits a small campus pl
 date: 2026-07-10
 image: ../../assets/journal/why-fertigation.jpg
 imageAlt: DUMMY PLACEHOLDER cover image for the fertigation article
+draft: true
 ---
 
 DUMMY PLACEHOLDER copy — replace with the real story before launch (see `docs/content-guide.md`).

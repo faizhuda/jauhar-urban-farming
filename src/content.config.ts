@@ -39,6 +39,8 @@ const gallery = defineCollection({
       caption: z.string().min(1),
       date: z.date(),
       order: z.number().int().default(99),
+      /** Sembunyikan dari galeri sepenuhnya, mis. belum siap tampil. */
+      draft: z.boolean().default(false),
     }),
 });
 
@@ -52,6 +54,8 @@ const journal = defineCollection({
       date: z.date(),
       image: image(),
       imageAlt: z.string().min(1),
+      /** Sembunyikan dari /journal sepenuhnya, mis. draf belum siap terbit. */
+      draft: z.boolean().default(false),
     }),
 });
 

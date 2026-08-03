@@ -1,0 +1,63 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { photoCredits } from '../data/photo-credits';
+---
+
+<BaseLayout
+  title="Photo Credits"
+  description="Attribution for stock photography from Wikimedia Commons currently used on Jauhar Urban Farming while real farm photos are being added."
+>
+  <section class="shell max-w-3xl py-20 md:py-28">
+    <p class="kicker hero-enter mb-6">Photo credits</p>
+    <h1 class="hero-enter mb-6 font-serif text-display-sm text-primary md:text-display-lg">
+      Photos in transition.
+    </h1>
+    <p class="hero-enter-delayed mb-12 max-w-2xl text-body-lg text-on-surface-variant">
+      Most photos on this site are free-licensed stock from Wikimedia Commons — placeholders
+      while we sort and add real photos from our own farm. CC BY and CC BY-SA images require
+      visible attribution while in use, which is what this page provides. Photos are credited
+      here only while the stock version is still live; each is removed once replaced with a
+      real Jauhar Urban Farming photo.
+    </p>
+
+    {
+      photoCredits.length === 0 ? (
+        <p class="text-body-md text-on-surface-variant">
+          All photos on this site are now original Jauhar Urban Farming photography.
+        </p>
+      ) : (
+        <div class="overflow-x-auto">
+          <table class="w-full border-collapse text-left text-body-md">
+            <thead>
+              <tr class="border-b border-accent/25 text-label-caps uppercase text-on-surface-variant">
+                <th class="py-3 pr-4">Used as</th>
+                <th class="py-3 pr-4">Source</th>
+                <th class="py-3 pr-4">Photographer</th>
+                <th class="py-3">License</th>
+              </tr>
+            </thead>
+            <tbody>
+              {photoCredits.map((credit) => (
+                <tr class="border-b border-outline-variant/30">
+                  <td class="py-3 pr-4 font-mono text-sm text-on-surface-variant">{credit.asset}</td>
+                  <td class="py-3 pr-4">
+                    <a
+                      href={credit.sourceUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="text-primary underline underline-offset-2 hover:text-accent"
+                    >
+                      {credit.sourceTitle}
+                    </a>
+                  </td>
+                  <td class="py-3 pr-4">{credit.photographer}</td>
+                  <td class="py-3">{credit.license}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )
+    }
+  </section>
+</BaseLayout>
