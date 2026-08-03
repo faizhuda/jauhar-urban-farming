@@ -9,9 +9,6 @@
 export const SITE = {
   name: 'Jauhar Urban Farming',
   tagline: 'Fresh, campus-grown produce from IIUM Gombak',
-  // TODO(S1-02): ganti ke custom domain final (samakan dengan astro.config.mjs).
-  // HARUS identik dengan `site` di astro.config.mjs dan Sitemap di public/robots.txt.
-  url: 'https://jauharurbanfarming.vercel.app',
 
   // Format: kode negara + nomor, angka saja, tanpa "+" (dipakai untuk link wa.me).
   whatsapp: '60132391877',
@@ -40,8 +37,15 @@ export const SITE = {
   },
 
   // Pin persis dari listing Maps "Jauhar Urban Farming's Site" (lihat catatan NAP di README/chat).
-  mapsEmbedUrl: 'https://www.google.com/maps?q=3.2576273,101.7337326&output=embed',
+  // Satu-satunya tempat koordinat ditulis — mapsEmbedUrl() dan JSON-LD geo (localBusinessLd)
+  // berasal dari sini, supaya tidak ada dua angka lat/lng yang bisa berbeda.
+  geo: { lat: 3.2576273, lng: 101.7337326 },
 } as const;
+
+/** URL alamat lengkap satu baris, dipakai di Footer dan halaman Contact. */
+export function fullAddress(): string {
+  return `${SITE.address.street}, ${SITE.address.postalCode} ${SITE.address.locality}, ${SITE.address.region}, Malaysia`;
+}
 
 /** Link click-to-order WhatsApp berisi nama produk (PRD F3). */
 export function waOrderLink(productName?: string): string {
@@ -50,4 +54,40 @@ export function waOrderLink(productName?: string): string {
     ? `Hello Jauhar Urban Farming! I would like to order: *${productName}*. Is it available?`
     : 'Hello Jauhar Urban Farming! I would like to ask about your products.';
   return `https://wa.me/${SITE.whatsapp}?text=${encodeURIComponent(message)}`;
+}
+
+/** Google Maps embed URL, diturunkan dari SITE.geo (satu sumber koordinat). */
+export function mapsEmbedUrl(): string {
+  return `https://www.google.com/maps?q=${SITE.geo.lat},${SITE.geo.lng}&output=embed`;
+}
+
+/** JSON-LD LocalBusiness — dipakai di Home & Contact (PRD §9.2), data dari NAP tunggal. */
+export function localBusinessLd(imageUrl: string, siteUrl?: string) {
+  return {
+    '@type': 'LocalBusiness',
+    name: SITE.name,
+    image: imageUrl,
+    url: siteUrl,
+    telephone: `+${SITE.whatsapp}`,
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: SITE.address.street,
+      addressLocality: SITE.address.locality,
+      addressRegion: SITE.address.region,
+      postalCode: SITE.address.postalCode,
+      addressCountry: SITE.address.country,
+    },
+    geo: {
+      '@type': 'GeoCoordinates',
+      latitude: SITE.geo.lat,
+      longitude: SITE.geo.lng,
+    },
+    openingHoursSpecification: {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: SITE.hours.days,
+      opens: SITE.hours.opens,
+      closes: SITE.hours.closes,
+    },
+    sameAs: [SITE.socials.instagram],
+  };
 }

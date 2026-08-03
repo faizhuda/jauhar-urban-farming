@@ -3,8 +3,9 @@ import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 
-// TODO(S1-02): ganti ke custom domain final setelah domain dibeli (lihat PLANNING.md).
-// Nilai ini juga dipakai @astrojs/sitemap dan seluruh canonical/OG URL.
+// TODO(S1-02): ganti ke custom domain final setelah domain dibeli (lihat TODO.md).
+// SATU-SATUNYA tempat domain situs ditulis — canonical/OG/sitemap/robots.txt
+// semuanya membaca `site` ini via Astro.site, tidak ada salinan manual lain.
 // PENTING: harus PERSIS sama dengan domain Vercel yang benar-benar live —
 // beda satu karakter pun membuat og:image/canonical menunjuk ke URL mati,
 // dan preview link (WhatsApp dll.) gagal menampilkan gambar (lihat insiden

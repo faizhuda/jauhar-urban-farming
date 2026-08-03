@@ -5,7 +5,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import ProductCard from '../components/ProductCard.astro';
 import WhatsAppCta from '../components/WhatsAppCta.astro';
 import JsonLd from '../components/JsonLd.astro';
-import { SITE } from '../config';
+import { SITE, localBusinessLd } from '../config';
 import hero from '../assets/hero.jpg';
 import visionA from '../assets/gallery/fertigation-rows.jpg';
 import visionB from '../assets/gallery/seedling-nursery.jpg';
@@ -14,36 +14,14 @@ const featured = (await getCollection('products', ({ data }) => data.featured))
   .sort((a, b) => a.data.order - b.data.order)
   .slice(0, 3);
 
-// JSON-LD LocalBusiness (PRD §9.2), data diambil dari config NAP tunggal.
-const localBusinessLd = {
-  '@type': 'LocalBusiness',
-  name: SITE.name,
-  image: new URL(hero.src, Astro.site).href,
-  url: Astro.site?.href,
-  telephone: `+${SITE.whatsapp}`,
-  address: {
-    '@type': 'PostalAddress',
-    streetAddress: SITE.address.street,
-    addressLocality: SITE.address.locality,
-    addressRegion: SITE.address.region,
-    postalCode: SITE.address.postalCode,
-    addressCountry: SITE.address.country,
-  },
-  openingHoursSpecification: {
-    '@type': 'OpeningHoursSpecification',
-    dayOfWeek: SITE.hours.days,
-    opens: SITE.hours.opens,
-    closes: SITE.hours.closes,
-  },
-  sameAs: [SITE.socials.instagram],
-};
+const businessLd = localBusinessLd(new URL(hero.src, Astro.site).href, Astro.site?.href);
 ---
 
 <BaseLayout
   title="Jauhar Urban Farming — Campus Urban Farm in Gombak"
   description="Student-run urban farm at IIUM Gombak, Kuala Lumpur. Fresh fertigation-grown cucumbers and pick-your-own farm tours. Order via WhatsApp for campus pickup."
 >
-  <JsonLd data={localBusinessLd} />
+  <JsonLd data={businessLd} />
 
   {/* Hero grande full-bleed: foto LCP eager + fetchpriority high (PRD §10.1),
      scrim gradasi untuk kontras teks, parallax ringan via transform-only. */}

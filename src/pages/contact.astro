@@ -1,18 +1,21 @@
 ---
 import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import JsonLd from '../components/JsonLd.astro';
 import WhatsAppCta from '../components/WhatsAppCta.astro';
 import WhatsAppIcon from '../components/WhatsAppIcon.astro';
-import { SITE, waOrderLink } from '../config';
+import { SITE, waOrderLink, mapsEmbedUrl, fullAddress, localBusinessLd } from '../config';
 import heroImage from '../assets/gallery/drip-lines.jpg';
 
-const fullAddress = `${SITE.address.street}, ${SITE.address.postalCode} ${SITE.address.locality}, ${SITE.address.region}, Malaysia`;
+const businessLd = localBusinessLd(new URL(heroImage.src, Astro.site).href, Astro.site?.href);
 ---
 
 <BaseLayout
   title="Contact"
   description="Find Jauhar Urban Farming at IIUM Gombak, Kuala Lumpur. Opening hours, WhatsApp ordering, social media, and directions to our campus farm."
 >
+  <JsonLd data={businessLd} />
+
   {/* Hero grande full-bleed */}
   <section class="relative flex min-h-[64svh] items-end overflow-hidden bg-primary md:min-h-[74svh]">
     <div class="absolute -inset-y-[6%] inset-x-0" data-parallax>
@@ -53,7 +56,7 @@ const fullAddress = `${SITE.address.street}, ${SITE.address.postalCode} ${SITE.a
           </h2>
           <p class="font-serif text-headline-md text-primary">Farm location</p>
           <address class="mt-4 max-w-xs text-body-md not-italic text-on-surface-variant">
-            {fullAddress}
+            {fullAddress()}
           </address>
         </div>
 
@@ -112,7 +115,7 @@ const fullAddress = `${SITE.address.street}, ${SITE.address.postalCode} ${SITE.a
       {/* Peta: resource terberat halaman ini, dimuat lazy (PRD §10.3) */}
       <div class="md:col-span-7" data-reveal style="--reveal-delay: 150ms">
         <iframe
-          src={SITE.mapsEmbedUrl}
+          src={mapsEmbedUrl()}
           title="Map showing the location of Jauhar Urban Farming at IIUM Gombak"
           loading="lazy"
           allowfullscreen

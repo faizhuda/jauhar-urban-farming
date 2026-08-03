@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
-import { SITE, waOrderLink } from '../config';
+import { SITE } from '../config';
+import WhatsAppCta from './WhatsAppCta.astro';
 import logo from '../assets/brand/logo.png';
 
 const navLinks = [
@@ -47,14 +48,9 @@ const isActive = (href: string) => currentPath === (href === '/' ? '/' : href);
     </nav>
 
     <div class="flex items-center gap-2">
-      <a
-        href={waOrderLink()}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="btn btn-primary hidden px-6 py-3 lg:inline-flex"
-      >
-        Order via WhatsApp
-      </a>
+      <div class="hidden lg:inline-flex">
+        <WhatsAppCta />
+      </div>
 
       {/* Tombol hamburger (mobile), target sentuh >=44px (PRD §11.2) */}
       <button
@@ -99,14 +95,9 @@ const isActive = (href: string) => currentPath === (href === '/' ? '/' : href);
         ))
       }
     </ul>
-    <a
-      href={waOrderLink()}
-      target="_blank"
-      rel="noopener noreferrer"
-      class="btn btn-primary mt-4 w-full"
-    >
-      Order via WhatsApp
-    </a>
+    <div class="mt-4">
+      <WhatsAppCta />
+    </div>
   </nav>
 </header>
 

@@ -15,7 +15,8 @@ Panduan praktis mengelola website Jauhar Urban Farming — untuk pengelola non-t
 | Kebutuhan | Yang diedit |
 |---|---|
 | Tambah/edit produk, harga, stok | 1 file di `src/content/products/` — lihat [format produk](#1-menambaheditsembunyikan-produk) di bawah |
-| Sembunyikan produk (mis. eksperimen belum lanjut) | Set `draft: true` di file produk terkait |
+| Sembunyikan produk sementara (masih di katalog inti) | Set `draft: true` di file produk terkait |
+| Sembunyikan produk eksperimen sepenuhnya (gambar tidak ikut diproses build) | Pindahkan file ke `src/content/products/_drafts/` — lihat [format produk](#1-menambaheditsembunyikan-produk) |
 | Tambah foto galeri | 1 file di `src/content/gallery/` + foto di `src/assets/gallery/` |
 | Tulis artikel The Harvest Journal | 1 file di `src/content/journal/` |
 | **Ganti nomor WhatsApp** | `src/config.ts` → `whatsapp` (satu-satunya tempat) |
@@ -57,6 +58,12 @@ order: 1                        # urutan tampil, angka kecil = lebih dulu
 ```
 
 Kalau ada isian salah (harga bukan angka, foto tidak ada), **build otomatis gagal dengan pesan error jelas** — website live tidak akan rusak.
+
+**Dua cara menyembunyikan produk, beda dampaknya:**
+- `draft: true` di file yang tetap ada di `src/content/products/` — produk tersembunyi dari katalog, tapi gambarnya tetap ikut diproses oleh `astro:assets` saat build (masih dianggap "mungkin dipakai sebentar lagi").
+- Pindahkan file ke **`src/content/products/_drafts/`** (folder ini dikecualikan total dari collection lewat pattern di `src/content.config.ts`) — dipakai untuk 4 produk eksperimen yang belum pasti dilanjut (Pickled Cucumber, Cucumber Chips, Garden Salad Pack, Cucumber Seedlings), supaya gambarnya tidak ikut membengkakkan hasil build padahal tidak pernah tampil.
+
+**Untuk menampilkan kembali produk dari `_drafts/`**: pindahkan file-nya kembali ke `src/content/products/` (bukan cuma ubah `draft: false` di tempatnya sekarang — selama masih di `_drafts/`, field `draft` diabaikan sepenuhnya karena filenya tidak pernah masuk collection).
 
 ### 2. Menambah foto galeri
 

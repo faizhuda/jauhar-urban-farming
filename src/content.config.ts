@@ -7,7 +7,9 @@ import { glob } from 'astro/loaders';
  * Panduan mengisi: MAINTENANCE.md
  */
 const products = defineCollection({
-  loader: glob({ pattern: '**/*.md', base: './src/content/products' }),
+  // '_drafts/**' dikecualikan supaya astro:assets tidak ikut memproses & meng-emit
+  // gambar produk eksperimen yang tidak pernah dirender (lihat MAINTENANCE.md).
+  loader: glob({ pattern: ['**/*.md', '!_drafts/**'], base: './src/content/products' }),
   schema: ({ image }) =>
     z.object({
       name: z.string().min(1),

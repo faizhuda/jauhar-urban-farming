@@ -105,9 +105,11 @@
     @apply mx-auto w-full max-w-[90rem] px-6 md:px-20;
   }
 
-  /* Tombol luxury: sudut tajam, label caps melebar, transisi lambat & halus */
+  /* Tombol luxury: sudut tajam, label caps melebar, transisi lambat & halus.
+     Ring emas + offset dipakai untuk semua varian (termasuk btn-gold/btn-ghost-light
+     di atas hero gelap #001803, tempat outline browser bawaan nyaris tak terlihat). */
   .btn {
-    @apply inline-flex min-h-11 cursor-pointer items-center justify-center gap-2 text-label-caps uppercase tracking-[0.16em] transition-all duration-500 ease-out;
+    @apply inline-flex min-h-11 cursor-pointer items-center justify-center gap-2 text-label-caps uppercase tracking-[0.16em] transition-all duration-500 ease-out outline-offset-2 focus-visible:outline-2 focus-visible:outline-accent-bright;
   }
 
   .btn-primary {

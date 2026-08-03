@@ -3,12 +3,11 @@ import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import heroImage from '../../assets/gallery/morning-harvest.jpg';
+import { formatDate } from '../../utils/date';
 
 const entries = (await getCollection('journal', ({ data }) => !data.draft)).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
 );
-
-const dateFormatter = new Intl.DateTimeFormat('en-MY', { day: 'numeric', month: 'long', year: 'numeric' });
 ---
 
 <BaseLayout
@@ -72,7 +71,7 @@ const dateFormatter = new Intl.DateTimeFormat('en-MY', { day: 'numeric', month: 
                 </div>
                 <div class="flex flex-1 flex-col gap-2 p-5">
                   <span class="text-label-caps uppercase text-on-surface-variant">
-                    {dateFormatter.format(entry.data.date)}
+                    {formatDate(entry.data.date)}
                   </span>
                   <h2 class="font-serif text-xl text-primary">{entry.data.title}</h2>
                   <p class="text-body-md text-on-surface-variant">{entry.data.description}</p>

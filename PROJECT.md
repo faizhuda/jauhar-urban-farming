@@ -116,7 +116,7 @@ src/
 ├── content/{products,gallery,journal}/   # 1 file .md per item
 ├── styles/global.css        # design tokens + animasi fail-safe
 └── assets/                  # gambar sumber (masih stok Commons, lihat Section 2)
-public/                      # robots.txt, favicon (dari logo asli)
+public/                      # favicon (dari logo asli) — robots.txt kini di src/pages/robots.txt.ts
 scripts/                     # generate-placeholders.mjs, generate-favicons.mjs
 .github/                     # dependabot.yml, workflows/build-check.yml
 vercel.json                  # security headers (CSP dll.)
@@ -165,7 +165,9 @@ vercel.json                  # security headers (CSP dll.)
 | Hosting | Vercel (auto-deploy dari `main`) | Gratis, SSL otomatis |
 | Font | Libre Caslon Text + Hanken Grotesk, self-hosted via `@fontsource` | Nol request pihak ketiga, tidak block FCP |
 | CMS *(siap, belum aktif)* | `astro-decap-cms-oauth` + `@astrojs/vercel` | Admin panel Git-based, self-hosted OAuth (bukan Netlify) |
-| CI | GitHub Actions (`build-check.yml`), Node 22 | Cegah build rusak sebelum ke-deploy |
+| Type checking | TypeScript 6.x + `@astrojs/check` (`npm run check`) | `tsconfig.json` strict sekarang benar-benar ditegakkan, bukan cuma di editor |
+| Formatting | Prettier + `prettier-plugin-astro` (`npm run format`, opt-in) | Konsistensi gaya kode; belum dijalankan ke seluruh repo sekaligus |
+| CI | GitHub Actions (`build-check.yml`), Node 22 | `npm run check` lalu `npm run build` — cegah type error & build rusak sebelum ke-deploy |
 | Dependency hygiene | Dependabot (npm + github-actions, mingguan) | Update keamanan otomatis |
 
 ---
@@ -174,7 +176,7 @@ vercel.json                  # security headers (CSP dll.)
 
 **On-site (semua halaman):** meta title unik ≤60 karakter, meta description unik ≤155 karakter (dan **harus sesuai isi aktual halaman** — pernah ada bug di mana description masih promosikan produk yang sudah disembunyikan, sudah diperbaiki), canonical tag, semantic HTML, alt text deskriptif, Open Graph + Twitter Card (penting karena kanal promosi utama mitra adalah WhatsApp/Instagram).
 
-**Structured data (JSON-LD):** `LocalBusiness` di Home, `Product` per item katalog (auto-generate dari Content Collections, hanya produk non-draft), `BlogPosting` per artikel Journal. Aturan: data JSON-LD wajib persis sama dengan yang tampil di halaman; tidak ada `AggregateRating` sebelum ada ≥3 review asli.
+**Structured data (JSON-LD):** `LocalBusiness` (dengan `geo`) di Home & Contact, `Product` per item katalog (auto-generate dari Content Collections, hanya produk non-draft), `BlogPosting` per artikel Journal (`og:type` ikut jadi `article`, bukan `website`, khusus halaman ini). Aturan: data JSON-LD wajib persis sama dengan yang tampil di halaman; tidak ada `AggregateRating` sebelum ada ≥3 review asli. Halaman `404` sengaja `noindex` (tidak canonical), tidak masuk sitemap.
 
 **Sinyal eksternal (belum selesai):** Google Business Profile (perlu diklaim), Google Search Console (menunggu domain final), konsistensi NAP di semua platform, link website di bio Instagram mitra.
 
@@ -185,7 +187,7 @@ vercel.json                  # security headers (CSP dll.)
 - **Security headers** (`vercel.json`): `X-Frame-Options: DENY`, `X-Content-Type-Options: nosniff`, `Referrer-Policy`, `Permissions-Policy` (CSP header dibersihkan dari pemblokiran inline script Astro)
 - **Dependabot**: vulnerability alerts + automated security fixes aktif di level repo GitHub, plus `dependabot.yml` untuk PR update mingguan
 - **Branch protection** di `main`: force-push dan delete branch diblokir (tanpa wajib PR review, supaya alur edit-langsung-di-GitHub untuk mitra tetap simpel)
-- **CI**: `build-check.yml` menjalankan `npm run build` di setiap push/PR ke `main` — mendeteksi build rusak sebelum sempat live
+- **CI**: `build-check.yml` menjalankan `npm run check` (type checking) lalu `npm run build` di setiap push/PR ke `main` — mendeteksi type error & build rusak sebelum sempat live
 - 0 kerentanan npm audit (dicek & dipatch berkala)
 - Tidak ada secret di repo; `.env` di-gitignore
 - Belum ada form input dari user di situs — attack surface minimal (murni static + WhatsApp deep link)
@@ -241,3 +243,9 @@ Mobile: breakpoints `sm/md/lg` (640/768/1024px), target sentuh ≥44×44px, tanp
 - **3 Agu 2026** — Audit & optimasi menyeluruh: 
   1. Security headers & Dependabot aktif, CI Node 22, WhatsApp/NAP/domain disamakan dengan Google Maps asli, katalog produk disamakan dengan realita bisnis (hanya Fresh Cucumber + Farm Tour), logo asli terpasang, kredit kolaborasi (CITRA IIUM, NAFAS) ditambahkan, The Harvest Journal diluncurkan.
   2. Perbaikan stabilitas UI & Mobile: Layar splash screen overlay (`#splash`) dihapus total demi performa LCP & kenyamanan touch mobile. Animasi scroll-reveal diubah menjadi **progressive enhancement (`html.js-reveal`)** sehingga baseline CSS adalah 100% visible — menjamin tidak ada layar kosong / animasi "plop" 12s jika JS terhambat. Script hamburger menu dikonversi ke `<script is:inline>` agar dapat dijalankan secara instan di peramban seluler tanpa bergantung pada module bundler atau restriksi CSP. Dokumentasi proyek terpusat di `PROJECT.md`, `TODO.md`, dan `MAINTENANCE.md`.
+- **3 Agu 2026 (lanjutan)** — Audit produksi menyeluruh + perbaikan pre-flight sebelum lanjut ke domain/GBP/foto:
+  1. **Blocker konten**: 2 artikel Journal dengan teks `DUMMY PLACEHOLDER` di meta description (sudah ter-index di sitemap) disembunyikan lewat field `draft` baru di schema journal/gallery; NAP "Selangor" yang bertabrakan dengan JSON-LD diselaraskan ke "Kuala Lumpur"; halaman `404` di-`noindex`; tabrakan `order` di katalog produk diperbaiki; folder `images/` (369MB, 166 foto asli belum ditriase) masuk `.gitignore` sebelum sempat ter-commit.
+  2. **Kewajiban lisensi**: tabel kredit foto Wikimedia (CC BY/BY-SA) dipindah dari `MAINTENANCE.md` (tidak pernah disajikan ke pengunjung) ke `src/data/photo-credits.ts`, dirender publik di halaman `/credits` baru, tertaut dari footer.
+  3. **Satu sumber URL**: `SITE.url` yang mati (tidak pernah dibaca) dihapus dari `config.ts`; `public/robots.txt` statis diganti endpoint `src/pages/robots.txt.ts` yang membaca `Astro.site` — `astro.config.mjs` kini satu-satunya tempat domain situs ditulis.
+  4. **Hardening teknis**: `astro check` + TypeScript masuk CI (tsconfig strict yang sudah ada akhirnya benar-benar ditegakkan); Prettier terpasang (belum dijalankan ke seluruh repo); 4 produk eksperimen (belum pasti dijual) dipindah ke `src/content/products/_drafts/`, dikecualikan total dari pipeline gambar astro:assets (−1MB build); font kritis di-preload; focus-visible ditambahkan ke semua varian tombol; bug `src=""` di lightbox galeri (memicu request ganda ke dokumen HTML) diperbaiki; `og:type` & dimensi `og:image` kini akurat per halaman (termasuk artikel Journal).
+  5. **Dedup**: tombol WhatsApp di Header (2 lokasi) yang ditulis tangan tanpa ikon kini pakai komponen `WhatsAppCta`; `fullAddress` dan `dateFormatter` yang terduplikasi di 2 file masing-masing disatukan ke `config.ts`/`src/utils/date.ts`; JSON-LD `LocalBusiness` disatukan jadi satu fungsi `localBusinessLd()`, sekarang juga dipasang di halaman Contact (sebelumnya cuma Home) lengkap dengan `geo` coordinates.

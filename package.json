@@ -11,6 +11,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
+    "check": "astro check",
+    "format": "prettier --write .",
     "placeholders": "node scripts/generate-placeholders.mjs",
     "favicons": "node scripts/generate-favicons.mjs"
   },
@@ -25,6 +27,10 @@
     "tailwindcss": "^4.3.2"
   },
   "devDependencies": {
-    "sharp": "^0.35.3"
+    "@astrojs/check": "^0.9.10",
+    "prettier": "^3.9.6",
+    "prettier-plugin-astro": "^0.14.1",
+    "sharp": "^0.35.3",
+    "typescript": "^6.0.3"
   }
 }

@@ -1,8 +1,7 @@
 ---
-import { SITE, waOrderLink } from '../config';
+import { SITE, waOrderLink, fullAddress } from '../config';
 
 const year = new Date().getFullYear();
-const fullAddress = `${SITE.address.street}, ${SITE.address.postalCode} ${SITE.address.locality}, ${SITE.address.region}, Malaysia`;
 ---
 
 <footer class="border-t border-accent-bright/30 bg-primary text-on-primary">
@@ -35,7 +34,7 @@ const fullAddress = `${SITE.address.street}, ${SITE.address.postalCode} ${SITE.a
 
     <div class="flex flex-col gap-4">
       <p class="text-label-caps uppercase text-on-primary/50">Visit &amp; connect</p>
-      <address class="text-body-md not-italic text-primary-fixed-dim">{fullAddress}</address>
+      <address class="text-body-md not-italic text-primary-fixed-dim">{fullAddress()}</address>
       <p class="text-body-md text-primary-fixed-dim">{SITE.hours.label}</p>
       <a
         href={waOrderLink()}

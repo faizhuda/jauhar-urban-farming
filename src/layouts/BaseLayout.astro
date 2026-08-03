@@ -6,21 +6,30 @@ import { SITE } from '../config';
 import ogDefault from '../assets/og-default.jpg';
 import Analytics from '@vercel/analytics/astro';
 import SpeedInsights from '@vercel/speed-insights/astro';
+import type { ImageMetadata } from 'astro';
+// Preload eksplisit — dua font di atas lipatan (kicker/h1 serif, body sans),
+// supaya browser tidak menunggu global.css di-parse dulu sebelum mulai fetch.
+import libreCaslon400 from '@fontsource/libre-caslon-text/files/libre-caslon-text-latin-400-normal.woff2?url';
+import hankenGrotesk400 from '@fontsource/hanken-grotesk/files/hanken-grotesk-latin-400-normal.woff2?url';
 
 interface Props {
   /** Judul halaman. Jika belum memuat nama situs, otomatis ditambah " — Jauhar Urban Farming". */
   title: string;
   /** Meta description unik per halaman, ≤155 karakter (PRD §9.1). */
   description: string;
-  ogImage?: string;
+  /** Gambar OG kustom (metadata astro:assets, bukan cuma .src) — dimensi diambil dari sini. */
+  ogImage?: ImageMetadata;
+  /** website untuk halaman biasa, article untuk artikel Journal. */
+  ogType?: 'website' | 'article';
   /** Cegah indexing (mis. halaman 404) — melewati canonical & menambah meta robots noindex. */
   noindex?: boolean;
 }
 
-const { title, description, ogImage, noindex = false } = Astro.props;
+const { title, description, ogImage, ogType = 'website', noindex = false } = Astro.props;
 const fullTitle = title.includes(SITE.name) ? title : `${title} — ${SITE.name}`;
 const canonical = new URL(Astro.url.pathname, Astro.site);
-const ogImageUrl = new URL(ogImage ?? ogDefault.src, Astro.site);
+const resolvedOgImage = ogImage ?? ogDefault;
+const ogImageUrl = new URL(resolvedOgImage.src, Astro.site);
 ---
 
 <!doctype html>
@@ -34,17 +43,18 @@ const ogImageUrl = new URL(ogImage ?? ogDefault.src, Astro.site);
     <meta name="description" content={description} />
     {noindex ? <meta name="robots" content="noindex" /> : <link rel="canonical" href={canonical} />}
 
+    <link rel="preload" href={libreCaslon400} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={hankenGrotesk400} as="font" type="font/woff2" crossorigin />
+
     {/* Open Graph + Twitter Card: preview share WhatsApp/sosmed (PRD §9.1) */}
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={ogType} />
     <meta property="og:site_name" content={SITE.name} />
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImageUrl} />
-    {/* Lebar/tinggi tetap 1200x630 (dimensi og-default.jpg) — belum ada halaman
-       yang mengirim prop ogImage kustom; update ini juga jika suatu saat ada. */}
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
+    <meta property="og:image:width" content={String(resolvedOgImage.width)} />
+    <meta property="og:image:height" content={String(resolvedOgImage.height)} />
     <meta property="og:image:alt" content={fullTitle} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={fullTitle} />
@@ -59,6 +69,8 @@ const ogImageUrl = new URL(ogImage ?? ogDefault.src, Astro.site);
 
     {/* Font self-hosted via @fontsource (lihat src/styles/global.css) — tidak ada
        request pihak ketiga ke Google Fonts, mengurangi FCP (PRD §10.3) */}
+
+    <slot name="head" />
   </head>
   <body class="flex min-h-screen flex-col">
     <a
