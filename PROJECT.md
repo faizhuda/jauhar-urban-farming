@@ -45,12 +45,13 @@ Proker awal ("Jauhar Urban Farming 2.0") mencakup dua pilar: monitoring kebun be
 - **Stabilitas produksi & animasi (Progressive Enhancement)**: baseline CSS scroll-reveal dibuat **100% visible by default (`opacity: 1`)**; kelas `.js-reveal` hanya ditambahkan secara dinamis jika JS & `IntersectionObserver` aktif — menjamin konten tidak pernah kosong/hilang meski JS gagal/terhambat. Script tombol hamburger mobile menggunakan `<script is:inline>` agar dapat dijalankan secara instan tanpa bergantung pada module bundler.
 - CI berjalan di Node 22 (mengikuti syarat minimum Astro 7)
 - The Harvest Journal (`/journal`) — koleksi artikel dengan CRUD siap lewat CMS begitu diaktifkan
+- **Foto asli terpasang di 11 dari 13 slot** (hero, about-hero, og-default, 2 produk live, 6 dari 8 galeri) — dipilih & di-crop dari 166 foto di `images/` lewat `scripts/prepare-photo.mjs`, EXIF/GPS otomatis terbuang. Sisa 6 kredit foto stok Wikimedia di `/credits` adalah 4 produk eksperimen (`_drafts/`) + 2 slot galeri tanpa kandidat kuat
 
 ### ⏳ Belum selesai (bergantung pihak eksternal/Jauhar)
 
 - **Domain custom belum dibeli** — situs masih di `jauharurbanfarming.vercel.app`
 - **Google Business Profile belum diklaim** — listing sudah ada di Maps tapi auto-generated/belum dikuasai pihak Jauhar
-- **Foto masih stok Wikimedia Commons** (hero, produk, galeri) — bukan foto asli Jauhar. 166 foto asli sudah ada di folder `images/` (belum di-sortir/dipetakan ke slot produk/galeri/journal)
+- **2 slot galeri masih stok** (`campus-bazaar`, `drip-lines`) — tidak ada foto stan bazaar atau close-up drip line yang layak di antara 166 foto; perlu sesi foto baru
 - Bagian "The team" di About masih placeholder generik ("Student caretakers" dll.) — belum nama & foto pengelola asli dari wawancara profil
 - Google Search Console belum di-submit (menunggu domain final)
 - **Decap CMS admin panel** — konfigurasi & dokumentasi lengkap sudah siap (lihat [MAINTENANCE.md](MAINTENANCE.md)), tinggal diaktifkan setelah domain final + GitHub OAuth App dibuat
@@ -138,7 +139,7 @@ vercel.json                  # security headers (bukan CSP — lihat Section 10)
 | F1  | Profil lengkap Jauhar (sejarah, visi-misi, kegiatan)                | ✅ (teks tim masih placeholder)            |
 | F2  | Katalog produk: foto, nama, deskripsi, harga                        | ✅                                         |
 | F3  | Tombol "Pesan/Book via WhatsApp" dengan pesan template otomatis     | ✅                                         |
-| F4  | Galeri dokumentasi kegiatan kebun                                   | ✅ (foto masih stok)                       |
+| F4  | Galeri dokumentasi kegiatan kebun                                   | ✅ (6 dari 8 foto asli, 2 masih stok)      |
 | F5  | Kontak: lokasi (Maps embed), jam operasional, kontak resmi          | ✅                                         |
 | F6  | Custom domain, optimal di mobile                                    | ⏳ domain belum dibeli                     |
 | F7  | Halaman blog/artikel edukasi (The Harvest Journal)                  | ✅ _(sebelumnya stretch goal, sudah live)_ |
@@ -256,3 +257,5 @@ Mobile: breakpoints `sm/md/lg` (640/768/1024px), target sentuh ≥44×44px, tanp
   3. **Satu sumber URL**: `SITE.url` yang mati (tidak pernah dibaca) dihapus dari `config.ts`; `public/robots.txt` statis diganti endpoint `src/pages/robots.txt.ts` yang membaca `Astro.site` — `astro.config.mjs` kini satu-satunya tempat domain situs ditulis.
   4. **Hardening teknis**: `astro check` + TypeScript masuk CI (tsconfig strict yang sudah ada akhirnya benar-benar ditegakkan); Prettier terpasang (belum dijalankan ke seluruh repo); 4 produk eksperimen (belum pasti dijual) dipindah ke `src/content/products/_drafts/`, dikecualikan total dari pipeline gambar astro:assets (−1MB build); font kritis di-preload; focus-visible ditambahkan ke semua varian tombol; bug `src=""` di lightbox galeri (memicu request ganda ke dokumen HTML) diperbaiki; `og:type` & dimensi `og:image` kini akurat per halaman (termasuk artikel Journal).
   5. **Dedup**: tombol WhatsApp di Header (2 lokasi) yang ditulis tangan tanpa ikon kini pakai komponen `WhatsAppCta`; `fullAddress` dan `dateFormatter` yang terduplikasi di 2 file masing-masing disatukan ke `config.ts`/`src/utils/date.ts`; JSON-LD `LocalBusiness` disatukan jadi satu fungsi `localBusinessLd()`, sekarang juga dipasang di halaman Contact (sebelumnya cuma Home) lengkap dengan `geo` coordinates.
+  6. **Refactor komponen**: hero full-bleed yang identik di 5 dari 6 halaman disatukan jadi `<PageHero>`; ikon check-circle/arrow-right/close yang berulang (10 kemunculan) disatukan jadi `<Icon>`; string `sizes` grid kartu yang terduplikasi di 3 file disatukan jadi `CARD_GRID_SIZES`. Diverifikasi byte-identik terhadap HTML sebelum-refactor di ke-8 halaman.
+- **3 Agu 2026 (foto asli)** — 166 foto asli di `images/` ditinjau satu per satu (8 batch paralel, tiap foto benar-benar dibuka bukan ditebak dari nama file). 11 dari 13 slot foto mendapat kandidat kuat dan langsung dipasang: `hero.jpg`, `about-hero.jpg`, `og-default.jpg`, 2 produk live, dan 6 dari 8 galeri. Script baru `scripts/prepare-photo.mjs` (sharp: resize + crop + buang EXIF/GPS otomatis) dipakai untuk semua 11 — beberapa hasil crop otomatis (attention-strategy) salah fokus ke bangunan/langit alih-alih subjek utama, jadi 8 dari 11 dikerjakan ulang dengan crop manual. `src/data/photo-credits.ts` dan seluruh alt text terkait (About, Home, product frontmatter, gallery frontmatter) disinkronkan ke isi foto yang sebenarnya. 2 slot galeri (`campus-bazaar`, `drip-lines`) tidak punya kandidat kuat di antara 166 foto dan tetap pakai stok — perlu sesi foto baru.

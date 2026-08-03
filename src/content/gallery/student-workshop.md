@@ -1,7 +1,7 @@
 ---
 image: ../../assets/gallery/student-workshop.jpg
-alt: Students planting seedlings together during a farm workshop
-caption: Urban farming workshop with IIUM students
-date: 2025-11-18
-order: 7
+alt: A student volunteer filling a grow bag with coco-peat
+caption: Prepping grow bags with our student volunteers
+date: 2025-08-13
+order: 6
 ---

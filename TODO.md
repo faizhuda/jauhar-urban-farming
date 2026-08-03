@@ -8,8 +8,9 @@ Status per 3 Agustus 2026. Lihat [PROJECT.md](PROJECT.md) untuk konteks lengkap 
 - [ ] Setelah domain aktif: update `site` di `astro.config.mjs` — **sekarang cuma 1 tempat** (bukan 3 lagi; `SITE.url` sudah dihapus dan `robots.txt` sudah jadi endpoint yang otomatis ikut, lihat riwayat perubahan di PROJECT.md)
 - [ ] Submit ke **Google Search Console** setelah domain final
 - [ ] Aktivasi **Decap CMS** (admin panel `/admin`) — langkah lengkap di [MAINTENANCE.md](MAINTENANCE.md#setup-admin-panel--decap-cms), butuh domain final dulu
-- [ ] Review & pilah **166 foto asli** di folder `images/` — petakan ke slot produk/galeri/journal, lalu timpa file stok di `src/assets/` dengan nama yang sama (lihat [MAINTENANCE.md](MAINTENANCE.md))
-- [ ] Setelah foto asli masuk: hapus baris terkait di `src/data/photo-credits.ts` (dirender di `/credits`, bukan cuma dokumen ini), jalankan Rich Results Test ulang, re-audit PageSpeed di domain final
+- [x] ~~Review & pilah 166 foto asli~~ — selesai 3 Agu 2026: 11 dari 13 slot foto sudah pakai foto asli (hero, about-hero, og-default, 2 produk live, 6 dari 8 galeri), diproses lewat `scripts/prepare-photo.mjs`. 160 foto sisanya jadi arsip untuk konten masa depan.
+- [ ] **2 slot galeri masih perlu foto baru**: `campus-bazaar.jpg` (belum ada foto stan/pasar) dan `drip-lines.jpg` (belum ada close-up teknis irigasi) — tidak ada kandidat layak di antara 166 foto yang ada
+- [ ] Jalankan Rich Results Test ulang & re-audit PageSpeed di domain final (foto asli sudah masuk, tinggal 2 slot di atas)
 
 ## 🟡 Pihak Jauhar
 
@@ -17,7 +18,7 @@ Status per 3 Agustus 2026. Lihat [PROJECT.md](PROJECT.md) untuk konteks lengkap 
 - [ ] Konfirmasi alamat resmi (sudah disamakan ke listing Maps: Mahallah Halimah, 50728 Kuala Lumpur) — pastikan ini alamat yang memang mau dipakai jangka panjang
 - [ ] Wawancara profil pengelola asli — nama, foto, cerita tim (halaman About masih placeholder generik: "Student caretakers", "Community volunteers", dst.)
 - [ ] Konfirmasi harga final & keputusan: pickled cucumber / cucumber chips / garden salad pack / cucumber seedlings — lanjut dijual beneran atau tetap eksperimen? (file-nya sekarang di `src/content/products/_drafts/`; kalau jadi dijual, pindahkan kembali ke `src/content/products/` — lihat [MAINTENANCE.md](MAINTENANCE.md))
-- [ ] Bantu identifikasi konteks 166 foto di `images/` kalau tim teknis tidak yakin ini foto produk/kegiatan apa
+- [ ] Kalau ada kesempatan foto baru: ambil foto stan/pasar bazaar dan close-up drip line — 2 slot galeri yang belum ketemu foto cocoknya dari 166 foto lama
 - [ ] Pastikan link Instagram di bio sudah mengarah ke website
 
 ## 🟢 Bersama (menjelang akhir KKN)

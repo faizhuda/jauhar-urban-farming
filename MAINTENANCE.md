@@ -95,7 +95,7 @@ Simpan foto sampul di `src/assets/journal/`. Artikel muncul otomatis di `/journa
 - Pencahayaan natural, latar bersih
 - Mengganti foto: timpa file dengan **nama yang sama persis** di `src/assets/`
 
-**Status saat ini: seluruh foto situs (hero, produk, galeri) adalah stok berlisensi bebas dari Wikimedia Commons**, bukan foto asli — lihat tabel kredit & kewajiban atribusi di bagian [Kredit Foto](#kredit-foto-sementara) di bawah. Ada **166 foto asli** menunggu di-review di folder `images/` (di root repo, belum masuk `src/assets/`) — perlu dipetakan satu per satu ke slot produk/galeri/journal yang sesuai, baru dipindah & ganti nama sesuai konvensi di atas. Setelah foto asli dipasang, **hapus baris terkait** di tabel kredit (foto CC BY/CC BY-SA wajib atribusi selama masih dipakai, CC0/Public Domain tidak wajib tapi tetap dicatat demi keterlacakan).
+**Status saat ini: hero, about-hero, og-default, 2 produk live, dan 6 dari 8 galeri sudah pakai foto asli** (dipilih & di-crop dari 166 foto di folder `images/`, lihat riwayat di PROJECT.md §15). Sisa yang masih stok Wikimedia Commons: 2 slot galeri tanpa kandidat kuat (`campus-bazaar`, `drip-lines` — perlu sesi foto baru) dan 4 produk eksperimen di `src/content/products/_drafts/` yang gambarnya belum diproses karena belum pasti dijual. Lihat tabel kredit & kewajiban atribusi di bagian [Kredit Foto](#kredit-foto-sementara) di bawah — kalau nanti ganti salah satu dari sisa ini, **hapus baris terkait** di tabel kredit (foto CC BY/CC BY-SA wajib atribusi selama masih dipakai, CC0/Public Domain tidak wajib tapi tetap dicatat demi keterlacakan). 160 dari 166 foto di `images/` masih belum ditriase — sisanya jadi arsip untuk konten masa depan (Journal, produk baru).
 
 ### Teks
 
@@ -317,13 +317,21 @@ Semua animasi entrance (`.hero-enter`, `[data-reveal]`) di `src/styles/global.cs
 
 ## Kredit Foto (sementara)
 
-Seluruh foto di `src/assets/` saat ini adalah **stok berlisensi bebas dari Wikimedia Commons** — pengganti sementara sampai foto asli dari `images/` masuk (lihat [TODO.md](TODO.md)).
+Sebagian kecil foto di `src/assets/` (lihat daftar di bawah) masih **stok berlisensi bebas dari Wikimedia Commons** — sisanya sudah foto asli, dipilih & diproses dari `images/`.
 
 > **Kewajiban lisensi:** foto CC BY / CC BY-SA mewajibkan atribusi selama masih dipakai di produksi. Karena itu tabel kredit **hidup di kode, bukan cuma di dokumen ini** — lihat `src/data/photo-credits.ts`, dirender publik di halaman **`/credits`** (tertaut dari footer setiap halaman). Foto CC0/Public Domain tidak wajib atribusi, tetap dicatat demi keterlacakan.
 
 **Saat menimpa sebuah foto stok dengan foto asli: hapus entri terkait di `src/data/photo-credits.ts`.** Kalau array-nya sudah kosong (semua foto sudah asli), hapus juga `src/pages/credits.astro` dan tautan "Photo credits" di `src/components/Footer.astro`.
 
-Semua file di-crop & di-resize (maks. 1600px, JPEG q82) lalu dikonversi otomatis ke WebP oleh pipeline `astro:assets` saat build.
+**Cara memproses foto asli dari `images/` ke `src/assets/`:** gunakan `scripts/prepare-photo.mjs` — resize & crop otomatis ke rasio slot target, sekaligus membuang metadata EXIF/GPS yang tertanam di foto ponsel:
+
+```bash
+node scripts/prepare-photo.mjs images/PXL_xxx.jpg src/assets/gallery/nama-slot.jpg 1600 1200
+```
+
+Argumen: sumber, tujuan, lebar, tinggi. Dimensi standar: hero/about-hero 1600×900, og-default 1200×630, produk 1200×1200, galeri 1600×1200. **Cek hasil crop-nya** — pemotongan otomatis (`sharp` attention strategy) kadang salah fokus ke bangunan/langit alih-alih subjek utama pada foto dengan latar ramai; kalau hasilnya jelek, proses ulang dengan `.extract({ left, top, width, height })` manual sebelum `.resize()` (lihat riwayat commit foto asli untuk contoh koordinat yang sudah dicoba).
+
+Semua file di-resize maks. 1600px lalu dikonversi otomatis ke WebP oleh pipeline `astro:assets` saat build.
 
 ---
 

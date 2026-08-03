@@ -1,7 +1,7 @@
 ---
 image: ../../assets/gallery/seedling-nursery.jpg
-alt: Trays of young seedlings growing in the farm nursery
-caption: Next season's seedlings taking root in the nursery
-date: 2026-03-15
-order: 3
+alt: A young cucumber seedling with full leaves growing in its grow bag
+caption: Seedlings settling into their grow bags
+date: 2025-09-19
+order: 5
 ---

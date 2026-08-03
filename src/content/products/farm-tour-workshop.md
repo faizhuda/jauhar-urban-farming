@@ -4,7 +4,7 @@ price: 3.0
 unit: kg picked
 description: Tour the farm and pick your own cucumbers straight off the vine. The tour and picking are free, booking required. You only pay for what you pick.
 image: ../../assets/products/farm-tour-workshop.jpg
-imageAlt: Visitors picking their own cucumbers during a farm tour at Jauhar Urban Farming
+imageAlt: A smiling volunteer scooping soil to fill grow bags at Jauhar Urban Farming
 category: experience
 inStock: true
 featured: true

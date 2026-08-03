@@ -1,7 +1,7 @@
 ---
 image: ../../assets/gallery/morning-harvest.jpg
-alt: Basket of freshly harvested cucumbers in the morning sun
-caption: Harvest morning with our student volunteers
-date: 2026-04-22
-order: 2
+alt: A volunteer picking cucumbers in the vine tunnel, basket ready on the path
+caption: Morning harvest in the cucumber tunnel
+date: 2025-07-16
+order: 7
 ---

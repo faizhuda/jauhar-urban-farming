@@ -1,7 +1,7 @@
 ---
 image: ../../assets/gallery/fertigation-rows.jpg
-alt: Rows of crops growing on the fertigation system in the greenhouse
-caption: Fertigation beds in full swing behind Mahallah Halimah
-date: 2026-05-10
-order: 1
+alt: Rows of grow bags freshly filled with coco-peat under the fertigation frame
+caption: New beds ready to plant under the fertigation frame
+date: 2026-07-24
+order: 2
 ---
