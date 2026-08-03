@@ -1,6 +1,8 @@
 ---
 import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import Icon from '../components/Icon.astro';
 import hero from '../assets/about-hero.jpg';
 import storyImage from '../assets/gallery/community-planting.jpg';
 import breakImage from '../assets/gallery/fertigation-rows.jpg';
@@ -19,37 +21,16 @@ import citraLogo from '../assets/brand/citra-iium.jpg';
   title="About Us"
   description="The story of Jauhar Urban Farming, a student-led fertigation farm at IIUM Gombak founded in 2021, growing food and community on campus land."
 >
-  {/* Hero grande full-bleed */}
-  <section class="relative flex min-h-[64svh] items-end overflow-hidden bg-primary md:min-h-[74svh]">
-    <div class="absolute -inset-y-[6%] inset-x-0" data-parallax>
-      <Image
-        src={hero}
-        alt="Volunteers digging and building a raised garden bed together on open land"
-        width={1200}
-        height={675}
-        widths={[640, 1200, 1600]}
-        sizes="100vw"
-        quality={60}
-        loading="eager"
-        fetchpriority="high"
-        class="h-full w-full object-cover"
-      />
-    </div>
-    <div class="hero-scrim absolute inset-0"></div>
-    <div class="shell relative z-10 pb-14 pt-32 md:pb-16 md:pt-40">
-      <div class="max-w-3xl">
-        <p class="kicker kicker-dark hero-enter mb-5">Est. 2021 · IIUM Gombak</p>
-        <h1 class="hero-enter mb-6 font-serif text-display-sm text-on-primary md:text-display-lg">
-          Growing food, growing people.
-        </h1>
-        <p class="hero-enter-delayed max-w-2xl text-body-lg text-on-primary/85">
-          Rooted in the heart of IIUM Gombak, Jauhar Urban Farming is more than an
-          agricultural initiative. It is a commitment to sustainable practices, student
-          empowerment, and a closer relationship between campus and nature.
-        </p>
-      </div>
-    </div>
-  </section>
+  <PageHero
+    image={hero}
+    imageAlt="Volunteers digging and building a raised garden bed together on open land"
+    kicker="Est. 2021 · IIUM Gombak"
+  >
+    <Fragment slot="title">Growing food, growing people.</Fragment>
+    Rooted in the heart of IIUM Gombak, Jauhar Urban Farming is more than an
+    agricultural initiative. It is a commitment to sustainable practices, student
+    empowerment, and a closer relationship between campus and nature.
+  </PageHero>
 
   {/* Our story */}
   <section class="shell py-16 md:py-24">
@@ -148,38 +129,23 @@ import citraLogo from '../assets/brand/citra-iium.jpg';
           </div>
           <ul class="space-y-4 text-body-md text-on-surface-variant">
             <li class="flex items-start gap-3">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mt-1 h-4 w-4 shrink-0 text-accent" aria-hidden="true">
-                <path d="M21.801 10A10 10 0 1 1 17 3.335"></path>
-                <path d="m9 11 3 3L22 4"></path>
-              </svg>
+              <Icon name="check-circle" class="mt-1 h-4 w-4 shrink-0 text-accent" />
               Adopt IoT-based smart farming to monitor and guide fertigation with real-time data.
             </li>
             <li class="flex items-start gap-3">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mt-1 h-4 w-4 shrink-0 text-accent" aria-hidden="true">
-                <path d="M21.801 10A10 10 0 1 1 17 3.335"></path>
-                <path d="m9 11 3 3L22 4"></path>
-              </svg>
+              <Icon name="check-circle" class="mt-1 h-4 w-4 shrink-0 text-accent" />
               Grow quality produce with water-efficient fertigation methods.
             </li>
             <li class="flex items-start gap-3">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mt-1 h-4 w-4 shrink-0 text-accent" aria-hidden="true">
-                <path d="M21.801 10A10 10 0 1 1 17 3.335"></path>
-                <path d="m9 11 3 3L22 4"></path>
-              </svg>
+              <Icon name="check-circle" class="mt-1 h-4 w-4 shrink-0 text-accent" />
               Turn harvests into value-added products that support the community.
             </li>
             <li class="flex items-start gap-3">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mt-1 h-4 w-4 shrink-0 text-accent" aria-hidden="true">
-                <path d="M21.801 10A10 10 0 1 1 17 3.335"></path>
-                <path d="m9 11 3 3L22 4"></path>
-              </svg>
+              <Icon name="check-circle" class="mt-1 h-4 w-4 shrink-0 text-accent" />
               Open the farm as a hands-on learning space for students and visitors.
             </li>
             <li class="flex items-start gap-3">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mt-1 h-4 w-4 shrink-0 text-accent" aria-hidden="true">
-                <path d="M21.801 10A10 10 0 1 1 17 3.335"></path>
-                <path d="m9 11 3 3L22 4"></path>
-              </svg>
+              <Icon name="check-circle" class="mt-1 h-4 w-4 shrink-0 text-accent" />
               Build a farming community across Mahallah Halimah, Siddiq, and Maryam, together with CITRA IIUM.
             </li>
           </ul>
@@ -204,10 +170,7 @@ import citraLogo from '../assets/brand/citra-iium.jpg';
           </p>
           <a href="/contact" class="btn btn-underline">
             Visit the farm
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4" aria-hidden="true">
-              <path d="M5 12h14"></path>
-              <path d="m12 5 7 7-7 7"></path>
-            </svg>
+            <Icon name="arrow-right" />
           </a>
         </div>
       </div>

@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import { SITE } from '../config';
 import WhatsAppCta from './WhatsAppCta.astro';
+import Icon from './Icon.astro';
 import logo from '../assets/brand/logo.png';
 
 const navLinks = [
@@ -66,10 +67,7 @@ const isActive = (href: string) => currentPath === (href === '/' ? '/' : href);
           <line x1="4" x2="20" y1="12" y2="12"></line>
           <line x1="4" x2="20" y1="18" y2="18"></line>
         </svg>
-        <svg id="icon-close" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="pointer-events-none hidden h-6 w-6" aria-hidden="true">
-          <path d="M18 6 6 18"></path>
-          <path d="m6 6 12 12"></path>
-        </svg>
+        <Icon id="icon-close" name="close" class="pointer-events-none hidden h-6 w-6" />
       </button>
     </div>
   </div>

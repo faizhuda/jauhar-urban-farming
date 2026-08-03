@@ -2,6 +2,9 @@
 import { Image, getImage } from 'astro:assets';
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import Icon from '../components/Icon.astro';
+import { CARD_GRID_SIZES } from '../utils/image';
 import heroImage from '../assets/gallery/morning-harvest.jpg';
 
 const entries = (await getCollection('gallery')).sort(
@@ -21,36 +24,11 @@ const items = await Promise.all(
   title="Gallery"
   description="Photos from our fertigation beds at IIUM Gombak: harvests, workshops, campus bazaars, and daily life at Jauhar Urban Farming."
 >
-  {/* Hero grande full-bleed */}
-  <section class="relative flex min-h-[64svh] items-end overflow-hidden bg-primary md:min-h-[74svh]">
-    <div class="absolute -inset-y-[6%] inset-x-0" data-parallax>
-      <Image
-        src={heroImage}
-        alt=""
-        width={1200}
-        height={675}
-        widths={[640, 1200, 1600]}
-        sizes="100vw"
-        quality={60}
-        loading="eager"
-        fetchpriority="high"
-        class="h-full w-full object-cover"
-      />
-    </div>
-    <div class="hero-scrim absolute inset-0"></div>
-    <div class="shell relative z-10 pb-14 pt-32 md:pb-16 md:pt-40">
-      <div class="max-w-3xl">
-        <p class="kicker kicker-dark hero-enter mb-5">Field notes</p>
-        <h1 class="hero-enter mb-6 font-serif text-display-sm text-on-primary md:text-display-lg">
-          Life at the farm.
-        </h1>
-        <p class="hero-enter-delayed max-w-2xl text-body-lg text-on-primary/85">
-          Harvest mornings, planting days, workshops, and everything in between,
-          all documented by our team. Tap any photo to see it up close.
-        </p>
-      </div>
-    </div>
-  </section>
+  <PageHero image={heroImage} kicker="Field notes">
+    <Fragment slot="title">Life at the farm.</Fragment>
+    Harvest mornings, planting days, workshops, and everything in between,
+    all documented by our team. Tap any photo to see it up close.
+  </PageHero>
 
   <section class="shell py-16 md:py-24">
     <ul class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
@@ -71,7 +49,7 @@ const items = await Promise.all(
                 width={640}
                 height={480}
                 widths={[320, 480, 640]}
-                sizes="(min-width: 1024px) 400px, (min-width: 640px) 45vw, 92vw"
+                sizes={CARD_GRID_SIZES}
                 loading="lazy"
                 class="img-luxe aspect-[4/3] w-full object-cover"
               />
@@ -96,10 +74,7 @@ const items = await Promise.all(
         aria-label="Close photo"
         class="absolute right-3 top-3 inline-flex min-h-11 min-w-11 items-center justify-center bg-primary/70 text-on-primary hover:bg-primary"
       >
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="h-5 w-5" aria-hidden="true">
-          <path d="M18 6 6 18"></path>
-          <path d="m6 6 12 12"></path>
-        </svg>
+        <Icon name="close" class="h-5 w-5" />
       </button>
       <img id="lightbox-image" alt="" width="1600" height="1200" class="w-full object-contain" />
       <p id="lightbox-caption" class="px-4 py-3 text-label-caps uppercase text-on-surface-variant"></p>

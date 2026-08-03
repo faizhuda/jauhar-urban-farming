@@ -1,7 +1,7 @@
 ---
-import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import JsonLd from '../components/JsonLd.astro';
+import PageHero from '../components/PageHero.astro';
 import WhatsAppCta from '../components/WhatsAppCta.astro';
 import WhatsAppIcon from '../components/WhatsAppIcon.astro';
 import { SITE, waOrderLink, mapsEmbedUrl, fullAddress, localBusinessLd } from '../config';
@@ -16,34 +16,17 @@ const businessLd = localBusinessLd(new URL(heroImage.src, Astro.site).href, Astr
 >
   <JsonLd data={businessLd} />
 
-  {/* Hero grande full-bleed */}
-  <section class="relative flex min-h-[64svh] items-end overflow-hidden bg-primary md:min-h-[74svh]">
-    <div class="absolute -inset-y-[6%] inset-x-0" data-parallax>
-      <Image
-        src={heroImage}
-        alt=""
-        width={1200}
-        height={675}
-        widths={[640, 1200, 1600]}
-        sizes="100vw"
-        quality={60}
-        loading="eager"
-        fetchpriority="high"
-        class="h-full w-full object-cover"
-      />
-    </div>
-    <div class="hero-scrim absolute inset-0"></div>
-    <div class="shell relative z-10 pb-14 pt-32 md:pb-16 md:pt-40">
-      <div class="max-w-2xl text-on-primary">
-        <p class="kicker kicker-dark hero-enter mb-5">Visit &amp; connect</p>
-        <h1 class="hero-enter mb-5 font-serif text-display-sm md:text-display-lg">Get in touch.</h1>
-        <p class="hero-enter-delayed max-w-xl text-body-lg text-on-primary/85">
-          The fastest way to reach us is WhatsApp, whether for orders, farm tours, or
-          anything else.
-        </p>
-      </div>
-    </div>
-  </section>
+  <PageHero
+    image={heroImage}
+    kicker="Visit & connect"
+    maxWidth="2xl"
+    titleMarginBottom="mb-5"
+    leadMaxWidth="xl"
+  >
+    <Fragment slot="title">Get in touch.</Fragment>
+    The fastest way to reach us is WhatsApp, whether for orders, farm tours, or
+    anything else.
+  </PageHero>
 
   {/* Info + peta */}
   <section class="shell py-16 md:py-24">

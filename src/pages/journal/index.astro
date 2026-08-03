@@ -2,8 +2,10 @@
 import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
 import heroImage from '../../assets/gallery/morning-harvest.jpg';
 import { formatDate } from '../../utils/date';
+import { CARD_GRID_SIZES } from '../../utils/image';
 
 const entries = (await getCollection('journal', ({ data }) => !data.draft)).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
@@ -14,36 +16,11 @@ const entries = (await getCollection('journal', ({ data }) => !data.draft)).sort
   title="The Harvest Journal"
   description="Stories, updates, and lessons from campus urban farming at Jauhar Urban Farming, IIUM Gombak."
 >
-  {/* Hero grande full-bleed, konsisten dengan Gallery/Contact */}
-  <section class="relative flex min-h-[64svh] items-end overflow-hidden bg-primary md:min-h-[74svh]">
-    <div class="absolute -inset-y-[6%] inset-x-0" data-parallax>
-      <Image
-        src={heroImage}
-        alt=""
-        width={1200}
-        height={675}
-        widths={[640, 1200, 1600]}
-        sizes="100vw"
-        quality={60}
-        loading="eager"
-        fetchpriority="high"
-        class="h-full w-full object-cover"
-      />
-    </div>
-    <div class="hero-scrim absolute inset-0"></div>
-    <div class="shell relative z-10 pb-14 pt-32 md:pb-16 md:pt-40">
-      <div class="max-w-3xl">
-        <p class="kicker kicker-dark hero-enter mb-5">The Harvest Journal</p>
-        <h1 class="hero-enter mb-6 font-serif text-display-sm text-on-primary md:text-display-lg">
-          Stories from the field.
-        </h1>
-        <p class="hero-enter-delayed max-w-2xl text-body-lg text-on-primary/85">
-          Updates, lessons, and behind-the-scenes notes from our fertigation beds
-          at IIUM Gombak.
-        </p>
-      </div>
-    </div>
-  </section>
+  <PageHero image={heroImage} kicker="The Harvest Journal">
+    <Fragment slot="title">Stories from the field.</Fragment>
+    Updates, lessons, and behind-the-scenes notes from our fertigation beds
+    at IIUM Gombak.
+  </PageHero>
 
   <section class="shell py-16 md:py-24">
     {
@@ -64,7 +41,7 @@ const entries = (await getCollection('journal', ({ data }) => !data.draft)).sort
                     width={640}
                     height={480}
                     widths={[320, 480, 640]}
-                    sizes="(min-width: 1024px) 400px, (min-width: 640px) 45vw, 92vw"
+                    sizes={CARD_GRID_SIZES}
                     loading="lazy"
                     class="img-luxe aspect-[4/3] w-full object-cover"
                   />

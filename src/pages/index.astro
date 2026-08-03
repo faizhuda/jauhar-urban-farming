@@ -5,6 +5,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import ProductCard from '../components/ProductCard.astro';
 import WhatsAppCta from '../components/WhatsAppCta.astro';
 import JsonLd from '../components/JsonLd.astro';
+import Icon from '../components/Icon.astro';
 import { SITE, localBusinessLd } from '../config';
 import hero from '../assets/hero.jpg';
 import visionA from '../assets/gallery/fertigation-rows.jpg';
@@ -79,10 +80,7 @@ const businessLd = localBusinessLd(new URL(hero.src, Astro.site).href, Astro.sit
         </p>
         <a href="/about" class="btn btn-underline mt-8">
           Read our story
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4" aria-hidden="true">
-            <path d="M5 12h14"></path>
-            <path d="m12 5 7 7-7 7"></path>
-          </svg>
+          <Icon name="arrow-right" />
         </a>
       </div>
       <div class="order-1 md:order-2 md:col-span-6 md:col-start-7" data-reveal style="--reveal-delay: 150ms">
@@ -128,10 +126,7 @@ const businessLd = localBusinessLd(new URL(hero.src, Astro.site).href, Astro.sit
       </div>
       <a href="/products" class="btn btn-underline self-start md:self-auto">
         View all products
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4" aria-hidden="true">
-          <path d="M5 12h14"></path>
-          <path d="m12 5 7 7-7 7"></path>
-        </svg>
+        <Icon name="arrow-right" />
       </a>
     </div>
     <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">

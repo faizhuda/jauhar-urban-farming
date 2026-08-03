@@ -3,6 +3,7 @@ import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
 import JsonLd from './JsonLd.astro';
 import WhatsAppCta from './WhatsAppCta.astro';
+import { CARD_GRID_SIZES } from '../utils/image';
 
 interface Props {
   product: CollectionEntry<'products'>;
@@ -43,7 +44,7 @@ const productLd = {
       width={640}
       height={480}
       widths={[320, 480, 640]}
-      sizes="(min-width: 1024px) 400px, (min-width: 640px) 45vw, 92vw"
+      sizes={CARD_GRID_SIZES}
       loading={loading}
       class="img-luxe aspect-[4/3] w-full object-cover"
     />

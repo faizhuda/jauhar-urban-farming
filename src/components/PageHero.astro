@@ -1,0 +1,63 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+/**
+ * Hero grande full-bleed dipakai di About/Products/Gallery/Contact/Journal — markup
+ * identik di 4 dari 5 halaman itu (default), Contact satu-satunya yang beda lebar
+ * wrapper & spacing judul sehingga dibuka lewat prop, bukan dihardcode.
+ *
+ * Home (index.astro) TIDAK pakai komponen ini — layoutnya beda cukup jauh (dimensi
+ * gambar lain, ada paragraf tagline tambahan + baris tombol CTA), jadi tetap markup
+ * sendiri supaya komponen ini tidak perlu prop/slot ekstra untuk satu pemakai saja.
+ */
+interface Props {
+  image: ImageMetadata;
+  imageAlt?: string;
+  kicker: string;
+  maxWidth?: '3xl' | '2xl';
+  titleMarginBottom?: 'mb-5' | 'mb-6';
+  leadMaxWidth?: 'xl' | '2xl';
+}
+
+const {
+  image,
+  imageAlt = '',
+  kicker,
+  maxWidth = '3xl',
+  titleMarginBottom = 'mb-6',
+  leadMaxWidth = '2xl',
+} = Astro.props;
+
+const wrapClass = maxWidth === '2xl' ? 'max-w-2xl text-on-primary' : 'max-w-3xl';
+const titleClass =
+  titleMarginBottom === 'mb-5'
+    ? 'hero-enter mb-5 font-serif text-display-sm md:text-display-lg'
+    : 'hero-enter mb-6 font-serif text-display-sm text-on-primary md:text-display-lg';
+const leadClass = `hero-enter-delayed max-w-${leadMaxWidth} text-body-lg text-on-primary/85`;
+---
+
+<section class="relative flex min-h-[64svh] items-end overflow-hidden bg-primary md:min-h-[74svh]">
+  <div class="absolute -inset-y-[6%] inset-x-0" data-parallax>
+    <Image
+      src={image}
+      alt={imageAlt}
+      width={1200}
+      height={675}
+      widths={[640, 1200, 1600]}
+      sizes="100vw"
+      quality={60}
+      loading="eager"
+      fetchpriority="high"
+      class="h-full w-full object-cover"
+    />
+  </div>
+  <div class="hero-scrim absolute inset-0"></div>
+  <div class="shell relative z-10 pb-14 pt-32 md:pb-16 md:pt-40">
+    <div class={wrapClass}>
+      <p class="kicker kicker-dark hero-enter mb-5">{kicker}</p>
+      <h1 class={titleClass}><slot name="title" /></h1>
+      <p class={leadClass}><slot /></p>
+    </div>
+  </div>
+</section>

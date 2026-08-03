@@ -1,0 +1,68 @@
+---
+/**
+ * SVG stroke-icon kecil yang dipakai berulang (check-circle 5x di about.astro,
+ * arrow-right 3x, close 2x). Ikon satu-pakai (Instagram, WhatsApp, dst.) tetap
+ * inline di tempatnya masing-masing — tidak cukup sering dipakai ulang untuk
+ * sepadan dijadikan komponen.
+ */
+interface Props {
+  name: 'check-circle' | 'arrow-right' | 'close';
+  class?: string;
+  id?: string;
+}
+
+const ICONS: Record<Props['name'], { paths: string[]; strokeLinejoin: boolean }> = {
+  'check-circle': {
+    paths: ['M21.801 10A10 10 0 1 1 17 3.335', 'm9 11 3 3L22 4'],
+    strokeLinejoin: true,
+  },
+  'arrow-right': {
+    paths: ['M5 12h14', 'm12 5 7 7-7 7'],
+    strokeLinejoin: true,
+  },
+  close: {
+    paths: ['M18 6 6 18', 'm6 6 12 12'],
+    strokeLinejoin: false,
+  },
+};
+
+const { name, class: className = 'h-4 w-4', id } = Astro.props;
+const { paths, strokeLinejoin } = ICONS[name];
+---
+
+{
+  strokeLinejoin ? (
+    <svg
+      id={id}
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      class={className}
+      aria-hidden="true"
+    >
+      {paths.map((d) => (
+        <path d={d} />
+      ))}
+    </svg>
+  ) : (
+    <svg
+      id={id}
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      class={className}
+      aria-hidden="true"
+    >
+      {paths.map((d) => (
+        <path d={d} />
+      ))}
+    </svg>
+  )
+}
