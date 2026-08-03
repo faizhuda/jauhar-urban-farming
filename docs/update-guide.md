@@ -17,6 +17,7 @@ Panduan teknis mengelola website Jauhar Urban Farming pasca-KKN.
 |---|---|
 | Tambah/edit produk, harga, stok | 1 file di `src/content/products/` — lihat [content-guide.md](content-guide.md) |
 | Tambah foto galeri | 1 file di `src/content/gallery/` + foto di `src/assets/gallery/` |
+| Tulis artikel The Harvest Journal | 1 file di `src/content/journal/` — lihat [content-guide.md](content-guide.md) |
 | **Ganti nomor WhatsApp** | `src/config.ts` → `whatsapp` (satu-satunya tempat) |
 | Ganti jam operasional / alamat / sosmed | `src/config.ts` |
 | Ganti warna atau font situs | `src/styles/global.css` → blok `@theme` (design tokens) |
@@ -113,6 +114,22 @@ Langkah kalau mau aktifkan (setelah domain final live):
          - { label: Caption, name: caption, widget: string }
          - { label: Date, name: date, widget: datetime, date_format: "YYYY-MM-DD", time_format: false, format: "YYYY-MM-DD" }
          - { label: "Display order (kecil = lebih dulu)", name: order, widget: number, value_type: int, default: 99 }
+
+     - name: journal
+       label: The Harvest Journal
+       folder: src/content/journal
+       create: true
+       slug: "{{fields.title}}"
+       format: frontmatter
+       extension: md
+       identifier_field: title
+       fields:
+         - { label: Title, name: title, widget: string }
+         - { label: Description, name: description, widget: text, pattern: ['^.{10,200}$', "Harus 10-200 karakter"] }
+         - { label: Date, name: date, widget: datetime, date_format: "YYYY-MM-DD", time_format: false, format: "YYYY-MM-DD" }
+         - { label: Image, name: image, widget: image, media_folder: "/src/assets/journal", public_folder: "/src/assets/journal" }
+         - { label: "Image alt text", name: imageAlt, widget: string, hint: "Deskripsi gambar untuk aksesibilitas & SEO" }
+         - { label: Body, name: body, widget: markdown }
    ```
 
 4. Buat GitHub OAuth App: [github.com/settings/applications/new](https://github.com/settings/applications/new)

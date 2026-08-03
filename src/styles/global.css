@@ -160,6 +160,31 @@
     @apply transition-all duration-500 ease-out hover:-translate-y-1 hover:shadow-xl hover:shadow-primary/10;
   }
 
+  /* Long-form artikel (Journal): spacing dasar untuk heading/paragraf/list dari markdown. */
+  .prose-luxe {
+    @apply space-y-6;
+  }
+
+  .prose-luxe :where(h2) {
+    @apply mt-10 font-serif text-headline-md text-primary;
+  }
+
+  .prose-luxe :where(h3) {
+    @apply mt-8 font-serif text-xl text-primary;
+  }
+
+  .prose-luxe :where(a) {
+    @apply text-primary underline underline-offset-4 hover:text-accent;
+  }
+
+  .prose-luxe :where(ul, ol) {
+    @apply list-outside list-disc space-y-2 pl-6;
+  }
+
+  .prose-luxe :where(strong) {
+    @apply font-bold text-primary;
+  }
+
   /* Scrim gradasi untuk teks di atas foto hero full-bleed */
   .hero-scrim {
     background: linear-gradient(

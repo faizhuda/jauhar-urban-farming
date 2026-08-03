@@ -40,4 +40,17 @@ const gallery = defineCollection({
     }),
 });
 
-export const collections = { products, gallery };
+const journal = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/journal' }),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string().min(1),
+      /** Ringkasan singkat — tampil di kartu daftar artikel DAN meta description. */
+      description: z.string().min(10).max(200),
+      date: z.date(),
+      image: image(),
+      imageAlt: z.string().min(1),
+    }),
+});
+
+export const collections = { products, gallery, journal };

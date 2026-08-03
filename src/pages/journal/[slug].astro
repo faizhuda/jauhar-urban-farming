@@ -1,0 +1,63 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import JsonLd from '../../components/JsonLd.astro';
+import { SITE } from '../../config';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('journal');
+  return entries.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { title, description, date, image, imageAlt } = entry.data;
+const { Content } = await render(entry);
+
+const dateFormatter = new Intl.DateTimeFormat('en-MY', { day: 'numeric', month: 'long', year: 'numeric' });
+
+const articleLd = {
+  '@type': 'BlogPosting',
+  headline: title,
+  description,
+  image: new URL(image.src, Astro.site).href,
+  datePublished: date.toISOString(),
+  author: { '@type': 'Organization', name: SITE.name },
+};
+---
+
+<BaseLayout title={title} description={description} ogImage={image.src}>
+  <JsonLd data={articleLd} />
+
+  <article class="shell max-w-3xl py-16 md:py-24">
+    <a href="/journal/" class="text-label-caps mb-8 inline-flex items-center gap-2 uppercase text-on-surface-variant hover:text-primary">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4" aria-hidden="true">
+        <path d="M19 12H5"></path>
+        <path d="m12 19-7-7 7-7"></path>
+      </svg>
+      Back to the Journal
+    </a>
+
+    <p class="text-label-caps mb-4 uppercase text-on-surface-variant">{dateFormatter.format(date)}</p>
+    <h1 class="mb-8 font-serif text-display-sm text-primary md:text-display-lg">{title}</h1>
+
+    <Image
+      src={image}
+      alt={imageAlt}
+      width={1200}
+      height={675}
+      widths={[640, 1200, 1600]}
+      sizes="(min-width: 768px) 768px, 100vw"
+      loading="eager"
+      fetchpriority="high"
+      class="img-luxe mb-10 aspect-video w-full object-cover"
+    />
+
+    <div class="prose-luxe max-w-none text-body-lg text-on-surface-variant">
+      <Content />
+    </div>
+  </article>
+</BaseLayout>

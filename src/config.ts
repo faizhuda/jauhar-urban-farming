@@ -16,12 +16,14 @@ export const SITE = {
   // Format: kode negara + nomor, angka saja, tanpa "+" (dipakai untuk link wa.me).
   whatsapp: '60132391877',
 
-  // TODO(S1-06): NAP final hasil koordinasi Liaison dengan mitra.
+  // Disamakan persis dengan listing Google Maps "Jauhar Urban Farming's Site"
+  // (lihat catatan NAP di chat/handover). Nama kampus tetap "Gombak" secara
+  // geografis, tapi alamat pos resminya terdaftar di bawah Kuala Lumpur.
   address: {
-    street: 'International Islamic University Malaysia (IIUM)',
-    locality: 'Gombak',
-    region: 'Selangor',
-    postalCode: '53100',
+    street: 'International Islamic University Malaysia (IIUM), Mahallah Halimah',
+    locality: 'Kuala Lumpur',
+    region: 'Wilayah Persekutuan Kuala Lumpur',
+    postalCode: '50728',
     country: 'MY',
   },
 
