@@ -206,25 +206,17 @@
    State tersembunyi hanya dipasang bila html.js ada (di-set inline script) —
    tanpa JavaScript, konten tetap tampil normal. */
 @media (prefers-reduced-motion: no-preference) {
-  html.js [data-reveal] {
+  /* Scroll-reveal: elemen [data-reveal] disembunyikan hanya ketika JS reveal aktif */
+  html.js-reveal [data-reveal] {
     opacity: 0;
     transform: translateY(26px);
     transition:
-      opacity 0.9s cubic-bezier(0.22, 0.61, 0.36, 1),
-      transform 0.9s cubic-bezier(0.22, 0.61, 0.36, 1);
+      opacity 0.8s cubic-bezier(0.22, 0.61, 0.36, 1),
+      transform 0.8s cubic-bezier(0.22, 0.61, 0.36, 1);
     transition-delay: var(--reveal-delay, 0ms);
-    /* Jaring pengaman 12s agar elemen tetap tersembunyi jika belum di-reveal */
-    animation: reveal-failsafe 0s 12s forwards;
   }
 
-  @keyframes reveal-failsafe {
-    to {
-      opacity: 1;
-      transform: none;
-    }
-  }
-
-  html.js [data-reveal].is-revealed {
+  html.js-reveal [data-reveal].is-revealed {
     opacity: 1;
     transform: none;
   }
