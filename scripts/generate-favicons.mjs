@@ -1,12 +1,10 @@
 /**
- * Generates PNG favicon fallbacks from public/favicon.svg.
+ * Generates PNG favicons from the real Jauhar Urban Farming logo.
  * Run again with `npm run favicons` if the logo ever changes.
- * SVG favicons aren't picked up by every crawler/social preview yet, so we
- * ship PNG fallbacks alongside it.
  */
 import sharp from 'sharp';
 
-const SOURCE = 'public/favicon.svg';
+const SOURCE = 'src/assets/brand/logo.png';
 
 const jobs = [
   { file: 'public/favicon-16x16.png', size: 16 },

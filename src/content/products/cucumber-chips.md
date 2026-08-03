@@ -7,7 +7,7 @@ description: Crunchy dehydrated cucumber chips, a light and guilt-free snack mad
 image: ../../assets/products/cucumber-chips.jpg
 imageAlt: Bowl of crunchy cucumber chips made by Jauhar Urban Farming
 category: processed
-inStock: true
-featured: true
+inStock: false
+featured: false
 order: 3
 ---

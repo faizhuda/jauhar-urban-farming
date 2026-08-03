@@ -7,7 +7,7 @@ description: Small-batch pickles made from our own harvest. Tangy, crunchy, and 
 image: ../../assets/products/pickled-cucumber.jpg
 imageAlt: Jar of homemade pickled cucumbers produced by Jauhar Urban Farming
 category: processed
-inStock: true
-featured: true
+inStock: false
+featured: false
 order: 2
 ---

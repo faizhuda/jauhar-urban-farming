@@ -1,7 +1,6 @@
 ---
 name: Fresh Cucumber
-# TODO(S2-10): konfirmasi harga final dengan tim Business & mitra
-price: 5.0
+price: 3.0
 unit: kg
 description: Crisp fertigation-grown cucumbers, harvested to order from our campus farm in Gombak. Sold per kilogram.
 image: ../../assets/products/fresh-cucumber.jpg

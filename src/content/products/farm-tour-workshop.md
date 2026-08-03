@@ -1,13 +1,12 @@
 ---
-name: Farm Tour & Workshop
-# TODO(S2-10): konfirmasi harga final dengan tim Business & mitra
-price: 15.0
-unit: person
-description: A guided tour of our fertigation farm with a hands-on planting session. Great for student groups and visitors.
+name: Pick-Your-Own Farm Tour
+price: 3.0
+unit: kg picked
+description: Tour the farm and pick your own cucumbers straight off the vine. The tour and picking are free, booking required. You only pay for what you pick.
 image: ../../assets/products/farm-tour-workshop.jpg
-imageAlt: Visitors joining a guided farm tour and planting workshop at Jauhar Urban Farming
+imageAlt: Visitors picking their own cucumbers during a farm tour at Jauhar Urban Farming
 category: experience
 inStock: true
-featured: false
-order: 6
+featured: true
+order: 2
 ---
