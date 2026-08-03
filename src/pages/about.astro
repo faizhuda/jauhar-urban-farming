@@ -7,6 +7,8 @@ import breakImage from '../assets/gallery/fertigation-rows.jpg';
 import teamA from '../assets/gallery/student-workshop.jpg';
 import teamB from '../assets/gallery/morning-harvest.jpg';
 import teamC from '../assets/gallery/packing-day.jpg';
+import nafasLogo from '../assets/brand/nafas.jpg';
+import citraLogo from '../assets/brand/citra-iium.jpg';
 
 // TODO(S1-05): seluruh teks halaman ini adalah DRAF DUMMY berbasis Proposal KKN.
 // Ganti dengan hasil wawancara profil mitra (deadline konten asli: 30 Juli, PLANNING.md §8).
@@ -60,7 +62,7 @@ import teamC from '../assets/gallery/packing-day.jpg';
           Jauhar Urban Farming began in 2021, when students from Mahallah Halimah,
           Mahallah Siddiq, and Mahallah Maryam at the International Islamic University
           Malaysia (IIUM) decided that an empty plot of campus land could become
-          something more. Working alongside IIUM CITRA (Centre for Arts and Cultural
+          something more. Working alongside CITRA IIUM (Centre for Arts and Cultural
           Sustainable Development) and with support from the university and external
           partners, the plot was transformed into productive fertigation beds, with
           cucumbers as our signature crop.
@@ -123,8 +125,9 @@ import teamC from '../assets/gallery/packing-day.jpg';
             <h3 class="mb-4 font-serif text-headline-md text-accent-bright">Our vision</h3>
           </div>
           <p class="text-body-lg text-primary-fixed-dim">
-            To be a leading model of campus-based urban agriculture, where sustainable
-            food production and ecological care are part of everyday student life.
+            To be a leading model of smart, technology-driven urban agriculture on
+            campus — where IoT-based monitoring and water-efficient fertigation make
+            sustainable food production part of everyday student life.
           </p>
         </div>
         <div class="flex flex-col border border-outline-variant bg-background p-8 md:p-10" data-reveal style="--reveal-delay: 150ms">
@@ -136,6 +139,13 @@ import teamC from '../assets/gallery/packing-day.jpg';
             <h3 class="mb-4 font-serif text-headline-md text-primary">Our mission</h3>
           </div>
           <ul class="space-y-4 text-body-md text-on-surface-variant">
+            <li class="flex items-start gap-3">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mt-1 h-4 w-4 shrink-0 text-accent" aria-hidden="true">
+                <path d="M21.801 10A10 10 0 1 1 17 3.335"></path>
+                <path d="m9 11 3 3L22 4"></path>
+              </svg>
+              Adopt IoT-based smart farming to monitor and guide fertigation with real-time data.
+            </li>
             <li class="flex items-start gap-3">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mt-1 h-4 w-4 shrink-0 text-accent" aria-hidden="true">
                 <path d="M21.801 10A10 10 0 1 1 17 3.335"></path>
@@ -162,7 +172,7 @@ import teamC from '../assets/gallery/packing-day.jpg';
                 <path d="M21.801 10A10 10 0 1 1 17 3.335"></path>
                 <path d="m9 11 3 3L22 4"></path>
               </svg>
-              Build a farming community across the IIUM mahallahs and beyond.
+              Build a farming community across Mahallah Halimah, Siddiq, and Maryam, together with CITRA IIUM.
             </li>
           </ul>
         </div>
@@ -207,7 +217,7 @@ import teamC from '../assets/gallery/packing-day.jpg';
             class="mb-4 aspect-square w-full border border-outline-variant/50 object-cover grayscale transition-all duration-700 group-hover:scale-[1.02] group-hover:grayscale-0"
           />
           <h3 class="font-serif text-xl text-primary">Student caretakers</h3>
-          <p class="mt-1 text-label-caps uppercase text-on-surface-variant">Mahallah Halimah · Siddiq · Maryam · IIUM CITRA</p>
+          <p class="mt-1 text-label-caps uppercase text-on-surface-variant">Mahallah Halimah · Siddiq · Maryam · CITRA IIUM</p>
         </div>
         <div class="group" data-reveal style="--reveal-delay: 130ms">
           <Image
@@ -257,10 +267,10 @@ import teamC from '../assets/gallery/packing-day.jpg';
         href="https://www.nafas.com.my"
         target="_blank"
         rel="noopener noreferrer"
-        class="border border-outline-variant/40 p-6 text-center transition-colors duration-500 hover:border-accent/40"
+        class="flex flex-col items-center gap-4 border border-outline-variant/40 p-6 text-center transition-colors duration-500 hover:border-accent/40"
       >
-        <p class="font-serif text-lg text-primary">NAFAS</p>
-        <p class="mt-1 text-body-md text-on-surface-variant">
+        <Image src={nafasLogo} alt="NAFAS logo" width={160} height={46} class="h-auto w-40 object-contain" />
+        <p class="text-body-md text-on-surface-variant">
           Pertubuhan Peladang Kebangsaan (National Farmers&rsquo; Organisation Malaysia)
         </p>
       </a>
@@ -268,10 +278,10 @@ import teamC from '../assets/gallery/packing-day.jpg';
         href="https://centre.iium.edu.my/citra/"
         target="_blank"
         rel="noopener noreferrer"
-        class="border border-outline-variant/40 p-6 text-center transition-colors duration-500 hover:border-accent/40"
+        class="flex flex-col items-center gap-4 border border-outline-variant/40 p-6 text-center transition-colors duration-500 hover:border-accent/40"
       >
-        <p class="font-serif text-lg text-primary">IIUM CITRA</p>
-        <p class="mt-1 text-body-md text-on-surface-variant">
+        <Image src={citraLogo} alt="CITRA IIUM logo" width={100} height={100} class="h-24 w-24 object-contain" />
+        <p class="text-body-md text-on-surface-variant">
           Centre for Arts and Cultural Sustainable Development, IIUM
         </p>
       </a>
