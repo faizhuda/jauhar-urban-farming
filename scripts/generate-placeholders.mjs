@@ -3,19 +3,19 @@
  *
  * Menghasilkan JPG dummy untuk hero, OG image, produk, dan galeri supaya
  * pipeline astro:assets (WebP/AVIF, srcset, width/height) teruji dengan gambar riil.
- * Saat foto asli dari tim dokumentasi masuk (deadline: 30 Juli, lihat PLANNING.md §8),
- * cukup timpa file di src/assets/ dengan nama yang sama — resize maks. 1600 px.
+ * Saat foto asli masuk (lihat TODO.md), cukup timpa file di src/assets/ dengan
+ * nama yang sama — resize maks. 1600 px.
  */
 import { mkdir } from 'node:fs/promises';
 import path from 'node:path';
 import sharp from 'sharp';
 
-// Sejak 7 Juli 2026 src/assets/ berisi foto asli (stok Wikimedia Commons,
-// lihat docs/image-credits.md) — bukan lagi placeholder hijau. Script ini
+// src/assets/ berisi foto stok sementara (Wikimedia Commons, lihat
+// MAINTENANCE.md § Kredit Foto) — bukan lagi placeholder hijau. Script ini
 // akan MENIMPA semuanya, jadi wajib dijalankan dengan flag --force.
 if (!process.argv.includes('--force')) {
   console.error(
-    'src/assets/ sudah berisi foto asli (lihat docs/image-credits.md).\n' +
+    'src/assets/ sudah berisi foto stok (lihat MAINTENANCE.md).\n' +
       'Menjalankan script ini akan menimpanya dengan placeholder hijau.\n' +
       'Jika benar-benar sengaja, jalankan: npm run placeholders -- --force'
   );

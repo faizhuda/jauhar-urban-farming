@@ -2,9 +2,9 @@ import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
 
 /**
- * Content Collections (PRD NF4): data produk & galeri terpisah dari markup,
+ * Content Collections (PROJECT.md NF4): data produk & galeri terpisah dari markup,
  * tervalidasi schema Zod — harga wajib angka, foto & alt text wajib ada.
- * Panduan mengisi: docs/content-guide.md
+ * Panduan mengisi: MAINTENANCE.md
  */
 const products = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/products' }),
