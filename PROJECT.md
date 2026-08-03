@@ -108,18 +108,21 @@ Static site murni — Astro meng-compile seluruh halaman jadi HTML statis saat b
 
 ```
 src/
-├── pages/                  # index, about, products, gallery, journal/, contact, 404
-├── layouts/BaseLayout.astro  # <head> bersama: meta, OG/Twitter, CSP-safe splash script
-├── components/             # Header, Footer, ProductCard, WhatsAppCta, WhatsAppIcon, JsonLd
-├── config.ts                # SATU sumber kebenaran: nomor WA, NAP, jam, sosmed, maps pin
+├── pages/                  # index, about, products, gallery, journal/, contact, credits, 404, robots.txt.ts
+├── layouts/BaseLayout.astro  # <head> bersama: meta, OG/Twitter, font preload
+├── components/             # Header, Footer, ProductCard, PageHero, Icon, WhatsAppCta, WhatsAppIcon, JsonLd
+├── config.ts                # SATU sumber kebenaran: nomor WA, NAP, jam, sosmed, geo, LocalBusiness JSON-LD
 ├── content.config.ts        # schema Zod: products, gallery, journal
+├── content/products/_drafts/  # produk belum pasti dijual — dikecualikan total dari build
 ├── content/{products,gallery,journal}/   # 1 file .md per item
+├── data/photo-credits.ts    # kredit foto stok Wikimedia, dirender di /credits
+├── utils/                    # date.ts (format tanggal), image.ts (sizes grid kartu)
 ├── styles/global.css        # design tokens + animasi fail-safe
 └── assets/                  # gambar sumber (masih stok Commons, lihat Section 2)
-public/                      # favicon (dari logo asli) — robots.txt kini di src/pages/robots.txt.ts
+public/                      # favicon (dari logo asli)
 scripts/                     # generate-placeholders.mjs, generate-favicons.mjs
-.github/                     # dependabot.yml, workflows/build-check.yml
-vercel.json                  # security headers (CSP dll.)
+.github/                     # dependabot.yml, workflows/build-check.yml (npm run check lalu build)
+vercel.json                  # security headers (bukan CSP — lihat Section 10)
 ```
 
 ---

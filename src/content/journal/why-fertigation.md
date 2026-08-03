@@ -7,7 +7,7 @@ imageAlt: DUMMY PLACEHOLDER cover image for the fertigation article
 draft: true
 ---
 
-DUMMY PLACEHOLDER copy — replace with the real story before launch (see `docs/content-guide.md`).
+DUMMY PLACEHOLDER copy — replace with the real story before launch (see MAINTENANCE.md, section "Menulis artikel The Harvest Journal").
 
 Fertigation lets us feed nutrients straight through the irrigation lines, which matters a lot
 on a small, previously unused patch of campus land. This post walks through the basics of the

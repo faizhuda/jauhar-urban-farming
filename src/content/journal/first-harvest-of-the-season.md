@@ -7,7 +7,7 @@ imageAlt: DUMMY PLACEHOLDER cover image for the first harvest of the season arti
 draft: true
 ---
 
-DUMMY PLACEHOLDER copy — replace with the real story before launch (see `docs/content-guide.md`).
+DUMMY PLACEHOLDER copy — replace with the real story before launch (see MAINTENANCE.md, section "Menulis artikel The Harvest Journal").
 
 This week we brought in our latest batch of cucumbers from the fertigation beds. The team
 walked through what worked well this cycle, from watering schedule to pest checks, and what

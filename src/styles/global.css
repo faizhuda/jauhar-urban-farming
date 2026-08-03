@@ -205,8 +205,9 @@
  */
 
 /* Scroll-reveal: elemen ber-[data-reveal] muncul fade-up saat masuk viewport.
-   State tersembunyi hanya dipasang bila html.js ada (di-set inline script) —
-   tanpa JavaScript, konten tetap tampil normal. */
+   State tersembunyi hanya dipasang bila kelas html.js-reveal ada — ditambahkan
+   oleh script module di BaseLayout.astro saat JS & IntersectionObserver aktif.
+   Tanpa JavaScript, konten tetap 100% tampil normal (progressive enhancement). */
 @media (prefers-reduced-motion: no-preference) {
   /* Scroll-reveal: elemen [data-reveal] disembunyikan hanya ketika JS reveal aktif */
   html.js-reveal [data-reveal] {
