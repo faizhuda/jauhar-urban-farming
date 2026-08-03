@@ -4,6 +4,8 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { SITE } from '../config';
 import ogDefault from '../assets/og-default.jpg';
+import Analytics from '@vercel/analytics/astro';
+import SpeedInsights from '@vercel/speed-insights/astro';
 
 interface Props {
   /** Judul halaman. Jika belum memuat nama situs, otomatis ditambah " — Jauhar Urban Farming". */
@@ -48,6 +50,9 @@ const ogImageUrl = new URL(ogImage ?? ogDefault.src, Astro.site);
     <meta name="twitter:image" content={ogImageUrl} />
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="sitemap" href="/sitemap-index.xml" />
     <meta name="theme-color" content="#001803" />
 
@@ -143,5 +148,7 @@ const ogImageUrl = new URL(ogImage ?? ogDefault.src, Astro.site);
         update();
       }
     </script>
+    <Analytics />
+    <SpeedInsights />
   </body>
 </html>

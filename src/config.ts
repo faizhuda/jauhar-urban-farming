@@ -13,9 +13,8 @@ export const SITE = {
   // HARUS identik dengan `site` di astro.config.mjs dan Sitemap di public/robots.txt.
   url: 'https://jauharurbanfarming.vercel.app',
 
-  // TODO(S1-06): nomor WhatsApp order resmi dari mitra.
   // Format: kode negara + nomor, angka saja, tanpa "+" (dipakai untuk link wa.me).
-  whatsapp: '6287787128257',
+  whatsapp: '60132391877',
 
   // TODO(S1-06): NAP final hasil koordinasi Liaison dengan mitra.
   address: {
@@ -26,12 +25,11 @@ export const SITE = {
     country: 'MY',
   },
 
-  // TODO(S1-06): jam operasional resmi dari mitra.
   hours: {
     days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
-    opens: '08:00',
+    opens: '09:00',
     closes: '17:00',
-    label: 'Monday – Friday, 8:00 AM – 5:00 PM',
+    label: 'Monday – Friday, 9:00 AM – 5:00 PM',
   },
 
   // TODO(S1-06): link sosial media resmi mitra. Mitra hanya punya Instagram (tidak ada Facebook).
@@ -39,9 +37,8 @@ export const SITE = {
     instagram: 'https://instagram.com/jauharurbanfarming',
   },
 
-  // TODO(S3-02): ganti dengan embed URL pin lokasi kebun yang presisi.
-  mapsEmbedUrl:
-    'https://www.google.com/maps?q=International+Islamic+University+Malaysia+Gombak&output=embed',
+  // Pin persis dari listing Maps "Jauhar Urban Farming's Site" (lihat catatan NAP di README/chat).
+  mapsEmbedUrl: 'https://www.google.com/maps?q=3.2576273,101.7337326&output=embed',
 } as const;
 
 /** Link click-to-order WhatsApp berisi nama produk (PRD F3). */
