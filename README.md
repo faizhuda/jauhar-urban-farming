@@ -1,4 +1,4 @@
-# jauhar-hub
+# jauhar-urban-farming
 
 Website resmi **Jauhar Urban Farming** — profil digital, katalog produk, dan kanal
 pemesanan via WhatsApp. Dibangun oleh tim KKNT Inovasi IPB University × IIUM 2026.
