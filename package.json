@@ -20,7 +20,7 @@
     "@astrojs/sitemap": "^3.7.3",
     "@fontsource/hanken-grotesk": "^5.2.8",
     "@fontsource/libre-caslon-text": "^5.2.7",
-    "@tailwindcss/vite": "^4.3.2",
+    "@tailwindcss/vite": "^4.3.3",
     "@vercel/analytics": "^2.0.1",
     "@vercel/speed-insights": "^2.0.0",
     "astro": "^7.1.6",
