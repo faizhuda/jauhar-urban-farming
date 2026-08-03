@@ -213,7 +213,7 @@
       opacity 0.9s cubic-bezier(0.22, 0.61, 0.36, 1),
       transform 0.9s cubic-bezier(0.22, 0.61, 0.36, 1);
     transition-delay: var(--reveal-delay, 0ms);
-    /* Jaring pengaman 12s agar elemen di bawah tetap tersembunyi untuk di-reveal saat scroll */
+    /* Jaring pengaman 12s agar elemen tetap tersembunyi jika belum di-reveal */
     animation: reveal-failsafe 0s 12s forwards;
   }
 
@@ -229,21 +229,13 @@
     transform: none;
   }
 
-  /* Entrance hero: sinkron dengan memudarnya splash screen (1.05s) */
+  /* Entrance hero: berjalan segera saat halaman selesai dimuat */
   .hero-enter {
-    animation: hero-enter 0.9s cubic-bezier(0.22, 0.61, 0.36, 1) 1.05s both;
+    animation: hero-enter 0.8s cubic-bezier(0.22, 0.61, 0.36, 1) 0.05s both;
   }
 
   .hero-enter-delayed {
-    animation: hero-enter 0.9s cubic-bezier(0.22, 0.61, 0.36, 1) 1.25s both;
-  }
-
-  html.no-splash .hero-enter {
-    animation-delay: 0.1s;
-  }
-
-  html.no-splash .hero-enter-delayed {
-    animation-delay: 0.25s;
+    animation: hero-enter 0.8s cubic-bezier(0.22, 0.61, 0.36, 1) 0.2s both;
   }
 
   @keyframes hero-enter {
@@ -272,92 +264,7 @@
   }
 }
 
-/*
- * Splash screen branding (sekali per sesi tab, ±1.5 detik):
- * murni CSS — overlay menghilang sendiri lewat keyframes `forwards`, sehingga
- * konten tidak pernah terkunci walau JavaScript gagal. pointer-events: none
- * menjamin halaman tetap bisa di-tap sejak frame pertama.
- */
-#splash {
-  position: fixed;
-  inset: 0;
-  z-index: 90;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 1.1rem;
-  background: var(--color-primary);
-  pointer-events: none;
-  animation: splash-exit 0.55s ease-in 1.05s forwards;
-}
-
-#splash .splash-name {
-  color: var(--color-on-primary);
-  font-family: var(--font-serif);
-  font-size: clamp(1.5rem, 4.5vw, 2.4rem);
-  letter-spacing: 0.04em;
-  animation: splash-in 0.8s cubic-bezier(0.22, 0.61, 0.36, 1) both;
-}
-
-#splash .splash-rule {
-  width: 4.5rem;
-  height: 1px;
-  background: var(--color-accent-bright);
-  transform-origin: center;
-  animation: splash-rule 0.9s cubic-bezier(0.22, 0.61, 0.36, 1) 0.25s both;
-}
-
-#splash .splash-sub {
-  color: var(--color-accent-bright);
-  font-size: var(--text-label-caps);
-  font-weight: 700;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  animation: splash-in 0.8s cubic-bezier(0.22, 0.61, 0.36, 1) 0.35s both;
-}
-
-@keyframes splash-in {
-  from {
-    opacity: 0;
-    transform: translateY(14px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-@keyframes splash-rule {
-  from {
-    transform: scaleX(0);
-  }
-  to {
-    transform: scaleX(1);
-  }
-}
-
-@keyframes splash-exit {
-  to {
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-    display: none;
-  }
-}
-
-/* Kunjungan berikutnya dalam sesi yang sama, atau preferensi reduce-motion:
-   splash tidak ditampilkan sama sekali. */
-html.no-splash #splash {
-  display: none !important;
-  pointer-events: none !important;
-}
-
 @media (prefers-reduced-motion: reduce) {
-  #splash {
-    display: none;
-  }
-
   html {
     scroll-behavior: auto;
   }
