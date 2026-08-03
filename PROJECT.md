@@ -1,13 +1,13 @@
 # Jauhar Urban Farming — Project Documentation
 
-| | |
-|---|---|
-| **Program** | KKNT Inovasi IPB University × Jauhar Urban Farming, IIUM Gombak (14 Juli – 11 Agustus 2026) |
-| **Repo** | [`faizhuda/jauhar-urban-farming`](https://github.com/faizhuda/jauhar-urban-farming) |
-| **Live** | https://jauharurbanfarming.vercel.app *(domain custom belum dibeli — lihat [TODO.md](TODO.md))* |
-| **Stack** | Astro 7 (static) + Tailwind CSS 4, hosted di Vercel |
-| **Tim teknis** | 1 dari 8 anggota tim KKN (Faiz, Ilmu Komputer) |
-| **Dokumen lain** | [TODO.md](TODO.md) · [MAINTENANCE.md](MAINTENANCE.md) · [Proposal.md](Proposal.md) *(proposal resmi KKNT, terpisah)* |
+|                  |                                                                                                                      |
+| ---------------- | -------------------------------------------------------------------------------------------------------------------- |
+| **Program**      | KKNT Inovasi IPB University × Jauhar Urban Farming, IIUM Gombak (14 Juli – 11 Agustus 2026)                          |
+| **Repo**         | [`faizhuda/jauhar-urban-farming`](https://github.com/faizhuda/jauhar-urban-farming)                                  |
+| **Live**         | https://jauharurbanfarming.vercel.app _(domain custom belum dibeli — lihat [TODO.md](TODO.md))_                      |
+| **Stack**        | Astro 7 (static) + Tailwind CSS 4, hosted di Vercel                                                                  |
+| **Tim teknis**   | 1 dari 8 anggota tim KKN (Faiz, Ilmu Komputer)                                                                       |
+| **Dokumen lain** | [TODO.md](TODO.md) · [MAINTENANCE.md](MAINTENANCE.md) · [Proposal.md](Proposal.md) _(proposal resmi KKNT, terpisah)_ |
 
 Dokumen ini adalah **satu-satunya sumber kebenaran** untuk requirement, arsitektur, dan status proyek — menggantikan `PRD.md` dan `PLANNING.md` yang sebelumnya terpisah dan mudah jadi tidak sinkron satu sama lain.
 
@@ -18,17 +18,19 @@ Dokumen ini adalah **satu-satunya sumber kebenaran** untuk requirement, arsitekt
 `jauhar-urban-farming` adalah website resmi Jauhar Urban Farming: profil digital, katalog produk, dan kanal pemesanan sederhana via **WhatsApp click-to-order**. Dibangun sebagai **static site** (Astro, tanpa backend/database) supaya hosting gratis selamanya, performa maksimal, dan bisa dirawat mandiri oleh mitra pasca-KKN tanpa perlu developer.
 
 **Konteks yang membentuk keputusan teknis:**
+
 - Hanya 1 dari 8 anggota tim berkompetensi teknis → arsitektur harus sesederhana mungkin
 - Durasi pelaksanaan cuma 4 minggu → prioritas kelengkapan konten & kestabilan, bukan fitur canggih berisiko
 - Mitra (Jauhar) akan mengelola website ini sendiri setelah KKN selesai → semua keputusan mempertimbangkan kemudahan maintenance jangka panjang
 
-Proker awal ("Jauhar Urban Farming 2.0") mencakup dua pilar: monitoring kebun berbasis **IoT** dan **business sustainability development**. Pilar IoT/Telegram Bot **tidak dikerjakan dalam bentuk apa pun** oleh tim teknis — seluruh bandwidth developer terpusat ke website ini, yang scope-nya diperluas untuk menutup gap tersebut (SEO menyeluruh, optimasi performa, siap ditemukan di pencarian klasik maupun AI search). Visi/Misi di halaman About tetap merefleksikan ambisi *smart farming* berbasis IoT milik program secara keseluruhan, meski website-nya sendiri tidak mengimplementasikan sensor/IoT apa pun.
+Proker awal ("Jauhar Urban Farming 2.0") mencakup dua pilar: monitoring kebun berbasis **IoT** dan **business sustainability development**. Pilar IoT/Telegram Bot **tidak dikerjakan dalam bentuk apa pun** oleh tim teknis — seluruh bandwidth developer terpusat ke website ini, yang scope-nya diperluas untuk menutup gap tersebut (SEO menyeluruh, optimasi performa, siap ditemukan di pencarian klasik maupun AI search). Visi/Misi di halaman About tetap merefleksikan ambisi _smart farming_ berbasis IoT milik program secara keseluruhan, meski website-nya sendiri tidak mengimplementasikan sensor/IoT apa pun.
 
 ---
 
 ## 2. Status Saat Ini (per 3 Agustus 2026)
 
 ### ✅ Sudah selesai
+
 - 8 halaman live: Home, About, Products, Gallery, Contact, Journal (index + detail per artikel), 404
 - Design system **Professional Luxury**: palet Material 3 hijau + aksen emas/champagne, tipografi Libre Caslon Text + Hanken Grotesk, hero full-bleed, scroll-reveal progressive enhancement, dan parallax ringan (splash screen overlay dihapus total demi optimasi LCP & touch mobile tanpa halangan z-index)
 - Logo asli Jauhar terpasang (header + favicon), diproses jadi lingkaran bersih tanpa shadow
@@ -45,6 +47,7 @@ Proker awal ("Jauhar Urban Farming 2.0") mencakup dua pilar: monitoring kebun be
 - The Harvest Journal (`/journal`) — koleksi artikel dengan CRUD siap lewat CMS begitu diaktifkan
 
 ### ⏳ Belum selesai (bergantung pihak eksternal/Jauhar)
+
 - **Domain custom belum dibeli** — situs masih di `jauharurbanfarming.vercel.app`
 - **Google Business Profile belum diklaim** — listing sudah ada di Maps tapi auto-generated/belum dikuasai pihak Jauhar
 - **Foto masih stok Wikimedia Commons** (hero, produk, galeri) — bukan foto asli Jauhar. 166 foto asli sudah ada di folder `images/` (belum di-sortir/dipetakan ke slot produk/galeri/journal)
@@ -80,6 +83,7 @@ Rincian aksi per item ada di [TODO.md](TODO.md).
 **In scope:** website profil 5+ halaman inti, katalog produk dengan WhatsApp ordering, galeri, The Harvest Journal, SEO menyeluruh (on-site + structured data + sinyal eksternal), optimasi performa & mobile, pelatihan & serah terima ke mitra.
 
 **Out of scope (siklus ini):**
+
 - E-commerce penuh (keranjang belanja, payment gateway) — WhatsApp ordering adalah pengganti proporsional untuk skala UMKM ini
 - Sistem IoT dalam bentuk apa pun di dalam website — dihentikan sepenuhnya dari proker teknis
 - Multi-bahasa (situs 100% English, keputusan tim 5 Juli 2026)
@@ -129,49 +133,49 @@ vercel.json                  # security headers (bukan CSP — lihat Section 10)
 
 ## 6. Spesifikasi Fungsional
 
-| ID | Requirement | Status |
-|---|---|---|
-| F1 | Profil lengkap Jauhar (sejarah, visi-misi, kegiatan) | ✅ (teks tim masih placeholder) |
-| F2 | Katalog produk: foto, nama, deskripsi, harga | ✅ |
-| F3 | Tombol "Pesan/Book via WhatsApp" dengan pesan template otomatis | ✅ |
-| F4 | Galeri dokumentasi kegiatan kebun | ✅ (foto masih stok) |
-| F5 | Kontak: lokasi (Maps embed), jam operasional, kontak resmi | ✅ |
-| F6 | Custom domain, optimal di mobile | ⏳ domain belum dibeli |
-| F7 | Halaman blog/artikel edukasi (The Harvest Journal) | ✅ *(sebelumnya stretch goal, sudah live)* |
-| F8 | Admin panel Git-based untuk CRUD produk/galeri/journal tanpa GitHub | 📄 didokumentasikan, belum aktif |
+| ID  | Requirement                                                         | Status                                     |
+| --- | ------------------------------------------------------------------- | ------------------------------------------ |
+| F1  | Profil lengkap Jauhar (sejarah, visi-misi, kegiatan)                | ✅ (teks tim masih placeholder)            |
+| F2  | Katalog produk: foto, nama, deskripsi, harga                        | ✅                                         |
+| F3  | Tombol "Pesan/Book via WhatsApp" dengan pesan template otomatis     | ✅                                         |
+| F4  | Galeri dokumentasi kegiatan kebun                                   | ✅ (foto masih stok)                       |
+| F5  | Kontak: lokasi (Maps embed), jam operasional, kontak resmi          | ✅                                         |
+| F6  | Custom domain, optimal di mobile                                    | ⏳ domain belum dibeli                     |
+| F7  | Halaman blog/artikel edukasi (The Harvest Journal)                  | ✅ _(sebelumnya stretch goal, sudah live)_ |
+| F8  | Admin panel Git-based untuk CRUD produk/galeri/journal tanpa GitHub | 📄 didokumentasikan, belum aktif           |
 
 ## 7. Spesifikasi Non-Fungsional
 
-| ID | Requirement |
-|---|---|
-| NF1 | **Fully static** — tanpa backend/database, maintenance minim |
-| NF2 | **Zero-JS by default** — JS hanya untuk komponen interaktif |
-| NF3 | **Core Web Vitals hijau** — LCP <2.5s, CLS <0.1, INP <200ms mobile |
-| NF4 | **Content-first** — data dikelola via Content Collections |
-| NF5 | **SEO-ready** — semantic HTML, meta lengkap, structured data, sitemap |
-| NF6 | **Dapat dirawat mandiri** — panduan ditulis untuk non-developer |
-| NF7 | **Mobile-first** — mayoritas pengunjung diasumsikan dari HP |
+| ID  | Requirement                                                                                                   |
+| --- | ------------------------------------------------------------------------------------------------------------- |
+| NF1 | **Fully static** — tanpa backend/database, maintenance minim                                                  |
+| NF2 | **Zero-JS by default** — JS hanya untuk komponen interaktif                                                   |
+| NF3 | **Core Web Vitals hijau** — LCP <2.5s, CLS <0.1, INP <200ms mobile                                            |
+| NF4 | **Content-first** — data dikelola via Content Collections                                                     |
+| NF5 | **SEO-ready** — semantic HTML, meta lengkap, structured data, sitemap                                         |
+| NF6 | **Dapat dirawat mandiri** — panduan ditulis untuk non-developer                                               |
+| NF7 | **Mobile-first** — mayoritas pengunjung diasumsikan dari HP                                                   |
 | NF8 | **Fail-safe by default** — konten kritis (teks, gambar) tidak boleh bergantung pada JS/animasi untuk terlihat |
 
 ---
 
 ## 8. Tech Stack
 
-| Layer | Teknologi | Alasan |
-|---|---|---|
-| Framework | Astro 7 (static output) | Zero-JS default, Content Collections tervalidasi, jalur ke Decap CMS |
-| Styling | Tailwind CSS 4 (`@tailwindcss/vite`) | Styling cepat & konsisten |
-| Data | Astro Content Collections + Zod | Validasi otomatis, kurangi human error input non-teknis |
-| Gambar | `astro:assets` (`<Image />`) | Auto WebP/AVIF, srcset, dimensi eksplisit → CLS ≈ 0 |
-| Sitemap | `@astrojs/sitemap` | Auto-generate saat build |
-| Analytics | `@vercel/analytics` + `@vercel/speed-insights` | Data pengunjung & performa real-user |
-| Hosting | Vercel (auto-deploy dari `main`) | Gratis, SSL otomatis |
-| Font | Libre Caslon Text + Hanken Grotesk, self-hosted via `@fontsource` | Nol request pihak ketiga, tidak block FCP |
-| CMS *(siap, belum aktif)* | `astro-decap-cms-oauth` + `@astrojs/vercel` | Admin panel Git-based, self-hosted OAuth (bukan Netlify) |
-| Type checking | TypeScript 6.x + `@astrojs/check` (`npm run check`) | `tsconfig.json` strict sekarang benar-benar ditegakkan, bukan cuma di editor |
-| Formatting | Prettier + `prettier-plugin-astro` (`npm run format`, opt-in) | Konsistensi gaya kode; belum dijalankan ke seluruh repo sekaligus |
-| CI | GitHub Actions (`build-check.yml`), Node 22 | `npm run check` lalu `npm run build` — cegah type error & build rusak sebelum ke-deploy |
-| Dependency hygiene | Dependabot (npm + github-actions, mingguan) | Update keamanan otomatis |
+| Layer                     | Teknologi                                                         | Alasan                                                                                  |
+| ------------------------- | ----------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| Framework                 | Astro 7 (static output)                                           | Zero-JS default, Content Collections tervalidasi, jalur ke Decap CMS                    |
+| Styling                   | Tailwind CSS 4 (`@tailwindcss/vite`)                              | Styling cepat & konsisten                                                               |
+| Data                      | Astro Content Collections + Zod                                   | Validasi otomatis, kurangi human error input non-teknis                                 |
+| Gambar                    | `astro:assets` (`<Image />`)                                      | Auto WebP/AVIF, srcset, dimensi eksplisit → CLS ≈ 0                                     |
+| Sitemap                   | `@astrojs/sitemap`                                                | Auto-generate saat build                                                                |
+| Analytics                 | `@vercel/analytics` + `@vercel/speed-insights`                    | Data pengunjung & performa real-user                                                    |
+| Hosting                   | Vercel (auto-deploy dari `main`)                                  | Gratis, SSL otomatis                                                                    |
+| Font                      | Libre Caslon Text + Hanken Grotesk, self-hosted via `@fontsource` | Nol request pihak ketiga, tidak block FCP                                               |
+| CMS _(siap, belum aktif)_ | `astro-decap-cms-oauth` + `@astrojs/vercel`                       | Admin panel Git-based, self-hosted OAuth (bukan Netlify)                                |
+| Type checking             | TypeScript 6.x + `@astrojs/check` (`npm run check`)               | `tsconfig.json` strict sekarang benar-benar ditegakkan, bukan cuma di editor            |
+| Formatting                | Prettier + `prettier-plugin-astro` (`npm run format`, opt-in)     | Konsistensi gaya kode; belum dijalankan ke seluruh repo sekaligus                       |
+| CI                        | GitHub Actions (`build-check.yml`), Node 22                       | `npm run check` lalu `npm run build` — cegah type error & build rusak sebelum ke-deploy |
+| Dependency hygiene        | Dependabot (npm + github-actions, mingguan)                       | Update keamanan otomatis                                                                |
 
 ---
 
@@ -207,35 +211,35 @@ Mobile: breakpoints `sm/md/lg` (640/768/1024px), target sentuh ≥44×44px, tanp
 
 ## 12. Tim & Peran
 
-| Peran | Jumlah | Tanggung jawab |
-|---|---|---|
-| Web Lead (Faiz) | 1 | Development, SEO teknis, keamanan, performa, deploy, dokumentasi |
-| Content & Copywriting | 2 | Teks profil & produk, riset kata kunci lokal |
-| Photography & Videography | 2 | Foto produk & kebun, standar resize ≤1600px |
-| Community & Mitra Liaison | 2 | Wawancara mitra, pengurusan Google Business Profile, jadwal pelatihan |
-| Business & Impact Analysis | 1 | Riset harga, narasi economic empowerment untuk laporan akhir |
+| Peran                      | Jumlah | Tanggung jawab                                                        |
+| -------------------------- | ------ | --------------------------------------------------------------------- |
+| Web Lead (Faiz)            | 1      | Development, SEO teknis, keamanan, performa, deploy, dokumentasi      |
+| Content & Copywriting      | 2      | Teks profil & produk, riset kata kunci lokal                          |
+| Photography & Videography  | 2      | Foto produk & kebun, standar resize ≤1600px                           |
+| Community & Mitra Liaison  | 2      | Wawancara mitra, pengurusan Google Business Profile, jadwal pelatihan |
+| Business & Impact Analysis | 1      | Riset harga, narasi economic empowerment untuk laporan akhir          |
 
 ## 13. Risiko
 
-| Risiko | Mitigasi |
-|---|---|
-| Konten asli dari mitra terlambat | Development jalan dengan data dummy/stok ber-schema valid; swap belakangan |
-| Mitra kesulitan update pasca-KKN | Panduan non-teknis di MAINTENANCE.md + Decap CMS sebagai solusi jangka panjang |
-| Nomor WA berubah pasca-handover | Satu variabel terpusat di `src/config.ts` |
-| Domain lupa diperpanjang | Dicatat di checklist serah terima (MAINTENANCE.md) |
-| Konten kritis hilang karena bug JS/animasi | Sudah dimitigasi: progressive enhancement `html.js-reveal` (default visible, Section 2) |
-| Dependency jadi rentan setelah tim KKN bubar | Dependabot alerts otomatis, tidak perlu ada yang manual cek |
+| Risiko                                       | Mitigasi                                                                                |
+| -------------------------------------------- | --------------------------------------------------------------------------------------- |
+| Konten asli dari mitra terlambat             | Development jalan dengan data dummy/stok ber-schema valid; swap belakangan              |
+| Mitra kesulitan update pasca-KKN             | Panduan non-teknis di MAINTENANCE.md + Decap CMS sebagai solusi jangka panjang          |
+| Nomor WA berubah pasca-handover              | Satu variabel terpusat di `src/config.ts`                                               |
+| Domain lupa diperpanjang                     | Dicatat di checklist serah terima (MAINTENANCE.md)                                      |
+| Konten kritis hilang karena bug JS/animasi   | Sudah dimitigasi: progressive enhancement `html.js-reveal` (default visible, Section 2) |
+| Dependency jadi rentan setelah tim KKN bubar | Dependabot alerts otomatis, tidak perlu ada yang manual cek                             |
 
 ## 14. Anggaran (estimasi KKNT)
 
-| Kategori | Estimasi |
-|---|---|
-| Domain .com 1 tahun | Rp 200.000 |
-| Hosting (Vercel, gratis) | Rp 0 |
-| Bahan habis pakai (properti foto, ATK) | Rp 70.000 |
-| Perjalanan (wawancara, sesi foto, pelatihan) | Rp 100.000 |
-| Lain-lain (stiker QR, kontingensi) | Rp 130.000 |
-| **Total** | **Rp 500.000** |
+| Kategori                                     | Estimasi       |
+| -------------------------------------------- | -------------- |
+| Domain .com 1 tahun                          | Rp 200.000     |
+| Hosting (Vercel, gratis)                     | Rp 0           |
+| Bahan habis pakai (properti foto, ATK)       | Rp 70.000      |
+| Perjalanan (wawancara, sesi foto, pelatihan) | Rp 100.000     |
+| Lain-lain (stiker QR, kontingensi)           | Rp 130.000     |
+| **Total**                                    | **Rp 500.000** |
 
 ---
 
@@ -243,7 +247,7 @@ Mobile: breakpoints `sm/md/lg` (640/768/1024px), target sentuh ≥44×44px, tanp
 
 - **7 Jul 2026** — Proyek dialihkan sepenuhnya dari sistem monitoring IoT (`kebun-pulse`) ke website; tech stack difinalisasi ke Astro; desain berevolusi ke "Professional Luxury"; domain Vercel berganti nama dari `jauhar-hub` ke `jauharurbanfarming` (sempat merusak social share preview, sudah diperbaiki)
 - **Akhir Jul – awal Agu 2026** — Foto placeholder hijau diganti stok Wikimedia Commons (sementara, menunggu foto asli); font self-hosted; skala responsif diperbaiki di berbagai viewport
-- **3 Agu 2026** — Audit & optimasi menyeluruh: 
+- **3 Agu 2026** — Audit & optimasi menyeluruh:
   1. Security headers & Dependabot aktif, CI Node 22, WhatsApp/NAP/domain disamakan dengan Google Maps asli, katalog produk disamakan dengan realita bisnis (hanya Fresh Cucumber + Farm Tour), logo asli terpasang, kredit kolaborasi (CITRA IIUM, NAFAS) ditambahkan, The Harvest Journal diluncurkan.
   2. Perbaikan stabilitas UI & Mobile: Layar splash screen overlay (`#splash`) dihapus total demi performa LCP & kenyamanan touch mobile. Animasi scroll-reveal diubah menjadi **progressive enhancement (`html.js-reveal`)** sehingga baseline CSS adalah 100% visible — menjamin tidak ada layar kosong / animasi "plop" 12s jika JS terhambat. Script hamburger menu dikonversi ke `<script is:inline>` agar dapat dijalankan secara instan di peramban seluler tanpa bergantung pada module bundler atau restriksi CSP. Dokumentasi proyek terpusat di `PROJECT.md`, `TODO.md`, dan `MAINTENANCE.md`.
 - **3 Agu 2026 (lanjutan)** — Audit produksi menyeluruh + perbaikan pre-flight sebelum lanjut ke domain/GBP/foto:

@@ -24,8 +24,7 @@ const businessLd = localBusinessLd(new URL(heroImage.src, Astro.site).href, Astr
     leadMaxWidth="xl"
   >
     <Fragment slot="title">Get in touch.</Fragment>
-    The fastest way to reach us is WhatsApp, whether for orders, farm tours, or
-    anything else.
+    The fastest way to reach us is WhatsApp, whether for orders, farm tours, or anything else.
   </PageHero>
 
   {/* Info + peta */}
@@ -34,7 +33,9 @@ const businessLd = localBusinessLd(new URL(heroImage.src, Astro.site).href, Astr
       <div class="space-y-10 md:col-span-5" data-reveal>
         {/* Lokasi */}
         <div>
-          <h2 class="mb-6 inline-block border-b border-accent pb-2 text-label-caps uppercase tracking-[0.18em] text-primary">
+          <h2
+            class="mb-6 inline-block border-b border-accent pb-2 text-label-caps uppercase tracking-[0.18em] text-primary"
+          >
             Where we are
           </h2>
           <p class="font-serif text-headline-md text-primary">Farm location</p>
@@ -45,7 +46,9 @@ const businessLd = localBusinessLd(new URL(heroImage.src, Astro.site).href, Astr
 
         {/* Jam operasional */}
         <div>
-          <h2 class="mb-6 inline-block border-b border-accent pb-2 text-label-caps uppercase tracking-[0.18em] text-primary">
+          <h2
+            class="mb-6 inline-block border-b border-accent pb-2 text-label-caps uppercase tracking-[0.18em] text-primary"
+          >
             Opening hours
           </h2>
           <ul class="max-w-xs space-y-3 text-body-md text-on-surface-variant">
@@ -62,29 +65,60 @@ const businessLd = localBusinessLd(new URL(heroImage.src, Astro.site).href, Astr
 
         {/* Kontak langsung */}
         <div>
-          <h2 class="mb-6 inline-block border-b border-accent pb-2 text-label-caps uppercase tracking-[0.18em] text-primary">
+          <h2
+            class="mb-6 inline-block border-b border-accent pb-2 text-label-caps uppercase tracking-[0.18em] text-primary"
+          >
             Direct lines
           </h2>
           <div class="space-y-6">
-            <a href={waOrderLink()} target="_blank" rel="noopener noreferrer" class="group flex items-center gap-4">
-              <span class="flex h-12 w-12 shrink-0 items-center justify-center bg-accent-soft transition-colors duration-500 group-hover:bg-primary">
-                <WhatsAppIcon class="h-5 w-5 fill-primary transition-colors duration-500 group-hover:fill-accent-bright" />
+            <a
+              href={waOrderLink()}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="group flex items-center gap-4"
+            >
+              <span
+                class="flex h-12 w-12 shrink-0 items-center justify-center bg-accent-soft transition-colors duration-500 group-hover:bg-primary"
+              >
+                <WhatsAppIcon
+                  class="h-5 w-5 fill-primary transition-colors duration-500 group-hover:fill-accent-bright"
+                />
               </span>
               <span>
-                <span class="block text-label-caps uppercase text-on-surface-variant">WhatsApp</span>
+                <span class="block text-label-caps uppercase text-on-surface-variant">WhatsApp</span
+                >
                 <span class="block text-body-md font-bold text-primary">Chat with the farm</span>
               </span>
             </a>
-            <a href={SITE.socials.instagram} target="_blank" rel="noopener noreferrer" class="group flex items-center gap-4">
-              <span class="flex h-12 w-12 shrink-0 items-center justify-center bg-accent-soft transition-colors duration-500 group-hover:bg-primary">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 text-primary transition-colors duration-500 group-hover:text-accent-bright" aria-hidden="true">
+            <a
+              href={SITE.socials.instagram}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="group flex items-center gap-4"
+            >
+              <span
+                class="flex h-12 w-12 shrink-0 items-center justify-center bg-accent-soft transition-colors duration-500 group-hover:bg-primary"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="h-5 w-5 text-primary transition-colors duration-500 group-hover:text-accent-bright"
+                  aria-hidden="true"
+                >
                   <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
                   <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
                   <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
                 </svg>
               </span>
               <span>
-                <span class="block text-label-caps uppercase text-on-surface-variant">Instagram</span>
+                <span class="block text-label-caps uppercase text-on-surface-variant"
+                  >Instagram</span
+                >
                 <span class="block text-body-md font-bold text-primary">Follow the farm</span>
               </span>
             </a>
@@ -103,8 +137,7 @@ const businessLd = localBusinessLd(new URL(heroImage.src, Astro.site).href, Astr
           loading="lazy"
           allowfullscreen
           referrerpolicy="no-referrer-when-downgrade"
-          class="h-80 w-full border border-outline-variant/40 md:h-full md:min-h-[26rem]"
-        ></iframe>
+          class="h-80 w-full border border-outline-variant/40 md:h-full md:min-h-[26rem]"></iframe>
       </div>
     </div>
   </section>

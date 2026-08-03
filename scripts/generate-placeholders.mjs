@@ -17,7 +17,7 @@ if (!process.argv.includes('--force')) {
   console.error(
     'src/assets/ sudah berisi foto stok (lihat MAINTENANCE.md).\n' +
       'Menjalankan script ini akan menimpanya dengan placeholder hijau.\n' +
-      'Jika benar-benar sengaja, jalankan: npm run placeholders -- --force'
+      'Jika benar-benar sengaja, jalankan: npm run placeholders -- --force',
   );
   process.exit(1);
 }
@@ -61,8 +61,18 @@ const jobs = [
   { file: 'src/assets/products/fresh-cucumber.jpg', w: 1200, h: 1200, label: 'Fresh Cucumber' },
   { file: 'src/assets/products/pickled-cucumber.jpg', w: 1200, h: 1200, label: 'Pickled Cucumber' },
   { file: 'src/assets/products/cucumber-chips.jpg', w: 1200, h: 1200, label: 'Cucumber Chips' },
-  { file: 'src/assets/products/garden-salad-pack.jpg', w: 1200, h: 1200, label: 'Garden Salad Pack' },
-  { file: 'src/assets/products/cucumber-seedlings.jpg', w: 1200, h: 1200, label: 'Cucumber Seedlings' },
+  {
+    file: 'src/assets/products/garden-salad-pack.jpg',
+    w: 1200,
+    h: 1200,
+    label: 'Garden Salad Pack',
+  },
+  {
+    file: 'src/assets/products/cucumber-seedlings.jpg',
+    w: 1200,
+    h: 1200,
+    label: 'Cucumber Seedlings',
+  },
   { file: 'src/assets/products/farm-tour-workshop.jpg', w: 1200, h: 1200, label: 'Farm Tour' },
 
   // Galeri — rasio 4:3 seragam
@@ -73,7 +83,12 @@ const jobs = [
   { file: 'src/assets/gallery/packing-day.jpg', w: 1600, h: 1200, label: 'Packing Day' },
   { file: 'src/assets/gallery/campus-bazaar.jpg', w: 1600, h: 1200, label: 'Campus Bazaar' },
   { file: 'src/assets/gallery/student-workshop.jpg', w: 1600, h: 1200, label: 'Student Workshop' },
-  { file: 'src/assets/gallery/community-planting.jpg', w: 1600, h: 1200, label: 'Community Planting' },
+  {
+    file: 'src/assets/gallery/community-planting.jpg',
+    w: 1600,
+    h: 1200,
+    label: 'Community Planting',
+  },
 ];
 
 for (const [i, job] of jobs.entries()) {

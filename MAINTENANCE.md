@@ -12,18 +12,18 @@ Panduan praktis mengelola website Jauhar Urban Farming — untuk pengelola non-t
 
 ## Perubahan yang paling sering dibutuhkan
 
-| Kebutuhan | Yang diedit |
-|---|---|
-| Tambah/edit produk, harga, stok | 1 file di `src/content/products/` — lihat [format produk](#1-menambaheditsembunyikan-produk) di bawah |
-| Sembunyikan produk sementara (masih di katalog inti) | Set `draft: true` di file produk terkait |
-| Sembunyikan produk eksperimen sepenuhnya (gambar tidak ikut diproses build) | Pindahkan file ke `src/content/products/_drafts/` — lihat [format produk](#1-menambaheditsembunyikan-produk) |
-| Tambah foto galeri | 1 file di `src/content/gallery/` + foto di `src/assets/gallery/` |
-| Tulis artikel The Harvest Journal | 1 file di `src/content/journal/` |
-| **Ganti nomor WhatsApp** | `src/config.ts` → `whatsapp` (satu-satunya tempat) |
-| Ganti jam operasional / alamat / sosmed | `src/config.ts` |
-| Ganti warna atau font situs | `src/styles/global.css` → blok `@theme` (design tokens) |
-| Ganti foto (produk/galeri/hero) | Timpa file di `src/assets/` dengan nama sama, lihat [Foto](#foto) |
-| Atur animasi & micro-interactions | `src/styles/global.css` (micro-interactions) + `src/layouts/BaseLayout.astro` (splash screen overlay telah dihapus total demi FCP/LCP & touch mobile) |
+| Kebutuhan                                                                   | Yang diedit                                                                                                                                           |
+| --------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Tambah/edit produk, harga, stok                                             | 1 file di `src/content/products/` — lihat [format produk](#1-menambaheditsembunyikan-produk) di bawah                                                 |
+| Sembunyikan produk sementara (masih di katalog inti)                        | Set `draft: true` di file produk terkait                                                                                                              |
+| Sembunyikan produk eksperimen sepenuhnya (gambar tidak ikut diproses build) | Pindahkan file ke `src/content/products/_drafts/` — lihat [format produk](#1-menambaheditsembunyikan-produk)                                          |
+| Tambah foto galeri                                                          | 1 file di `src/content/gallery/` + foto di `src/assets/gallery/`                                                                                      |
+| Tulis artikel The Harvest Journal                                           | 1 file di `src/content/journal/`                                                                                                                      |
+| **Ganti nomor WhatsApp**                                                    | `src/config.ts` → `whatsapp` (satu-satunya tempat)                                                                                                    |
+| Ganti jam operasional / alamat / sosmed                                     | `src/config.ts`                                                                                                                                       |
+| Ganti warna atau font situs                                                 | `src/styles/global.css` → blok `@theme` (design tokens)                                                                                               |
+| Ganti foto (produk/galeri/hero)                                             | Timpa file di `src/assets/` dengan nama sama, lihat [Foto](#foto)                                                                                     |
+| Atur animasi & micro-interactions                                           | `src/styles/global.css` (micro-interactions) + `src/layouts/BaseLayout.astro` (splash screen overlay telah dihapus total demi FCP/LCP & touch mobile) |
 
 ## Menjalankan secara lokal (developer)
 
@@ -44,22 +44,23 @@ Satu produk = satu file Markdown di `src/content/products/`:
 ```markdown
 ---
 name: Fresh Cucumber
-price: 3.0                      # Harga dalam RM, ANGKA SAJA
-unit: kg                        # kg / jar / pack / person / kg picked / dst.
+price: 3.0 # Harga dalam RM, ANGKA SAJA
+unit: kg # kg / jar / pack / person / kg picked / dst.
 description: 10–200 karakter. Tampil di kartu produk & meta description.
 image: ../../assets/products/fresh-cucumber.jpg
 imageAlt: Deskripsi gambar untuk aksesibilitas & SEO
-category: fresh                 # fresh | processed | experience
-draft: false                    # true = sembunyikan TOTAL dari katalog
-inStock: true                   # false = tombol jadi "Coming soon"
-featured: true                  # true = tampil di Beranda (maks. 3)
-order: 1                        # urutan tampil, angka kecil = lebih dulu
+category: fresh # fresh | processed | experience
+draft: false # true = sembunyikan TOTAL dari katalog
+inStock: true # false = tombol jadi "Coming soon"
+featured: true # true = tampil di Beranda (maks. 3)
+order: 1 # urutan tampil, angka kecil = lebih dulu
 ---
 ```
 
 Kalau ada isian salah (harga bukan angka, foto tidak ada), **build otomatis gagal dengan pesan error jelas** — website live tidak akan rusak.
 
 **Dua cara menyembunyikan produk, beda dampaknya:**
+
 - `draft: true` di file yang tetap ada di `src/content/products/` — produk tersembunyi dari katalog, tapi gambarnya tetap ikut diproses oleh `astro:assets` saat build (masih dianggap "mungkin dipakai sebentar lagi").
 - Pindahkan file ke **`src/content/products/_drafts/`** (folder ini dikecualikan total dari collection lewat pattern di `src/content.config.ts`) — dipakai untuk 4 produk eksperimen yang belum pasti dilanjut (Pickled Cucumber, Cucumber Chips, Garden Salad Pack, Cucumber Seedlings), supaya gambarnya tidak ikut membengkakkan hasil build padahal tidak pernah tampil.
 
@@ -137,67 +138,153 @@ Langkah aktivasi (setelah domain final live):
      base_url: https://<domain-final>
      auth_endpoint: oauth
 
-   media_folder: ""
-   public_folder: ""
+   media_folder: ''
+   public_folder: ''
 
    collections:
      - name: products
        label: Products
        folder: src/content/products
        create: true
-       slug: "{{fields.name}}"
+       slug: '{{fields.name}}'
        format: frontmatter
        extension: md
        identifier_field: name
        fields:
          - { label: Name, name: name, widget: string }
-         - { label: "Price (MYR)", name: price, widget: number, value_type: float, min: 0 }
-         - { label: Unit, name: unit, widget: string, default: pack, hint: "mis. kg, jar, pack, person" }
-         - { label: Description, name: description, widget: text, pattern: ['^.{10,200}$', "Harus 10-200 karakter"] }
-         - { label: Image, name: image, widget: image, media_folder: "/src/assets/products", public_folder: "/src/assets/products" }
-         - { label: "Image alt text", name: imageAlt, widget: string, hint: "Deskripsi gambar untuk aksesibilitas & SEO" }
+         - { label: 'Price (MYR)', name: price, widget: number, value_type: float, min: 0 }
+         - {
+             label: Unit,
+             name: unit,
+             widget: string,
+             default: pack,
+             hint: 'mis. kg, jar, pack, person',
+           }
+         - {
+             label: Description,
+             name: description,
+             widget: text,
+             pattern: ['^.{10,200}$', 'Harus 10-200 karakter'],
+           }
+         - {
+             label: Image,
+             name: image,
+             widget: image,
+             media_folder: '/src/assets/products',
+             public_folder: '/src/assets/products',
+           }
+         - {
+             label: 'Image alt text',
+             name: imageAlt,
+             widget: string,
+             hint: 'Deskripsi gambar untuk aksesibilitas & SEO',
+           }
          - label: Category
            name: category
            widget: select
            options:
-             - { label: "Fresh Harvest", value: fresh }
-             - { label: "Farm Made", value: processed }
-             - { label: "Learn & Grow", value: experience }
-         - { label: "Hide from catalogue (draft)", name: draft, widget: boolean, default: false, hint: "Nyalakan untuk sembunyikan produk sepenuhnya, mis. eksperimen yang belum pasti dilanjut" }
-         - { label: "In stock", name: inStock, widget: boolean, default: true }
-         - { label: "Featured on homepage (max 3)", name: featured, widget: boolean, default: false }
-         - { label: "Display order (kecil = lebih dulu)", name: order, widget: number, value_type: int, default: 99 }
+             - { label: 'Fresh Harvest', value: fresh }
+             - { label: 'Farm Made', value: processed }
+             - { label: 'Learn & Grow', value: experience }
+         - {
+             label: 'Hide from catalogue (draft)',
+             name: draft,
+             widget: boolean,
+             default: false,
+             hint: 'Nyalakan untuk sembunyikan produk sepenuhnya, mis. eksperimen yang belum pasti dilanjut',
+           }
+         - { label: 'In stock', name: inStock, widget: boolean, default: true }
+         - {
+             label: 'Featured on homepage (max 3)',
+             name: featured,
+             widget: boolean,
+             default: false,
+           }
+         - {
+             label: 'Display order (kecil = lebih dulu)',
+             name: order,
+             widget: number,
+             value_type: int,
+             default: 99,
+           }
          - { label: Body, name: body, widget: markdown, required: false }
 
      - name: gallery
        label: Gallery
        folder: src/content/gallery
        create: true
-       slug: "{{fields.alt}}"
+       slug: '{{fields.alt}}'
        format: frontmatter
        extension: md
        identifier_field: alt
        fields:
-         - { label: Image, name: image, widget: image, media_folder: "/src/assets/gallery", public_folder: "/src/assets/gallery" }
-         - { label: "Alt text", name: alt, widget: string, hint: "Deskripsi gambar untuk aksesibilitas & SEO" }
+         - {
+             label: Image,
+             name: image,
+             widget: image,
+             media_folder: '/src/assets/gallery',
+             public_folder: '/src/assets/gallery',
+           }
+         - {
+             label: 'Alt text',
+             name: alt,
+             widget: string,
+             hint: 'Deskripsi gambar untuk aksesibilitas & SEO',
+           }
          - { label: Caption, name: caption, widget: string }
-         - { label: Date, name: date, widget: datetime, date_format: "YYYY-MM-DD", time_format: false, format: "YYYY-MM-DD" }
-         - { label: "Display order (kecil = lebih dulu)", name: order, widget: number, value_type: int, default: 99 }
+         - {
+             label: Date,
+             name: date,
+             widget: datetime,
+             date_format: 'YYYY-MM-DD',
+             time_format: false,
+             format: 'YYYY-MM-DD',
+           }
+         - {
+             label: 'Display order (kecil = lebih dulu)',
+             name: order,
+             widget: number,
+             value_type: int,
+             default: 99,
+           }
 
      - name: journal
        label: The Harvest Journal
        folder: src/content/journal
        create: true
-       slug: "{{fields.title}}"
+       slug: '{{fields.title}}'
        format: frontmatter
        extension: md
        identifier_field: title
        fields:
          - { label: Title, name: title, widget: string }
-         - { label: Description, name: description, widget: text, pattern: ['^.{10,200}$', "Harus 10-200 karakter"] }
-         - { label: Date, name: date, widget: datetime, date_format: "YYYY-MM-DD", time_format: false, format: "YYYY-MM-DD" }
-         - { label: Image, name: image, widget: image, media_folder: "/src/assets/journal", public_folder: "/src/assets/journal" }
-         - { label: "Image alt text", name: imageAlt, widget: string, hint: "Deskripsi gambar untuk aksesibilitas & SEO" }
+         - {
+             label: Description,
+             name: description,
+             widget: text,
+             pattern: ['^.{10,200}$', 'Harus 10-200 karakter'],
+           }
+         - {
+             label: Date,
+             name: date,
+             widget: datetime,
+             date_format: 'YYYY-MM-DD',
+             time_format: false,
+             format: 'YYYY-MM-DD',
+           }
+         - {
+             label: Image,
+             name: image,
+             widget: image,
+             media_folder: '/src/assets/journal',
+             public_folder: '/src/assets/journal',
+           }
+         - {
+             label: 'Image alt text',
+             name: imageAlt,
+             widget: string,
+             hint: 'Deskripsi gambar untuk aksesibilitas & SEO',
+           }
          - { label: Body, name: body, widget: markdown }
    ```
 
@@ -221,6 +308,7 @@ Script penanganan hamburger menu pada `src/components/Header.astro` sengaja ditu
 ### Animasi Progressive Enhancement (Zero Blank Space)
 
 Semua animasi entrance (`.hero-enter`, `[data-reveal]`) di `src/styles/global.css` dan `src/layouts/BaseLayout.astro` menggunakan pola **Progressive Enhancement**:
+
 - Baseline CSS default untuk elemen `[data-reveal]` adalah **100% visible (`opacity: 1; transform: none;`)**.
 - Kelas `.js-reveal` dan efek sembunyi `opacity: 0` **hanya ditambahkan secara dinamis di runtime JavaScript** apabila browser mendukung `IntersectionObserver` dan script berhasil berjalan.
 - **Hasilnya**: Jika JavaScript terhambat, diblokir extension, atau mengalami delay jaringan, seluruh konten halaman tetap 100% langsung terlihat tanpa ada area kosong atau jeda animasi 12 detik ("plop"). Konten kritis tidak pernah tersembunyi secara prematur.

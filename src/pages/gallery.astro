@@ -7,16 +7,14 @@ import Icon from '../components/Icon.astro';
 import { CARD_GRID_SIZES } from '../utils/image';
 import heroImage from '../assets/gallery/morning-harvest.jpg';
 
-const entries = (await getCollection('gallery')).sort(
-  (a, b) => a.data.order - b.data.order
-);
+const entries = (await getCollection('gallery')).sort((a, b) => a.data.order - b.data.order);
 
 // Versi besar untuk lightbox, tetap dioptimasi lewat pipeline astro:assets.
 const items = await Promise.all(
   entries.map(async (entry) => ({
     ...entry.data,
     full: await getImage({ src: entry.data.image, width: 1600, format: 'webp', quality: 65 }),
-  }))
+  })),
 );
 ---
 
@@ -26,8 +24,8 @@ const items = await Promise.all(
 >
   <PageHero image={heroImage} kicker="Field notes">
     <Fragment slot="title">Life at the farm.</Fragment>
-    Harvest mornings, planting days, workshops, and everything in between,
-    all documented by our team. Tap any photo to see it up close.
+    Harvest mornings, planting days, workshops, and everything in between, all documented by our team.
+    Tap any photo to see it up close.
   </PageHero>
 
   <section class="shell py-16 md:py-24">
@@ -77,7 +75,8 @@ const items = await Promise.all(
         <Icon name="close" class="h-5 w-5" />
       </button>
       <img id="lightbox-image" alt="" width="1600" height="1200" class="w-full object-contain" />
-      <p id="lightbox-caption" class="px-4 py-3 text-label-caps uppercase text-on-surface-variant"></p>
+      <p id="lightbox-caption" class="px-4 py-3 text-label-caps uppercase text-on-surface-variant">
+      </p>
     </div>
   </dialog>
 

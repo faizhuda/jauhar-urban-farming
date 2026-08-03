@@ -3,3 +3,7 @@ dist/
 node_modules/
 package-lock.json
 images/
+
+# Proposal KKNT resmi yang sudah disubmit — dokumen beku, terpisah dari
+# dokumentasi hidup (PROJECT.md/TODO.md/MAINTENANCE.md), jangan diformat ulang.
+Proposal.md

@@ -20,8 +20,18 @@ const isActive = (href: string) => currentPath === (href === '/' ? '/' : href);
 
 <header class="sticky top-0 z-40 border-b border-outline-variant/30 bg-surface/80 backdrop-blur-md">
   <div class="shell flex h-20 items-center justify-between gap-4">
-    <a href="/" class="flex min-h-11 shrink-0 items-center gap-3 font-serif text-lg font-bold tracking-tight text-primary sm:text-xl">
-      <Image src={logo} alt="" width={44} height={44} loading="eager" class="h-9 w-9 sm:h-10 sm:w-10" />
+    <a
+      href="/"
+      class="flex min-h-11 shrink-0 items-center gap-3 font-serif text-lg font-bold tracking-tight text-primary sm:text-xl"
+    >
+      <Image
+        src={logo}
+        alt=""
+        width={44}
+        height={44}
+        loading="eager"
+        class="h-9 w-9 sm:h-10 sm:w-10"
+      />
       {SITE.name}
     </a>
 
@@ -62,7 +72,17 @@ const isActive = (href: string) => currentPath === (href === '/' ? '/' : href);
         aria-controls="mobile-menu"
         aria-label="Open menu"
       >
-        <svg id="icon-open" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="pointer-events-none h-6 w-6" aria-hidden="true">
+        <svg
+          id="icon-open"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          class="pointer-events-none h-6 w-6"
+          aria-hidden="true"
+        >
           <line x1="4" x2="20" y1="6" y2="6"></line>
           <line x1="4" x2="20" y1="12" y2="12"></line>
           <line x1="4" x2="20" y1="18" y2="18"></line>
@@ -73,9 +93,15 @@ const isActive = (href: string) => currentPath === (href === '/' ? '/' : href);
   </div>
 
   {/* Menu mobile */}
-  {/* Latar dibiarkan transparan agar glassmorphism (bg-surface/80 + blur) milik
-     <header> ikut membungkus panel ini — konsisten dengan bar atasnya. */}
-  <nav id="mobile-menu" aria-label="Main mobile" class="hidden border-t border-outline-variant/30 px-6 pb-6 pt-2 lg:hidden">
+  {
+    /* Latar dibiarkan transparan agar glassmorphism (bg-surface/80 + blur) milik
+     <header> ikut membungkus panel ini — konsisten dengan bar atasnya. */
+  }
+  <nav
+    id="mobile-menu"
+    aria-label="Main mobile"
+    class="hidden border-t border-outline-variant/30 px-6 pb-6 pt-2 lg:hidden"
+  >
     <ul class="flex flex-col">
       {
         navLinks.map((link) => (
@@ -145,7 +171,11 @@ const isActive = (href: string) => currentPath === (href === '/' ? '/' : href);
 
       document.addEventListener('click', function (event) {
         var target = event.target;
-        if (!menu.classList.contains('hidden') && !menu.contains(target) && !toggle.contains(target)) {
+        if (
+          !menu.classList.contains('hidden') &&
+          !menu.contains(target) &&
+          !toggle.contains(target)
+        ) {
           setOpen(false);
         }
       });

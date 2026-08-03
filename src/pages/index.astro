@@ -24,9 +24,13 @@ const businessLd = localBusinessLd(new URL(hero.src, Astro.site).href, Astro.sit
 >
   <JsonLd data={businessLd} />
 
-  {/* Hero grande full-bleed: foto LCP eager + fetchpriority high (PRD §10.1),
-     scrim gradasi untuk kontras teks, parallax ringan via transform-only. */}
-  <section class="relative flex min-h-[64svh] items-end overflow-hidden bg-primary md:min-h-[74svh]">
+  {
+    /* Hero grande full-bleed: foto LCP eager + fetchpriority high (PRD §10.1),
+     scrim gradasi untuk kontras teks, parallax ringan via transform-only. */
+  }
+  <section
+    class="relative flex min-h-[64svh] items-end overflow-hidden bg-primary md:min-h-[74svh]"
+  >
     <div class="absolute -inset-y-[6%] inset-x-0" data-parallax>
       <Image
         src={hero}
@@ -52,13 +56,13 @@ const businessLd = localBusinessLd(new URL(hero.src, Astro.site).href, Astro.sit
           Grow Smart, Grow Together
         </p>
         <p class="hero-enter-delayed mb-7 max-w-xl text-body-lg text-on-primary/85">
-          {SITE.tagline}. Since 2021 our student community has turned unused campus land
-          into productive fertigation beds, and everything we harvest can be yours.
+          {SITE.tagline}. Since 2021 our student community has turned unused campus land into
+          productive fertigation beds, and everything we harvest can be yours.
         </p>
-        <div class="hero-enter-delayed flex flex-col flex-wrap gap-3 sm:flex-row sm:items-center sm:gap-6">
-          <a href="/products" class="btn btn-gold w-full sm:w-auto">
-            Browse our products
-          </a>
+        <div
+          class="hero-enter-delayed flex flex-col flex-wrap gap-3 sm:flex-row sm:items-center sm:gap-6"
+        >
+          <a href="/products" class="btn btn-gold w-full sm:w-auto">Browse our products</a>
           <WhatsAppCta variant="ghost-light" label="Chat on WhatsApp" />
         </div>
       </div>
@@ -74,18 +78,24 @@ const businessLd = localBusinessLd(new URL(hero.src, Astro.site).href, Astro.sit
           We are a student community reimagining what campus land can grow.
         </h2>
         <p class="mt-6 text-body-md text-on-surface-variant">
-          A collaboration between the residents of Mahallah Halimah, Siddiq, and Maryam
-          at IIUM, together with CITRA IIUM, we grow crisp produce with water-efficient
-          fertigation, benefiting people, the campus, and the planet.
+          A collaboration between the residents of Mahallah Halimah, Siddiq, and Maryam at IIUM,
+          together with CITRA IIUM, we grow crisp produce with water-efficient fertigation,
+          benefiting people, the campus, and the planet.
         </p>
         <a href="/about" class="btn btn-underline mt-8">
           Read our story
           <Icon name="arrow-right" />
         </a>
       </div>
-      <div class="order-1 md:order-2 md:col-span-6 md:col-start-7" data-reveal style="--reveal-delay: 150ms">
+      <div
+        class="order-1 md:order-2 md:col-span-6 md:col-start-7"
+        data-reveal
+        style="--reveal-delay: 150ms"
+      >
         <div class="grid grid-cols-2 gap-4">
-          <div class="group overflow-hidden border border-accent/25 bg-background p-2 pb-0 md:mt-10">
+          <div
+            class="group overflow-hidden border border-accent/25 bg-background p-2 pb-0 md:mt-10"
+          >
             <Image
               src={visionA}
               alt="Rows of crops growing on the fertigation system in the greenhouse"
@@ -116,10 +126,15 @@ const businessLd = localBusinessLd(new URL(hero.src, Astro.site).href, Astro.sit
 
   {/* Produk unggulan */}
   <section class="shell py-16 md:py-24">
-    <div class="mb-10 flex flex-col justify-between gap-6 md:mb-12 md:flex-row md:items-end" data-reveal>
+    <div
+      class="mb-10 flex flex-col justify-between gap-6 md:mb-12 md:flex-row md:items-end"
+      data-reveal
+    >
       <div>
         <p class="kicker mb-5">Fresh from the farm</p>
-        <h2 class="font-serif text-headline-md text-primary md:text-headline-lg">This week's harvest.</h2>
+        <h2 class="font-serif text-headline-md text-primary md:text-headline-lg">
+          This week's harvest.
+        </h2>
         <p class="mt-4 max-w-md text-body-md text-on-surface-variant">
           Harvested to order, straight from our beds to your table.
         </p>
@@ -149,24 +164,39 @@ const businessLd = localBusinessLd(new URL(hero.src, Astro.site).href, Astro.sit
       </div>
       <ol class="mt-12 grid grid-cols-1 gap-10 sm:grid-cols-3">
         <li class="flex gap-5" data-reveal>
-          <span class="flex h-11 w-11 shrink-0 items-center justify-center border border-accent-bright/60 font-serif text-xl text-accent-bright">1</span>
+          <span
+            class="flex h-11 w-11 shrink-0 items-center justify-center border border-accent-bright/60 font-serif text-xl text-accent-bright"
+            >1</span
+          >
           <div>
             <h3 class="font-serif text-xl">Pick your produce</h3>
-            <p class="mt-2 text-body-md text-primary-fixed-dim">Browse the catalogue and choose what you like.</p>
+            <p class="mt-2 text-body-md text-primary-fixed-dim">
+              Browse the catalogue and choose what you like.
+            </p>
           </div>
         </li>
         <li class="flex gap-5" data-reveal style="--reveal-delay: 130ms">
-          <span class="flex h-11 w-11 shrink-0 items-center justify-center border border-accent-bright/60 font-serif text-xl text-accent-bright">2</span>
+          <span
+            class="flex h-11 w-11 shrink-0 items-center justify-center border border-accent-bright/60 font-serif text-xl text-accent-bright"
+            >2</span
+          >
           <div>
             <h3 class="font-serif text-xl">Tap "Order via WhatsApp"</h3>
-            <p class="mt-2 text-body-md text-primary-fixed-dim">A chat opens with your order ready to send.</p>
+            <p class="mt-2 text-body-md text-primary-fixed-dim">
+              A chat opens with your order ready to send.
+            </p>
           </div>
         </li>
         <li class="flex gap-5" data-reveal style="--reveal-delay: 260ms">
-          <span class="flex h-11 w-11 shrink-0 items-center justify-center border border-accent-bright/60 font-serif text-xl text-accent-bright">3</span>
+          <span
+            class="flex h-11 w-11 shrink-0 items-center justify-center border border-accent-bright/60 font-serif text-xl text-accent-bright"
+            >3</span
+          >
           <div>
             <h3 class="font-serif text-xl">Pick up at the farm</h3>
-            <p class="mt-2 text-body-md text-primary-fixed-dim">Collect your order fresh at IIUM Gombak.</p>
+            <p class="mt-2 text-body-md text-primary-fixed-dim">
+              Collect your order fresh at IIUM Gombak.
+            </p>
           </div>
         </li>
       </ol>

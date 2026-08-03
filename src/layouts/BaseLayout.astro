@@ -67,8 +67,10 @@ const ogImageUrl = new URL(resolvedOgImage.src, Astro.site);
     <link rel="sitemap" href="/sitemap-index.xml" />
     <meta name="theme-color" content="#001803" />
 
-    {/* Font self-hosted via @fontsource (lihat src/styles/global.css) — tidak ada
-       request pihak ketiga ke Google Fonts, mengurangi FCP (PRD §10.3) */}
+    {
+      /* Font self-hosted via @fontsource (lihat src/styles/global.css) — tidak ada
+       request pihak ketiga ke Google Fonts, mengurangi FCP (PRD §10.3) */
+    }
 
     <slot name="head" />
   </head>
@@ -102,7 +104,7 @@ const ogImageUrl = new URL(resolvedOgImage.src, Astro.site);
                 }
               }
             },
-            { threshold: 0.08, rootMargin: '0px 0px -10px 0px' }
+            { threshold: 0.08, rootMargin: '0px 0px -10px 0px' },
           );
 
           revealed.forEach((el) => {

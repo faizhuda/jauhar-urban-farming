@@ -6,7 +6,7 @@ import ProductCard from '../components/ProductCard.astro';
 import heroImage from '../assets/gallery/fertigation-rows.jpg';
 
 const products = (await getCollection('products', ({ data }) => !data.draft)).sort(
-  (a, b) => a.data.order - b.data.order
+  (a, b) => a.data.order - b.data.order,
 );
 ---
 
@@ -16,9 +16,9 @@ const products = (await getCollection('products', ({ data }) => !data.draft)).so
 >
   <PageHero image={heroImage} kicker="The catalogue">
     <Fragment slot="title">Grown here.<br />Yours in a chat.</Fragment>
-    Everything below is grown or made at our farm in IIUM Gombak.
-    Tap <strong>Order via WhatsApp</strong> on any item. A chat opens with your order
-    pre-filled, and you pick it up fresh at the farm.
+    Everything below is grown or made at our farm in IIUM Gombak. Tap <strong
+      >Order via WhatsApp</strong
+    > on any item. A chat opens with your order pre-filled, and you pick it up fresh at the farm.
   </PageHero>
 
   {/* Katalog */}
@@ -27,19 +27,15 @@ const products = (await getCollection('products', ({ data }) => !data.draft)).so
       {
         products.map((product, index) => (
           <div data-reveal style={`--reveal-delay: ${(index % 3) * 130}ms`}>
-            <ProductCard
-              product={product}
-              withJsonLd
-              loading={index < 3 ? 'eager' : 'lazy'}
-            />
+            <ProductCard product={product} withJsonLd loading={index < 3 ? 'eager' : 'lazy'} />
           </div>
         ))
       }
     </div>
 
     <p class="mt-12 border-t border-accent/25 pt-6 text-body-md text-on-surface-variant">
-      Prices are in Malaysian Ringgit (RM). Availability follows the harvest. If
-      something is out of stock, ask us on WhatsApp when the next batch is coming.
+      Prices are in Malaysian Ringgit (RM). Availability follows the harvest. If something is out of
+      stock, ask us on WhatsApp when the next batch is coming.
     </p>
   </section>
 </BaseLayout>

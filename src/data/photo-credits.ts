@@ -114,7 +114,7 @@ export const photoCredits: PhotoCredit[] = [
     asset: 'gallery/packing-day.jpg',
     sourceTitle: 'RMA-Urban Roots St Paul',
     sourceUrl:
-      "https://commons.wikimedia.org/wiki/File%3ARMA-Urban_Roots_St_Paul-Ag_in_the_city_(20220929-RMA-CDP-0105).jpg",
+      'https://commons.wikimedia.org/wiki/File%3ARMA-Urban_Roots_St_Paul-Ag_in_the_city_(20220929-RMA-CDP-0105).jpg',
     photographer: 'USDA',
     license: 'Public domain',
   },

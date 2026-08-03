@@ -1,14 +1,14 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 /*
  * Font self-hosted via @fontsource (bukan Google Fonts CDN) — menghilangkan
  * request ke domain eksternal fonts.googleapis.com/fonts.gstatic.com yang
  * memblokir render pertama (FCP). Hanya subset latin, weight 400 & 700.
  */
-@import "@fontsource/hanken-grotesk/latin-400.css";
-@import "@fontsource/hanken-grotesk/latin-700.css";
-@import "@fontsource/libre-caslon-text/latin-400.css";
-@import "@fontsource/libre-caslon-text/latin-700.css";
+@import '@fontsource/hanken-grotesk/latin-400.css';
+@import '@fontsource/hanken-grotesk/latin-700.css';
+@import '@fontsource/libre-caslon-text/latin-400.css';
+@import '@fontsource/libre-caslon-text/latin-700.css';
 
 /*
  * Design system "Professional Luxury" (7 Juli 2026):
@@ -17,8 +17,8 @@
  * dan hero full-bleed. Semua animasi hormat pada prefers-reduced-motion.
  */
 @theme {
-  --font-sans: "Hanken Grotesk", ui-sans-serif, system-ui, "Segoe UI", sans-serif;
-  --font-serif: "Libre Caslon Text", Georgia, "Times New Roman", serif;
+  --font-sans: 'Hanken Grotesk', ui-sans-serif, system-ui, 'Segoe UI', sans-serif;
+  --font-serif: 'Libre Caslon Text', Georgia, 'Times New Roman', serif;
 
   /* Warna inti */
   --color-background: #fcf9f8;
@@ -144,7 +144,7 @@
   }
 
   .kicker::before {
-    content: "";
+    content: '';
     @apply h-px w-10 shrink-0 bg-accent/60;
   }
 

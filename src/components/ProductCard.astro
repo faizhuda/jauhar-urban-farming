@@ -14,7 +14,8 @@ interface Props {
 }
 
 const { product, withJsonLd = false, loading = 'lazy' } = Astro.props;
-const { name, price, unit, description, image, imageAlt, category, inStock, featured } = product.data;
+const { name, price, unit, description, image, imageAlt, category, inStock, featured } =
+  product.data;
 
 const categoryLabels: Record<typeof category, string> = {
   fresh: 'Fresh Harvest',
@@ -36,7 +37,9 @@ const productLd = {
 };
 ---
 
-<article class="card-luxe group flex h-full flex-col border border-outline-variant/40 bg-surface-container-lowest hover:border-accent/40">
+<article
+  class="card-luxe group flex h-full flex-col border border-outline-variant/40 bg-surface-container-lowest hover:border-accent/40"
+>
   <div class="relative overflow-hidden">
     <Image
       src={image}
@@ -65,12 +68,15 @@ const productLd = {
   </div>
 
   <div class="flex flex-1 flex-col gap-2 p-5">
-    <span class="text-label-caps uppercase text-on-surface-variant">{categoryLabels[category]}</span>
+    <span class="text-label-caps uppercase text-on-surface-variant">{categoryLabels[category]}</span
+    >
     <div class="flex items-start justify-between gap-4">
       <h3 class="font-serif text-xl text-primary">{name}</h3>
       <p class="shrink-0 font-serif text-body-lg text-primary">
         RM {price.toFixed(2)}
-        <span class="block text-right text-label-caps uppercase text-on-surface-variant">/ {unit}</span>
+        <span class="block text-right text-label-caps uppercase text-on-surface-variant"
+          >/ {unit}</span
+        >
       </p>
     </div>
     <p class="text-body-md text-on-surface-variant">{description}</p>
