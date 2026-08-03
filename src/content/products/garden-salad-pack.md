@@ -7,6 +7,7 @@ description: A mixed pack of fresh-cut cucumber and leafy greens from our beds, 
 image: ../../assets/products/garden-salad-pack.jpg
 imageAlt: Plate of fresh garden salad greens ready to eat
 category: fresh
+draft: true
 inStock: false
 featured: false
 order: 4

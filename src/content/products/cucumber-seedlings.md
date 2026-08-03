@@ -7,6 +7,7 @@ description: Healthy cucumber seedlings from our nursery, ready to transplant. P
 image: ../../assets/products/cucumber-seedlings.jpg
 imageAlt: Tray of young cucumber seedlings from the Jauhar Urban Farming nursery
 category: fresh
+draft: true
 inStock: false
 featured: false
 order: 5

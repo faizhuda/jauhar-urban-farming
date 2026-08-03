@@ -20,6 +20,8 @@ const products = defineCollection({
       image: image(),
       imageAlt: z.string().min(1),
       category: z.enum(['fresh', 'processed', 'experience']),
+      /** Sembunyikan dari katalog sepenuhnya (mis. eksperimen yang belum pasti dilanjut). */
+      draft: z.boolean().default(false),
       inStock: z.boolean().default(true),
       /** Produk unggulan tampil di Beranda. */
       featured: z.boolean().default(false),

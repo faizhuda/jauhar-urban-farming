@@ -95,6 +95,7 @@ Langkah kalau mau aktifkan (setelah domain final live):
              - { label: "Fresh Harvest", value: fresh }
              - { label: "Farm Made", value: processed }
              - { label: "Learn & Grow", value: experience }
+         - { label: "Hide from catalogue (draft)", name: draft, widget: boolean, default: false, hint: "Nyalakan untuk sembunyikan produk sepenuhnya, mis. eksperimen yang belum pasti dilanjut" }
          - { label: "In stock", name: inStock, widget: boolean, default: true }
          - { label: "Featured on homepage (max 3)", name: featured, widget: boolean, default: false }
          - { label: "Display order (kecil = lebih dulu)", name: order, widget: number, value_type: int, default: 99 }
