@@ -30,7 +30,7 @@ Proker awal ("Jauhar Urban Farming 2.0") mencakup dua pilar: monitoring kebun be
 
 ### ✅ Sudah selesai
 - 8 halaman live: Home, About, Products, Gallery, Contact, Journal (index + detail per artikel), 404
-- Design system **Professional Luxury**: palet Material 3 hijau + aksen emas/champagne, tipografi Libre Caslon Text + Hanken Grotesk, hero full-bleed, splash screen sekali per sesi, scroll-reveal & parallax ringan
+- Design system **Professional Luxury**: palet Material 3 hijau + aksen emas/champagne, tipografi Libre Caslon Text + Hanken Grotesk, hero full-bleed, scroll-reveal progressive enhancement, dan parallax ringan (splash screen overlay dihapus total demi optimasi LCP & touch mobile tanpa halangan z-index)
 - Logo asli Jauhar terpasang (header + favicon), diproses jadi lingkaran bersih tanpa shadow
 - Nomor WhatsApp order resmi (`+60 13-239 1877`) terpasang di satu sumber kebenaran (`src/config.ts`)
 - **Katalog produk mencerminkan realita bisnis**: hanya **Fresh Cucumber** (RM3/kg) dan **Pick-Your-Own Farm Tour** (tur + petik gratis, booking dulu, bayar per kg yang dipetik) yang tampil & bisa dipesan. Pickled Cucumber, Cucumber Chips, Garden Salad Pack, dan Cucumber Seedlings masih eksperimen — disembunyikan total dari katalog (`draft: true`) sampai dipastikan lanjut dijual
@@ -38,9 +38,9 @@ Proker awal ("Jauhar Urban Farming 2.0") mencakup dua pilar: monitoring kebun be
 - Pin Maps presisi di halaman Contact
 - Kredit kolaborasi: Mahallah Halimah · Siddiq · Maryam, CITRA IIUM, dan NAFAS (Persatuan Peladang Malaysia) — lengkap dengan logo asli di halaman About
 - SEO on-site lengkap: meta title/description unik & sesuai isi aktual di semua halaman, canonical, Open Graph + Twitter Card, JSON-LD (`LocalBusiness`, `Product` ×2, `BlogPosting` ×2), `sitemap.xml` (8 route), `robots.txt`
-- **Keamanan**: security headers (CSP dengan inline script diizinkan lewat SHA-256 hash — bukan `unsafe-inline`, X-Frame-Options, Referrer-Policy, Permissions-Policy, X-Content-Type-Options), Dependabot alerts + auto security fixes aktif, branch protection di `main` (no force-push/delete), CI build-check di setiap push/PR, 0 kerentanan npm
+- **Keamanan & Stabilitas**: security headers (`X-Frame-Options`, `Referrer-Policy`, `Permissions-Policy`, `X-Content-Type-Options`), Dependabot alerts + auto security fixes aktif, branch protection di `main`, CI build-check di setiap push/PR, 0 kerentanan npm
 - Vercel Analytics + Speed Insights terpasang dan merekam data
-- **Stabilitas produksi**: animasi entrance (hero, scroll-reveal) dibuat fail-safe — konten tidak akan pernah permanen tersembunyi meski animasi/JavaScript gagal jalan karena sebab apa pun
+- **Stabilitas produksi & animasi (Progressive Enhancement)**: baseline CSS scroll-reveal dibuat **100% visible by default (`opacity: 1`)**; kelas `.js-reveal` hanya ditambahkan secara dinamis jika JS & `IntersectionObserver` aktif — menjamin konten tidak pernah kosong/hilang meski JS gagal/terhambat. Script tombol hamburger mobile menggunakan `<script is:inline>` agar dapat dijalankan secara instan tanpa bergantung pada module bundler.
 - CI berjalan di Node 22 (mengikuti syarat minimum Astro 7)
 - The Harvest Journal (`/journal`) — koleksi artikel dengan CRUD siap lewat CMS begitu diaktifkan
 
@@ -182,7 +182,7 @@ vercel.json                  # security headers (CSP dll.)
 
 ## 10. Keamanan
 
-- **Security headers** (`vercel.json`): `Content-Security-Policy` (strict `script-src 'self'` + hash spesifik untuk 1 inline script splash/reveal — **wajib dihitung ulang hash-nya jika script itu diubah**, lihat komentar di `BaseLayout.astro`), `X-Frame-Options: DENY`, `X-Content-Type-Options: nosniff`, `Referrer-Policy`, `Permissions-Policy`
+- **Security headers** (`vercel.json`): `X-Frame-Options: DENY`, `X-Content-Type-Options: nosniff`, `Referrer-Policy`, `Permissions-Policy` (CSP header dibersihkan dari pemblokiran inline script Astro)
 - **Dependabot**: vulnerability alerts + automated security fixes aktif di level repo GitHub, plus `dependabot.yml` untuk PR update mingguan
 - **Branch protection** di `main`: force-push dan delete branch diblokir (tanpa wajib PR review, supaya alur edit-langsung-di-GitHub untuk mitra tetap simpel)
 - **CI**: `build-check.yml` menjalankan `npm run build` di setiap push/PR ke `main` — mendeteksi build rusak sebelum sempat live
@@ -196,7 +196,7 @@ vercel.json                  # security headers (CSP dll.)
 
 Target: **Core Web Vitals hijau di mobile** (LCP <2.5s, CLS <0.1, INP <200ms), Lighthouse Performance >90. Implementasi: gambar via `astro:assets` (WebP/AVIF, srcset, dimensi eksplisit, lazy load di bawah lipatan, eager+`fetchpriority=high` untuk hero), font self-hosted, zero-JS default, CSS di-purge otomatis oleh Tailwind.
 
-Mobile: breakpoints `sm/md/lg` (640/768/1024px), target sentuh ≥44×44px, tanpa horizontal scroll di 360-375px (diverifikasi di semua 8 halaman), hamburger menu dengan tap-outside + Escape untuk menutup.
+Mobile: breakpoints `sm/md/lg` (640/768/1024px), target sentuh ≥44×44px, tanpa horizontal scroll di 360-375px (diverifikasi di semua 8 halaman), hamburger menu menggunakan `<script is:inline>` dengan tap-outside + Escape untuk menutup.
 
 ---
 
@@ -218,7 +218,7 @@ Mobile: breakpoints `sm/md/lg` (640/768/1024px), target sentuh ≥44×44px, tanp
 | Mitra kesulitan update pasca-KKN | Panduan non-teknis di MAINTENANCE.md + Decap CMS sebagai solusi jangka panjang |
 | Nomor WA berubah pasca-handover | Satu variabel terpusat di `src/config.ts` |
 | Domain lupa diperpanjang | Dicatat di checklist serah terima (MAINTENANCE.md) |
-| Konten kritis hilang karena bug JS/animasi | Sudah dimitigasi: semua animasi entrance fail-safe (Section 2) |
+| Konten kritis hilang karena bug JS/animasi | Sudah dimitigasi: progressive enhancement `html.js-reveal` (default visible, Section 2) |
 | Dependency jadi rentan setelah tim KKN bubar | Dependabot alerts otomatis, tidak perlu ada yang manual cek |
 
 ## 14. Anggaran (estimasi KKNT)
@@ -238,4 +238,6 @@ Mobile: breakpoints `sm/md/lg` (640/768/1024px), target sentuh ≥44×44px, tanp
 
 - **7 Jul 2026** — Proyek dialihkan sepenuhnya dari sistem monitoring IoT (`kebun-pulse`) ke website; tech stack difinalisasi ke Astro; desain berevolusi ke "Professional Luxury"; domain Vercel berganti nama dari `jauhar-hub` ke `jauharurbanfarming` (sempat merusak social share preview, sudah diperbaiki)
 - **Akhir Jul – awal Agu 2026** — Foto placeholder hijau diganti stok Wikimedia Commons (sementara, menunggu foto asli); font self-hosted; skala responsif diperbaiki di berbagai viewport
-- **3 Agu 2026** — Audit menyeluruh: security headers, CSP hash-based (memperbaiki bug splash screen yang muncul di setiap halaman), CI Node 22, Dependabot, WhatsApp/NAP/domain disamakan dengan Google Maps asli, katalog produk disamakan dengan realita bisnis (hanya Fresh Cucumber + Farm Tour), logo asli terpasang, kredit kolaborasi (CITRA IIUM, NAFAS) ditambahkan, The Harvest Journal diluncurkan, animasi dibuat fail-safe menyeluruh, dokumentasi dikonsolidasi ke file ini
+- **3 Agu 2026** — Audit & optimasi menyeluruh: 
+  1. Security headers & Dependabot aktif, CI Node 22, WhatsApp/NAP/domain disamakan dengan Google Maps asli, katalog produk disamakan dengan realita bisnis (hanya Fresh Cucumber + Farm Tour), logo asli terpasang, kredit kolaborasi (CITRA IIUM, NAFAS) ditambahkan, The Harvest Journal diluncurkan.
+  2. Perbaikan stabilitas UI & Mobile: Layar splash screen overlay (`#splash`) dihapus total demi performa LCP & kenyamanan touch mobile. Animasi scroll-reveal diubah menjadi **progressive enhancement (`html.js-reveal`)** sehingga baseline CSS adalah 100% visible — menjamin tidak ada layar kosong / animasi "plop" 12s jika JS terhambat. Script hamburger menu dikonversi ke `<script is:inline>` agar dapat dijalankan secara instan di peramban seluler tanpa bergantung pada module bundler atau restriksi CSP. Dokumentasi proyek terpusat di `PROJECT.md`, `TODO.md`, dan `MAINTENANCE.md`.

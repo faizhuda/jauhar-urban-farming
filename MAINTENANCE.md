@@ -22,7 +22,7 @@ Panduan praktis mengelola website Jauhar Urban Farming — untuk pengelola non-t
 | Ganti jam operasional / alamat / sosmed | `src/config.ts` |
 | Ganti warna atau font situs | `src/styles/global.css` → blok `@theme` (design tokens) |
 | Ganti foto (produk/galeri/hero) | Timpa file di `src/assets/` dengan nama sama, lihat [Foto](#foto) |
-| Matikan/atur splash screen & animasi | `src/styles/global.css` (blok `#splash` & micro-interactions) + `src/layouts/BaseLayout.astro` — **hati-hati, lihat catatan CSP di bawah** |
+| Atur animasi & micro-interactions | `src/styles/global.css` (micro-interactions) + `src/layouts/BaseLayout.astro` (splash screen overlay telah dihapus total demi FCP/LCP & touch mobile) |
 
 ## Menjalankan secara lokal (developer)
 
@@ -207,28 +207,16 @@ Catatan: preview thumbnail gambar di admin UI bisa saja tidak muncul (folder `sr
 
 ## Catatan teknis penting
 
-### Content Security Policy (CSP) dan inline script
+### Skrip Inline dan Responsivitas Mobile
 
-`vercel.json` memasang `Content-Security-Policy` dengan `script-src 'self'` ketat — **tidak** ada `'unsafe-inline'`. Satu-satunya inline script (splash screen + scroll-reveal init di `src/layouts/BaseLayout.astro`) diizinkan lewat **SHA-256 hash spesifik**, bukan lewat pelonggaran kebijakan.
+Script penanganan hamburger menu pada `src/components/Header.astro` sengaja ditulis menggunakan tag `<script is:inline>`. Ini menjamin script dieksekusi secara instan dan unconditionally oleh peramban seluler tanpa bergantung pada penundaan bundler ES Module atau restriksi header CSP pada CDN Edge Vercel.
 
-**Kalau isi script inline itu diubah, hash di `vercel.json` WAJIB dihitung ulang** — kalau lupa, browser akan **diam-diam memblokir** script itu tanpa error yang jelas di halaman (pernah kejadian: splash screen muncul di setiap halaman alih-alih sekali per sesi, karena hash lama tidak cocok). Cara hitung ulang:
+### Animasi Progressive Enhancement (Zero Blank Space)
 
-```bash
-npm run build
-node -e "
-const fs = require('fs');
-const crypto = require('crypto');
-const html = fs.readFileSync('dist/index.html', 'utf8');
-const match = html.match(/<script>([\s\S]*?document\.documentElement\.classList\.add\('js'\);[\s\S]*?)<\/script>/);
-console.log('sha256-' + crypto.createHash('sha256').update(match[1], 'utf8').digest('base64'));
-"
-```
-
-Tempel hasilnya (format `'sha256-...'`) ke `script-src` di `vercel.json`.
-
-### Animasi harus fail-safe
-
-Semua animasi entrance (`.hero-enter`, `[data-reveal]`) di `src/styles/global.css` sengaja didesain supaya **konten tidak akan pernah permanen tersembunyi**, meski JavaScript/CSS animation gagal jalan karena sebab apa pun (extension browser, tab di-throttle, dll). Kalau menambah animasi baru pada konten penting (teks/gambar utama), ikuti prinsip yang sama: jangan animasikan `opacity` dari 0 tanpa jaring pengaman, atau tambahkan fallback timer seperti pola `reveal-failsafe` yang sudah ada.
+Semua animasi entrance (`.hero-enter`, `[data-reveal]`) di `src/styles/global.css` dan `src/layouts/BaseLayout.astro` menggunakan pola **Progressive Enhancement**:
+- Baseline CSS default untuk elemen `[data-reveal]` adalah **100% visible (`opacity: 1; transform: none;`)**.
+- Kelas `.js-reveal` dan efek sembunyi `opacity: 0` **hanya ditambahkan secara dinamis di runtime JavaScript** apabila browser mendukung `IntersectionObserver` dan script berhasil berjalan.
+- **Hasilnya**: Jika JavaScript terhambat, diblokir extension, atau mengalami delay jaringan, seluruh konten halaman tetap 100% langsung terlihat tanpa ada area kosong atau jeda animasi 12 detik ("plop"). Konten kritis tidak pernah tersembunyi secara prematur.
 
 ---
 
