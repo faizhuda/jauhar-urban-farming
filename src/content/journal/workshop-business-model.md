@@ -24,5 +24,9 @@ inventory to any of them. The workshop also pushed us to be honest about what a 
 plot can sustain versus what looks good on a proposal slide.
 
 What we did leave with is a clearer sense of the decision ahead of us: whether to keep these as
-occasional experiments or turn one or two into something we sell every week. That's a call for
-Jauhar to make with us, and we'll update this journal once it's made.
+occasional experiments or turn one or two into something we sell every week.
+
+**Update:** we've since decided not to bring these four to market. The farm's bandwidth is best
+spent on what already works, fresh cucumbers and the tours, rather than stretching a small
+student-run plot across a bigger product line. The workshop was still worth it. We now know
+exactly what that door looks like if a future team wants to open it.

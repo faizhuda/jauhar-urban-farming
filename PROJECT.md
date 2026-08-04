@@ -45,14 +45,12 @@ Proker awal ("Jauhar Urban Farming 2.0") mencakup dua pilar: monitoring kebun be
 - **Stabilitas produksi & animasi (Progressive Enhancement)**: baseline CSS scroll-reveal dibuat **100% visible by default (`opacity: 1`)**; kelas `.js-reveal` hanya ditambahkan secara dinamis jika JS & `IntersectionObserver` aktif — menjamin konten tidak pernah kosong/hilang meski JS gagal/terhambat. Script tombol hamburger mobile menggunakan `<script is:inline>` agar dapat dijalankan secara instan tanpa bergantung pada module bundler.
 - CI berjalan di Node 22 (mengikuti syarat minimum Astro 7)
 - The Harvest Journal (`/journal`) — koleksi artikel dengan CRUD siap lewat CMS begitu diaktifkan
-- **Foto asli terpasang di seluruh hero halaman, seluruh 3 kartu tim About, dan 13 dari 15 galeri** — dipilih & di-crop lewat `scripts/prepare-photo.mjs` / sharp langsung, EXIF/GPS otomatis terbuang. Sisa 6 kredit foto stok Wikimedia di `/credits` adalah 4 produk eksperimen (`_drafts/`) + 2 slot galeri (`campus-bazaar`, `drip-lines`) tanpa kandidat kuat. Galeri kini juga mendokumentasikan sistem JFI (IoT monitoring & kontrol pompa milik Jauhar sendiri), donasi hasil panen, kunjungan advisor universitas, dan kegiatan komunitas/sekolah
+- **Seluruh foto di situs sekarang foto asli Jauhar** (hero tiap halaman, ketiga kartu tim About, dan 14 galeri) — dipilih & di-crop lewat `scripts/prepare-photo.mjs` / sharp langsung, EXIF/GPS otomatis terbuang. Galeri mendokumentasikan sistem JFI (IoT monitoring & kontrol pompa milik Jauhar sendiri, termasuk sesi mentor IoT menjelaskannya), kangkung/rockmelon musim ini, donasi hasil panen ke Warung Makan Sahabat, kunjungan advisor universitas, dan kegiatan komunitas/sekolah. Dua slot galeri yang tadinya stok Wikimedia (`campus-bazaar`, `drip-lines`) dihapus 5 Agu 2026 alih-alih dipaksa dipertahankan tanpa foto asli yang layak — halaman `/credits` & kredit atribusinya ikut dihapus karena sudah tidak ada lagi foto stok di situs
 
 ### ⏳ Belum selesai (bergantung pihak eksternal/Jauhar)
 
 - **Domain custom belum dibeli** — situs masih di `jauharurbanfarming.vercel.app`
 - **Google Business Profile belum diklaim** — listing sudah ada di Maps tapi auto-generated/belum dikuasai pihak Jauhar
-- **2 slot galeri masih stok** (`campus-bazaar`, `drip-lines`) — belum ada foto stan bazaar atau close-up drip line yang layak; perlu sesi foto baru
-- Bagian "The team" di About sudah pakai foto asli untuk ketiga kartu, tapi label masih generik ("Student caretakers" dll.) — belum nama & cerita individu dari wawancara profil
 - Google Search Console belum di-submit (menunggu domain final)
 - **Decap CMS admin panel** — konfigurasi & dokumentasi lengkap sudah siap (lihat [MAINTENANCE.md](MAINTENANCE.md)), tinggal diaktifkan setelah domain final + GitHub OAuth App dibuat
 - Sesi pelatihan resmi ke mitra & serah terima dokumen belum dilaksanakan
@@ -64,7 +62,7 @@ Rincian aksi per item ada di [TODO.md](TODO.md).
 ## 3. Definition of Done
 
 - [x] Website live (masih di subdomain Vercel, custom domain menyusul)
-- [ ] Seluruh halaman inti terisi konten & foto asli — bukan stok/placeholder
+- [x] Seluruh halaman inti terisi konten & foto asli — bukan stok/placeholder
 - [x] Responsif penuh di mobile/tablet/desktop, tanpa horizontal scroll di 375px
 - [ ] Core Web Vitals hijau di domain final (LCP <2.5s, CLS <0.1, INP <200ms)
 - [ ] Lighthouse Performance >90 (mobile) di domain final
@@ -113,17 +111,16 @@ Static site murni — Astro meng-compile seluruh halaman jadi HTML statis saat b
 
 ```
 src/
-├── pages/                  # index, about, products, gallery, journal/, contact, credits, 404, robots.txt.ts
+├── pages/                  # index, about, products, gallery, journal/, contact, 404, robots.txt.ts
 ├── layouts/BaseLayout.astro  # <head> bersama: meta, OG/Twitter, font preload
 ├── components/             # Header, Footer, ProductCard, PageHero, Icon, WhatsAppCta, WhatsAppIcon, JsonLd
 ├── config.ts                # SATU sumber kebenaran: nomor WA, NAP, jam, sosmed, geo, LocalBusiness JSON-LD
 ├── content.config.ts        # schema Zod: products, gallery, journal
-├── content/products/_drafts/  # produk belum pasti dijual — dikecualikan total dari build
+├── content/products/_drafts/  # kosong saat ini — mekanisme exclude siap dipakai lagi kalau ada produk eksperimen baru
 ├── content/{products,gallery,journal}/   # 1 file .md per item
-├── data/photo-credits.ts    # kredit foto stok Wikimedia, dirender di /credits
 ├── utils/                    # date.ts (format tanggal), image.ts (sizes grid kartu)
 ├── styles/global.css        # design tokens + animasi fail-safe
-└── assets/                  # gambar sumber (masih stok Commons, lihat Section 2)
+└── assets/                  # gambar sumber — seluruhnya foto asli Jauhar sejak 5 Agu 2026
 public/                      # favicon (dari logo asli)
 scripts/                     # generate-placeholders.mjs, generate-favicons.mjs
 .github/                     # dependabot.yml, workflows/build-check.yml (npm run check lalu build)
@@ -136,10 +133,10 @@ vercel.json                  # security headers (bukan CSP — lihat Section 10)
 
 | ID  | Requirement                                                         | Status                                     |
 | --- | ------------------------------------------------------------------- | ------------------------------------------ |
-| F1  | Profil lengkap Jauhar (sejarah, visi-misi, kegiatan)                | ✅ (teks tim masih placeholder)            |
+| F1  | Profil lengkap Jauhar (sejarah, visi-misi, kegiatan)                | ✅                                         |
 | F2  | Katalog produk: foto, nama, deskripsi, harga                        | ✅                                         |
 | F3  | Tombol "Pesan/Book via WhatsApp" dengan pesan template otomatis     | ✅                                         |
-| F4  | Galeri dokumentasi kegiatan kebun                                   | ✅ (13 dari 15 foto asli, 2 masih stok)    |
+| F4  | Galeri dokumentasi kegiatan kebun                                   | ✅ (14 foto, semuanya asli)                |
 | F5  | Kontak: lokasi (Maps embed), jam operasional, kontak resmi          | ✅                                         |
 | F6  | Custom domain, optimal di mobile                                    | ⏳ domain belum dibeli                     |
 | F7  | Halaman blog/artikel edukasi (The Harvest Journal)                  | ✅ _(sebelumnya stretch goal, sudah live)_ |

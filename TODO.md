@@ -1,6 +1,6 @@
 # To-Do List
 
-Status per 3 Agustus 2026. Lihat [PROJECT.md](PROJECT.md) untuk konteks lengkap dan [MAINTENANCE.md](MAINTENANCE.md) untuk cara mengerjakan tiap item teknis.
+Status per 5 Agustus 2026. Lihat [PROJECT.md](PROJECT.md) untuk konteks lengkap dan [MAINTENANCE.md](MAINTENANCE.md) untuk cara mengerjakan tiap item teknis.
 
 ## 🔴 Faiz / tim teknis
 
@@ -11,17 +11,17 @@ Status per 3 Agustus 2026. Lihat [PROJECT.md](PROJECT.md) untuk konteks lengkap 
 - [x] ~~Review & pilah 166 foto asli~~ — selesai 3 Agu 2026: 11 dari 13 slot foto sudah pakai foto asli (hero, about-hero, og-default, 2 produk live, 6 dari 8 galeri), diproses lewat `scripts/prepare-photo.mjs`. 160 foto sisanya jadi arsip untuk konten masa depan.
 - [x] ~~Wire foto baru yang ditambahkan Jauhar (Agu 2026)~~ — selesai 4 Agu 2026: seluruh hero halaman, ketiga kartu tim di About, dan 7 galeri baru (kangkung/rockmelon musim ini, donasi panen ke Warung Makan Sahabat, sistem JFI, kunjungan advisor universitas, workshop komunitas & sekolah) sekarang pakai foto asli.
 - [x] ~~Tulis teks 2 artikel Journal baru~~ — selesai 4 Agu 2026: "When Our Volunteer Teams First Met" & "Workshopping Our Business Model" sudah live (`draft: false`), foto asli.
-- [ ] **2 slot galeri masih perlu foto baru**: `campus-bazaar.jpg` (belum ada foto stan/pasar) dan `drip-lines.jpg` (belum ada close-up teknis irigasi) — tidak ada kandidat layak di antara foto yang ada
-- [ ] **1 foto (`iot-demo.jpg`)** belum dipakai — sesi demo/pelatihan di halaman Mahallah, konteks pastinya belum jelas; tanyakan ke Jauhar sebelum dipasang
-- [ ] Jalankan Rich Results Test ulang & re-audit PageSpeed di domain final (foto asli sudah masuk, tinggal 2 slot di atas)
+- [x] ~~2 slot galeri stok tanpa kandidat foto~~ — selesai 5 Agu 2026: `campus-bazaar` & `drip-lines` dihapus (bukan dipaksain) alih-alih dibiarkan menggantung sebagai stok Wikimedia. Karena itu **semua foto galeri sekarang foto asli**, dan `/credits` + tautan footer-nya sudah dihapus (kredit atribusi CC BY/BY-SA sudah tidak relevan — tidak ada lagi foto stok di situs)
+- [x] ~~`iot-demo.jpg` belum dipakai~~ — selesai 5 Agu 2026: konteks dikonfirmasi (sesi pertama mentor IoT menjelaskan cara kerja sistem JFI ke tim), sudah jadi galeri "Learning the JFI system from our IoT mentor"
+- [x] ~~4 produk eksperimen di `_drafts/`~~ — selesai 5 Agu 2026: keputusan final **tidak dijual**, file draft dihapus (bukan dibiarkan menggantung); artikel Journal "Workshopping Our Business Model" sudah diberi catatan penutup soal keputusan ini
+- [ ] Jalankan Rich Results Test ulang & re-audit PageSpeed di domain final (semua foto asli sudah masuk, tidak ada lagi slot stok yang menunggu)
 
 ## 🟡 Pihak Jauhar
 
 - [ ] **Klaim Google Business Profile** — listing "Jauhar Urban Farming's Site" sudah ada di Maps tapi belum diklaim; pakai akun yang dikuasai Jauhar sendiri (bukan akun pribadi mahasiswa KKN), supaya kontrolnya tetap ada pasca-KKN
 - [ ] Konfirmasi alamat resmi (sudah disamakan ke listing Maps: Mahallah Halimah, 50728 Kuala Lumpur) — pastikan ini alamat yang memang mau dipakai jangka panjang
-- [ ] Wawancara profil pengelola asli — nama, foto, cerita tim (halaman About masih placeholder generik: "Student caretakers", "Community volunteers", dst.)
-- [ ] Konfirmasi harga final & keputusan: pickled cucumber / cucumber chips / garden salad pack / cucumber seedlings — lanjut dijual beneran atau tetap eksperimen? (file-nya sekarang di `src/content/products/_drafts/`; kalau jadi dijual, pindahkan kembali ke `src/content/products/` — lihat [MAINTENANCE.md](MAINTENANCE.md))
-- [ ] Kalau ada kesempatan foto baru: ambil foto stan/pasar bazaar dan close-up drip line — 2 slot galeri yang belum ketemu foto cocoknya dari 166 foto lama
+- [x] ~~Wawancara profil pengelola asli~~ — diputuskan 5 Agu 2026: **tidak perlu**, label peran generik ("Student caretakers", dst.) memang disengaja karena pengurus berganti tiap season
+- [x] ~~Keputusan pickled cucumber / cucumber chips / garden salad pack / cucumber seedlings~~ — diputuskan 5 Agu 2026: **tidak dijual**, file draft sudah dihapus dari repo
 - [ ] Pastikan link Instagram di bio sudah mengarah ke website
 
 ## 🟢 Bersama (menjelang akhir KKN)

@@ -62,7 +62,7 @@ Kalau ada isian salah (harga bukan angka, foto tidak ada), **build otomatis gaga
 **Dua cara menyembunyikan produk, beda dampaknya:**
 
 - `draft: true` di file yang tetap ada di `src/content/products/` — produk tersembunyi dari katalog, tapi gambarnya tetap ikut diproses oleh `astro:assets` saat build (masih dianggap "mungkin dipakai sebentar lagi").
-- Pindahkan file ke **`src/content/products/_drafts/`** (folder ini dikecualikan total dari collection lewat pattern di `src/content.config.ts`) — dipakai untuk 4 produk eksperimen yang belum pasti dilanjut (Pickled Cucumber, Cucumber Chips, Garden Salad Pack, Cucumber Seedlings), supaya gambarnya tidak ikut membengkakkan hasil build padahal tidak pernah tampil.
+- Pindahkan file ke **`src/content/products/_drafts/`** (folder ini dikecualikan total dari collection lewat pattern di `src/content.config.ts`) — dipakai untuk produk eksperimen yang belum pasti dilanjut, supaya gambarnya tidak ikut membengkakkan hasil build padahal tidak pernah tampil. Folder ini kosong per 5 Agu 2026 (4 produk eksperimen awal — Pickled Cucumber, Cucumber Chips, Garden Salad Pack, Cucumber Seedlings — sudah diputuskan tidak dijual dan filenya dihapus), tapi mekanismenya siap dipakai lagi kalau ada eksperimen produk baru.
 
 **Untuk menampilkan kembali produk dari `_drafts/`**: pindahkan file-nya kembali ke `src/content/products/` (bukan cuma ubah `draft: false` di tempatnya sekarang — selama masih di `_drafts/`, field `draft` diabaikan sepenuhnya karena filenya tidak pernah masuk collection).
 
@@ -95,7 +95,7 @@ Simpan foto sampul di `src/assets/journal/`. Artikel muncul otomatis di `/journa
 - Pencahayaan natural, latar bersih
 - Mengganti foto: timpa file dengan **nama yang sama persis** di `src/assets/`
 
-**Status saat ini: hero, about-hero, og-default, 2 produk live, dan 6 dari 8 galeri sudah pakai foto asli** (dipilih & di-crop dari 166 foto di folder `images/`, lihat riwayat di PROJECT.md §15). Sisa yang masih stok Wikimedia Commons: 2 slot galeri tanpa kandidat kuat (`campus-bazaar`, `drip-lines` — perlu sesi foto baru) dan 4 produk eksperimen di `src/content/products/_drafts/` yang gambarnya belum diproses karena belum pasti dijual. Lihat tabel kredit & kewajiban atribusi di bagian [Kredit Foto](#kredit-foto-sementara) di bawah — kalau nanti ganti salah satu dari sisa ini, **hapus baris terkait** di tabel kredit (foto CC BY/CC BY-SA wajib atribusi selama masih dipakai, CC0/Public Domain tidak wajib tapi tetap dicatat demi keterlacakan). 160 dari 166 foto di `images/` masih belum ditriase — sisanya jadi arsip untuk konten masa depan (Journal, produk baru).
+**Status saat ini (5 Agu 2026): seluruh foto di situs adalah foto asli Jauhar** — tidak ada lagi foto stok. Dua slot galeri yang sempat memakai stok Wikimedia (`campus-bazaar`, `drip-lines`) dihapus karena tidak ada kandidat foto asli yang layak, alih-alih dibiarkan menggantung sebagai placeholder — kalau nanti Jauhar punya foto stan bazaar atau close-up drip line, tinggal tambah entri galeri baru seperti biasa (lihat [Menambah foto galeri](#2-menambah-foto-galeri)). Karena tidak ada lagi foto stok, halaman `/credits` dan kewajiban atribusi CC BY/BY-SA sudah tidak relevan dan sudah dihapus dari repo. Sebagian besar foto sumber di `images/` (di luar repo, lihat arsip Google Drive) masih belum ditriase — jadi arsip untuk konten masa depan (Journal, produk baru).
 
 ### Teks
 
@@ -315,15 +315,9 @@ Semua animasi entrance (`.hero-enter`, `[data-reveal]`) di `src/styles/global.cs
 
 ---
 
-## Kredit Foto (sementara)
+## Memproses foto baru
 
-Sebagian kecil foto di `src/assets/` (lihat daftar di bawah) masih **stok berlisensi bebas dari Wikimedia Commons** — sisanya sudah foto asli, dipilih & diproses dari `images/`.
-
-> **Kewajiban lisensi:** foto CC BY / CC BY-SA mewajibkan atribusi selama masih dipakai di produksi. Karena itu tabel kredit **hidup di kode, bukan cuma di dokumen ini** — lihat `src/data/photo-credits.ts`, dirender publik di halaman **`/credits`** (tertaut dari footer setiap halaman). Foto CC0/Public Domain tidak wajib atribusi, tetap dicatat demi keterlacakan.
-
-**Saat menimpa sebuah foto stok dengan foto asli: hapus entri terkait di `src/data/photo-credits.ts`.** Kalau array-nya sudah kosong (semua foto sudah asli), hapus juga `src/pages/credits.astro` dan tautan "Photo credits" di `src/components/Footer.astro`.
-
-**Cara memproses foto asli dari `images/` ke `src/assets/`:** gunakan `scripts/prepare-photo.mjs` — resize & crop otomatis ke rasio slot target, sekaligus membuang metadata EXIF/GPS yang tertanam di foto ponsel:
+Seluruh foto di situs sekarang foto asli Jauhar (per 5 Agu 2026, tidak ada lagi foto stok — halaman kredit atribusi `/credits` sudah dihapus karena tidak relevan lagi). Kalau nanti perlu memproses foto baru dari arsip `images/` ke `src/assets/`, gunakan `scripts/prepare-photo.mjs` — resize & crop otomatis ke rasio slot target, sekaligus membuang metadata EXIF/GPS yang tertanam di foto ponsel:
 
 ```bash
 node scripts/prepare-photo.mjs images/PXL_xxx.jpg src/assets/gallery/nama-slot.jpg 1600 1200
