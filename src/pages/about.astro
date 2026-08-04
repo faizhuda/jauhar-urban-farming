@@ -6,15 +6,15 @@ import Icon from '../components/Icon.astro';
 import hero from '../assets/about-hero.jpg';
 import storyImage from '../assets/gallery/community-planting.jpg';
 import breakImage from '../assets/gallery/fertigation-rows.jpg';
-import teamA from '../assets/gallery/student-workshop.jpg';
-import teamB from '../assets/gallery/morning-harvest.jpg';
-import teamC from '../assets/gallery/packing-day.jpg';
+import teamA from '../assets/about-team-caretakers.jpg';
+import teamB from '../assets/about-team-volunteers.jpg';
+import teamC from '../assets/about-team-university.jpg';
 import nafasLogo from '../assets/brand/nafas.jpg';
 import citraLogo from '../assets/brand/citra-iium.jpg';
 
-// TODO(S1-05): seluruh teks halaman ini adalah DRAF DUMMY berbasis Proposal KKN.
-// Ganti dengan hasil wawancara profil mitra (deadline konten asli 30 Juli sudah lewat,
-// lihat TODO.md bagian "Pihak Jauhar" — wawancara profil pengelola asli).
+// TODO(S1-05): teks cerita & bio tim di halaman ini masih DRAF berbasis Proposal KKN.
+// Foto tim sudah foto asli (Agu 2026); nama & cerita individu masih menunggu hasil
+// wawancara profil mitra (lihat TODO.md bagian "Pihak Jauhar" — wawancara profil pengelola asli).
 ---
 
 <BaseLayout
@@ -48,12 +48,17 @@ import citraLogo from '../assets/brand/citra-iium.jpg';
           support from the university and external partners, the plot was transformed into
           productive fertigation beds, with cucumbers as our signature crop.
         </p>
-        <p class="text-body-md text-on-surface-variant">
+        <p class="mb-6 text-body-md text-on-surface-variant">
           Today, the harvest feeds the campus community and beyond: we sell fresh cucumbers and host
           pick-your-own farm tours. Good harvests bring their own challenge, an oversupply of
           cucumbers, so we're experimenting with turning the surplus into value-added products like
           pickled cucumbers and cucumber chips for the future. Along the way, the farm has earned
           innovation and entrepreneurship awards as a model of student-driven urban agriculture.
+        </p>
+        <p class="text-body-md text-on-surface-variant">
+          This season we're also trialling rockmelon and kangkung (water spinach) alongside our
+          usual cucumber beds, testing what else this plot can grow well before deciding what to
+          bring to market.
         </p>
       </div>
       <div class="md:col-span-5 md:col-start-8" data-reveal style="--reveal-delay: 150ms">
@@ -210,7 +215,7 @@ import citraLogo from '../assets/brand/citra-iium.jpg';
         <div class="group" data-reveal>
           <Image
             src={teamA}
-            alt="A student volunteer filling a grow bag with coco-peat"
+            alt="Four student caretakers standing together in front of the fertigation frame"
             width={480}
             height={480}
             widths={[320, 480]}
@@ -226,7 +231,7 @@ import citraLogo from '../assets/brand/citra-iium.jpg';
         <div class="group" data-reveal style="--reveal-delay: 130ms">
           <Image
             src={teamB}
-            alt="A volunteer picking cucumbers in the vine tunnel, basket ready on the path"
+            alt="A group of community volunteers posing together in their programme vests"
             width={480}
             height={480}
             widths={[320, 480]}
@@ -242,7 +247,7 @@ import citraLogo from '../assets/brand/citra-iium.jpg';
         <div class="group" data-reveal style="--reveal-delay: 260ms">
           <Image
             src={teamC}
-            alt="Volunteers weighing and packing freshly harvested cucumbers into bags"
+            alt="University advisors and students gathered among the grow bag nursery rows"
             width={480}
             height={480}
             widths={[320, 480]}

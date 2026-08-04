@@ -5,7 +5,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import Icon from '../components/Icon.astro';
 import { CARD_GRID_SIZES } from '../utils/image';
-import heroImage from '../assets/gallery/morning-harvest.jpg';
+import heroImage from '../assets/gallery-hero.jpg';
 
 const entries = (await getCollection('gallery')).sort((a, b) => a.data.order - b.data.order);
 
