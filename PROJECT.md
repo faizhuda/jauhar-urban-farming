@@ -27,7 +27,7 @@ Proker awal ("Jauhar Urban Farming 2.0") mencakup dua pilar: monitoring kebun be
 
 ---
 
-## 2. Status Saat Ini (per 3 Agustus 2026)
+## 2. Status Saat Ini (per 5 Agustus 2026)
 
 ### ✅ Sudah selesai
 
@@ -35,7 +35,7 @@ Proker awal ("Jauhar Urban Farming 2.0") mencakup dua pilar: monitoring kebun be
 - Design system **Professional Luxury**: palet Material 3 hijau + aksen emas/champagne, tipografi Libre Caslon Text + Hanken Grotesk, hero full-bleed, scroll-reveal progressive enhancement, dan parallax ringan (splash screen overlay dihapus total demi optimasi LCP & touch mobile tanpa halangan z-index)
 - Logo asli Jauhar terpasang (header + favicon), diproses jadi lingkaran bersih tanpa shadow
 - Nomor WhatsApp order resmi (`+60 13-239 1877`) terpasang di satu sumber kebenaran (`src/config.ts`)
-- **Katalog produk mencerminkan realita bisnis**: hanya **Fresh Cucumber** (RM3/kg) dan **Pick-Your-Own Farm Tour** (tur + petik gratis, booking dulu, bayar per kg yang dipetik) yang tampil & bisa dipesan. Pickled Cucumber, Cucumber Chips, Garden Salad Pack, dan Cucumber Seedlings masih eksperimen — disembunyikan total dari katalog (`draft: true`) sampai dipastikan lanjut dijual
+- **Katalog produk mencerminkan realita bisnis**: hanya **Fresh Cucumber** (RM3/kg) dan **Pick-Your-Own Farm Tour** (tur + petik gratis, booking dulu, bayar per kg yang dipetik) yang tampil & bisa dipesan. Pickled Cucumber, Cucumber Chips, Garden Salad Pack, dan Cucumber Seedlings sempat diworkshopkan sebagai eksperimen (lihat artikel Journal "Workshopping Our Business Model") tapi diputuskan final **tidak dijual** 5 Agu 2026 — filenya sudah dihapus dari repo, bukan lagi cuma disembunyikan
 - NAP (Name/Address/Phone) disamakan persis dengan listing Google Maps yang sudah ada ("Jauhar Urban Farming's Site") — alamat resmi: Mahallah Halimah, 50728 Kuala Lumpur, WP Kuala Lumpur
 - Pin Maps presisi di halaman Contact
 - Kredit kolaborasi: Mahallah Halimah · Siddiq · Maryam, CITRA IIUM, dan NAFAS (Persatuan Peladang Malaysia) — lengkap dengan logo asli di halaman About
@@ -122,7 +122,7 @@ src/
 ├── styles/global.css        # design tokens + animasi fail-safe
 └── assets/                  # gambar sumber — seluruhnya foto asli Jauhar sejak 5 Agu 2026
 public/                      # favicon (dari logo asli)
-scripts/                     # generate-placeholders.mjs, generate-favicons.mjs
+scripts/                     # prepare-photo.mjs (resize/crop foto baru), generate-favicons.mjs
 .github/                     # dependabot.yml, workflows/build-check.yml (npm run check lalu build)
 vercel.json                  # security headers (bukan CSP — lihat Section 10)
 ```

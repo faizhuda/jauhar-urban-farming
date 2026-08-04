@@ -21,6 +21,6 @@ Semua dokumentasi proyek dipusatkan di 3 file supaya tidak terfragmentasi:
 
 - **[PROJECT.md](PROJECT.md)** — requirement, arsitektur, status terkini, definition of done
 - **[TODO.md](TODO.md)** — daftar kerjaan yang masih terbuka, per siapa yang mengerjakan
-- **[MAINTENANCE.md](MAINTENANCE.md)** — cara update konten (non-teknis), setup Decap CMS, catatan teknis, kredit foto
+- **[MAINTENANCE.md](MAINTENANCE.md)** — cara update konten (non-teknis), setup Decap CMS, catatan teknis
 
 `Proposal.md` adalah dokumen proposal resmi KKNT yang disubmit ke IPB (punya lembar pengesahan) — dibiarkan terpisah, bukan dokumentasi teknis yang hidup.

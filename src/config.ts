@@ -31,7 +31,7 @@ export const SITE = {
     label: 'Monday – Friday, 9:00 AM – 5:00 PM',
   },
 
-  // TODO(S1-06): link sosial media resmi mitra. Mitra hanya punya Instagram (tidak ada Facebook).
+  // Mitra hanya punya Instagram (tidak ada Facebook) — bukan item yang belum dikerjakan.
   socials: {
     instagram: 'https://instagram.com/jauharurbanfarming',
   },
@@ -49,7 +49,6 @@ export function fullAddress(): string {
 
 /** Link click-to-order WhatsApp berisi nama produk (PRD F3). */
 export function waOrderLink(productName?: string): string {
-  // TODO(S0-08): finalkan template pesan bersama tim Content.
   const message = productName
     ? `Hello Jauhar Urban Farming! I would like to order: *${productName}*. Is it available?`
     : 'Hello Jauhar Urban Farming! I would like to ask about your products.';

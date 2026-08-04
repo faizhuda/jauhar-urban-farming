@@ -1,0 +1,5 @@
+# Simpan semua file teks dengan line ending LF di repo, apa pun OS kontributornya.
+# Tanpa ini, checkout di Windows (core.autocrlf=true) menulis CRLF ke working
+# directory, dan `npm run format` / `prettier --check` jadi menandai hampir semua
+# file sebagai "belum diformat" padahal isinya sudah benar — cuma line ending beda.
+* text=auto eol=lf

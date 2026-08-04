@@ -13,7 +13,6 @@
     "astro": "astro",
     "check": "astro check",
     "format": "prettier --write .",
-    "placeholders": "node scripts/generate-placeholders.mjs",
     "favicons": "node scripts/generate-favicons.mjs"
   },
   "dependencies": {
