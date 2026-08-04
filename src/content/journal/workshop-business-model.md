@@ -1,32 +1,26 @@
 ---
-title: Workshopping Our Business Model
-description: A session with university advisors on what to do with a good problem — more cucumbers than we can sell fresh.
-date: 2026-07-15
+title: Workshopping Our Rock Melon Business Model
+description: A session with Prof. Dr. Nurazzura on turning our rock melon trial into a real, market-ready product.
+date: 2026-07-23
 image: ../../assets/journal/workshop-business-model-final.jpg
-imageAlt: Student caretakers and university advisors seated together for a business model workshop
+imageAlt: Student caretakers and university advisors seated together for the rock melon business model workshop
 draft: false
 ---
 
-Good harvests create a good problem: what do you do when the beds produce more cucumbers than
-the campus can eat fresh in a week? That was the question on the table when we sat down with our
-university advisors and partner mentors for a workshop on the farm's business model.
+Growing a good crop and selling it well turn out to be two different skills. That was the
+starting point for our Workshop on Business Models and Strategy for Marketing Rock Melon, led by
+Prof. Dr. Nurazzura binti Mohamad Diah from the AHAS Kulliyyah of Islamic Revealed Knowledge &
+Human Sciences, IIUM.
 
-The short version of where we landed: selling fresh cucumbers and running pick-your-own tours
-covers the basics, but it leaves surplus on the table during peak weeks. So the session turned
-into a working list of what to do with that surplus, pickled cucumbers, cucumber chips, a garden
-salad pack, and seedlings for anyone who wants to grow their own. Each idea got picked apart the
-way you'd want it to: is it something we can actually make consistently, does it need equipment
-we don't have, and is there really demand for it beyond a farm-tour novelty.
+The session made the case that a successful agribusiness goes well beyond producing quality
+crops. We worked through the Business Model Canvas together, mapping out who our customers
+actually are, what makes our rock melon worth choosing over what's already on the shelf, and how
+a farm our size builds something sustainable and competitive rather than just seasonal.
 
-We didn't leave the room with a final product lineup, and that's on purpose. Right now those four
-ideas are experiments, we're testing recipes and shelf life before we commit real prices and
-inventory to any of them. The workshop also pushed us to be honest about what a small student-run
-plot can sustain versus what looks good on a proposal slide.
+From there the conversation moved into branding, market positioning, and marketing strategy,
+pushing us to think less like students running a trial plot and more like entrepreneurs turning a
+fresh idea into something market-ready.
 
-What we did leave with is a clearer sense of the decision ahead of us: whether to keep these as
-occasional experiments or turn one or two into something we sell every week.
-
-**Update:** we've since decided not to bring these four to market. The farm's bandwidth is best
-spent on what already works, fresh cucumbers and the tours, rather than stretching a small
-student-run plot across a bigger product line. The workshop was still worth it. We now know
-exactly what that door looks like if a future team wants to open it.
+A heartfelt thank you to Prof. Dr. Nurazzura for sharing her time and insight, and for reminding
+us that agriculture isn't just cultivation. It's also an opportunity to create value, build
+connections, and drive positive change.
