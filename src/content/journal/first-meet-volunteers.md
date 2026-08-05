@@ -1,7 +1,7 @@
 ---
 title: When Our Volunteer Teams First Met
 description: The day our community volunteers and student caretakers first stood together among the grow bags.
-date: 2026-07-12
+date: 2026-07-15
 image: ../../assets/journal/first-meet-volunteers-final.jpg
 imageAlt: A group of community volunteers and student caretakers gathered at the fertigation frame
 draft: false
