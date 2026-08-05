@@ -4,8 +4,8 @@ Status per 5 Agustus 2026. Lihat [PROJECT.md](PROJECT.md) untuk konteks lengkap 
 
 ## 🔴 Faiz / tim teknis
 
-- [ ] **Beli domain custom** (`.com`) — rekomendasi Rumahweb (~Rp129.500 tahun pertama, gratis WHOIS privacy), atau langsung lewat Vercel Domains kalau mau paling simpel
-- [ ] Setelah domain aktif: update `site` di `astro.config.mjs` — **sekarang cuma 1 tempat** (bukan 3 lagi; `SITE.url` sudah dihapus dan `robots.txt` sudah jadi endpoint yang otomatis ikut, lihat riwayat perubahan di PROJECT.md)
+- [x] ~~Beli domain custom~~ — selesai 6 Agu 2026: `jauharurbanfarming.com` dibeli via Rumahweb, dihubungkan ke Vercel (A record `@` → `216.198.79.1`, CNAME `www` → Vercel), status "Valid Configuration" untuk root & www
+- [x] ~~Update `site` di `astro.config.mjs`~~ — selesai 6 Agu 2026: diganti ke `https://jauharurbanfarming.com`, build diverifikasi (sitemap & robots.txt otomatis ikut)
 - [ ] Submit ke **Google Search Console** setelah domain final
 - [ ] Aktivasi **Decap CMS** (admin panel `/admin`) — langkah lengkap di [MAINTENANCE.md](MAINTENANCE.md#setup-admin-panel--decap-cms), butuh domain final dulu
 - [x] ~~Review & pilah 166 foto asli~~ — selesai 3 Agu 2026: 11 dari 13 slot foto sudah pakai foto asli (hero, about-hero, og-default, 2 produk live, 6 dari 8 galeri), diproses lewat `scripts/prepare-photo.mjs`. 160 foto sisanya jadi arsip untuk konten masa depan.

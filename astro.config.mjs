@@ -3,7 +3,6 @@ import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 
-// TODO(S1-02): ganti ke custom domain final setelah domain dibeli (lihat TODO.md).
 // SATU-SATUNYA tempat domain situs ditulis — canonical/OG/sitemap/robots.txt
 // semuanya membaca `site` ini via Astro.site, tidak ada salinan manual lain.
 // PENTING: harus PERSIS sama dengan domain Vercel yang benar-benar live —
@@ -11,7 +10,7 @@ import tailwindcss from '@tailwindcss/vite';
 // dan preview link (WhatsApp dll.) gagal menampilkan gambar (lihat insiden
 // 7 Juli 2026: proyek berganti nama dari jauhar-hub ke jauharurbanfarming).
 export default defineConfig({
-  site: 'https://jauharurbanfarming.vercel.app',
+  site: 'https://jauharurbanfarming.com',
   output: 'static',
   integrations: [sitemap()],
   vite: {
