@@ -14,8 +14,8 @@ and met the student caretakers who tend them every week.
 There's a particular kind of introduction that happens over grow bags rather than handshakes.
 Instead of small talk, we walked the rows together: how the drip lines feed each bag, why
 cucumbers get trellised instead of left to sprawl, what a healthy leaf looks like versus a
-thirsty one. Faiz Huda, Aqila, Naura, Felicia, Talitha, and the rest of the volunteer team traded
-questions with the caretakers who'd already spent months learning these beds by hand.
+thirsty one. Aqila, Faiz, Felicia, Hanif, Kiara, Naila, Naura, and Talitha traded questions with
+the caretakers who'd already spent months learning these beds by hand.
 
 It's easy to think of "community volunteers" and "student caretakers" as two separate groups on
 an org chart. In practice, the line blurs fast. By the end of that first visit, the volunteers
