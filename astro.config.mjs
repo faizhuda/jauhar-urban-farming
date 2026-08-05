@@ -2,6 +2,8 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
+import vercel from '@astrojs/vercel';
+import decapCmsOauth from 'astro-decap-cms-oauth';
 
 // SATU-SATUNYA tempat domain situs ditulis — canonical/OG/sitemap/robots.txt
 // semuanya membaca `site` ini via Astro.site, tidak ada salinan manual lain.
@@ -12,7 +14,8 @@ import tailwindcss from '@tailwindcss/vite';
 export default defineConfig({
   site: 'https://jauharurbanfarming.com',
   output: 'static',
-  integrations: [sitemap()],
+  adapter: vercel(),
+  integrations: [sitemap(), decapCmsOauth()],
   vite: {
     plugins: [tailwindcss()],
   },

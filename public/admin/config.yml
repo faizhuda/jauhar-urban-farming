@@ -1,0 +1,170 @@
+backend:
+  name: github
+  branch: main
+  repo: faizhuda/jauhar-urban-farming
+  site_domain: jauharurbanfarming.com
+  base_url: https://jauharurbanfarming.com
+  auth_endpoint: oauth
+
+media_folder: ''
+public_folder: ''
+
+collections:
+  - name: products
+    label: Products
+    folder: src/content/products
+    create: true
+    slug: '{{fields.name}}'
+    format: frontmatter
+    extension: md
+    identifier_field: name
+    fields:
+      - { label: Name, name: name, widget: string }
+      - { label: 'Price (MYR)', name: price, widget: number, value_type: float, min: 0 }
+      - {
+          label: Unit,
+          name: unit,
+          widget: string,
+          default: pack,
+          hint: 'mis. kg, jar, pack, person',
+        }
+      - {
+          label: Description,
+          name: description,
+          widget: text,
+          pattern: ['^.{10,200}$', 'Harus 10-200 karakter'],
+        }
+      - {
+          label: Image,
+          name: image,
+          widget: image,
+          media_folder: '/src/assets/products',
+          public_folder: '/src/assets/products',
+        }
+      - {
+          label: 'Image alt text',
+          name: imageAlt,
+          widget: string,
+          hint: 'Deskripsi gambar untuk aksesibilitas & SEO',
+        }
+      - label: Category
+        name: category
+        widget: select
+        options:
+          - { label: 'Fresh Harvest', value: fresh }
+          - { label: 'Farm Made', value: processed }
+          - { label: 'Learn & Grow', value: experience }
+      - {
+          label: 'Hide from catalogue (draft)',
+          name: draft,
+          widget: boolean,
+          default: false,
+          hint: 'Nyalakan untuk sembunyikan produk sepenuhnya, mis. eksperimen yang belum pasti dilanjut',
+        }
+      - { label: 'In stock', name: inStock, widget: boolean, default: true }
+      - {
+          label: 'Featured on homepage (max 3)',
+          name: featured,
+          widget: boolean,
+          default: false,
+        }
+      - {
+          label: 'Display order (kecil = lebih dulu)',
+          name: order,
+          widget: number,
+          value_type: int,
+          default: 99,
+        }
+      - { label: Body, name: body, widget: markdown, required: false }
+
+  - name: gallery
+    label: Gallery
+    folder: src/content/gallery
+    create: true
+    slug: '{{fields.alt}}'
+    format: frontmatter
+    extension: md
+    identifier_field: alt
+    fields:
+      - {
+          label: Image,
+          name: image,
+          widget: image,
+          media_folder: '/src/assets/gallery',
+          public_folder: '/src/assets/gallery',
+        }
+      - {
+          label: 'Alt text',
+          name: alt,
+          widget: string,
+          hint: 'Deskripsi gambar untuk aksesibilitas & SEO',
+        }
+      - { label: Caption, name: caption, widget: string }
+      - {
+          label: Date,
+          name: date,
+          widget: datetime,
+          date_format: 'YYYY-MM-DD',
+          time_format: false,
+          format: 'YYYY-MM-DD',
+        }
+      - {
+          label: 'Display order (kecil = lebih dulu)',
+          name: order,
+          widget: number,
+          value_type: int,
+          default: 99,
+        }
+      - {
+          label: 'Hide from gallery (draft)',
+          name: draft,
+          widget: boolean,
+          default: false,
+          hint: 'Nyalakan untuk sembunyikan foto sepenuhnya, mis. belum siap tampil',
+        }
+
+  - name: journal
+    label: The Harvest Journal
+    folder: src/content/journal
+    create: true
+    slug: '{{fields.title}}'
+    format: frontmatter
+    extension: md
+    identifier_field: title
+    fields:
+      - { label: Title, name: title, widget: string }
+      - {
+          label: Description,
+          name: description,
+          widget: text,
+          pattern: ['^.{10,200}$', 'Harus 10-200 karakter'],
+        }
+      - {
+          label: Date,
+          name: date,
+          widget: datetime,
+          date_format: 'YYYY-MM-DD',
+          time_format: false,
+          format: 'YYYY-MM-DD',
+        }
+      - {
+          label: Image,
+          name: image,
+          widget: image,
+          media_folder: '/src/assets/journal',
+          public_folder: '/src/assets/journal',
+        }
+      - {
+          label: 'Image alt text',
+          name: imageAlt,
+          widget: string,
+          hint: 'Deskripsi gambar untuk aksesibilitas & SEO',
+        }
+      - {
+          label: 'Hide from journal (draft)',
+          name: draft,
+          widget: boolean,
+          default: false,
+          hint: 'Nyalakan untuk sembunyikan artikel sepenuhnya, mis. draf belum siap terbit',
+        }
+      - { label: Body, name: body, widget: markdown }
