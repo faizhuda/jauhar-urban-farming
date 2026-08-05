@@ -81,12 +81,13 @@ description: 10–200 karakter, tampil di kartu daftar & meta description.
 date: 2026-07-20
 image: ../../assets/journal/first-harvest-of-the-season.jpg
 imageAlt: Deskripsi gambar untuk aksesibilitas & SEO
+draft: false # true = sembunyikan dari /journal sepenuhnya, mis. draf belum siap terbit
 ---
 
 Isi artikel di sini, format Markdown biasa (paragraf, **bold**, `## Sub-judul`, dst).
 ```
 
-Simpan foto sampul di `src/assets/journal/`. Artikel muncul otomatis di `/journal`, urut dari terbaru. Tidak perlu jadwal rutin — isi kalau ada cerita layak dibagikan, lebih baik jarang tapi berisi daripada sering tapi kosong.
+Simpan foto sampul di `src/assets/journal/`. Artikel muncul otomatis di `/journal`, urut dari terbaru (kecuali `draft: true`). Tidak perlu jadwal rutin — isi kalau ada cerita layak dibagikan, lebih baik jarang tapi berisi daripada sering tapi kosong.
 
 ### Foto
 
@@ -337,4 +338,4 @@ Semua file di-resize maks. 1600px lalu dikonversi otomatis ke WebP oleh pipeline
 - [ ] **Tanggal expired domain: __________** — pasang reminder perpanjangan!
 - [ ] Vercel Web Analytics dikonfirmasi aktif, cara membacanya sudah didemokan
 - [ ] Status Google Business Profile + langkah lanjutan dicatat
-- [ ] `site` di `astro.config.mjs`, `SITE.url` di `src/config.ts`, `Sitemap:` di `public/robots.txt` sudah ke domain final
+- [ ] `site` di `astro.config.mjs` sudah ke domain final (satu-satunya tempat domain ditulis — `robots.txt` & sitemap otomatis ikut lewat `Astro.site`)
