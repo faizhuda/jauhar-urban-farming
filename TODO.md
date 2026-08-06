@@ -6,8 +6,8 @@ Status per 5 Agustus 2026. Lihat [PROJECT.md](PROJECT.md) untuk konteks lengkap 
 
 - [x] ~~Beli domain custom~~ — selesai 6 Agu 2026: `jauharurbanfarming.com` dibeli via Rumahweb, dihubungkan ke Vercel (A record `@` → `216.198.79.1`, CNAME `www` → Vercel), status "Valid Configuration" untuk root & www
 - [x] ~~Update `site` di `astro.config.mjs`~~ — selesai 6 Agu 2026: diganti ke `https://jauharurbanfarming.com`, build diverifikasi (sitemap & robots.txt otomatis ikut)
-- [ ] Submit ke **Google Search Console** setelah domain final
-- [ ] Aktivasi **Decap CMS** (admin panel `/admin`) — langkah lengkap di [MAINTENANCE.md](MAINTENANCE.md#setup-admin-panel--decap-cms), butuh domain final dulu
+- [x] ~~Submit ke Google Search Console~~ — selesai 6 Agu 2026: domain property `jauharurbanfarming.com` diverifikasi (TXT record), sitemap `sitemap-index.xml` disubmit, pakai akun Google milik Jauhar (bukan akun mahasiswa KKN)
+- [x] ~~Aktivasi Decap CMS~~ — selesai 6 Agu 2026: `/admin` live, GitHub OAuth App dibuat (akun `faizhuda`, sementara — pindah ke akun Jauhar pas serah terima), env var di Vercel & GitHub Actions sudah diisi, CI hijau. Catatan teknis: `astro-decap-cms-oauth` belum resmi support Astro 7 (peer dep max Astro 6) — dipasang pakai `.npmrc` (`legacy-peer-deps=true`), sudah dites jalan normal di build & CI
 - [x] ~~Review & pilah 166 foto asli~~ — selesai 3 Agu 2026: 11 dari 13 slot foto sudah pakai foto asli (hero, about-hero, og-default, 2 produk live, 6 dari 8 galeri), diproses lewat `scripts/prepare-photo.mjs`. 160 foto sisanya jadi arsip untuk konten masa depan.
 - [x] ~~Wire foto baru yang ditambahkan Jauhar (Agu 2026)~~ — selesai 4 Agu 2026: seluruh hero halaman, ketiga kartu tim di About, dan 7 galeri baru (kangkung/rockmelon musim ini, donasi panen ke Warung Makan Sahabat, sistem JFI, kunjungan advisor universitas, workshop komunitas & sekolah) sekarang pakai foto asli.
 - [x] ~~Tulis teks 2 artikel Journal baru~~ — selesai 4 Agu 2026: "When Our Volunteer Teams First Met" & "Workshopping Our Business Model" sudah live (`draft: false`), foto asli.
@@ -16,15 +16,15 @@ Status per 5 Agustus 2026. Lihat [PROJECT.md](PROJECT.md) untuk konteks lengkap 
 - [x] ~~4 produk eksperimen di `_drafts/`~~ — selesai 5 Agu 2026: keputusan final **tidak dijual**, file draft dihapus (bukan dibiarkan menggantung)
 - [x] ~~Audit kesiapan produksi menyeluruh~~ — selesai 5 Agu 2026: header `Strict-Transport-Security` ditambahkan, script `generate-placeholders.mjs` yang berbahaya dihapus, `.gitattributes` ditambahkan (benerin `npm run format`), bug spasi hilang di Footer (imbas reformat Prettier) ketemu & diperbaiki sebelum sempat live. 0 kerentanan npm, semua CI hijau, 0 link internal putus.
 - [x] ~~Sempurnakan konten Journal pakai foto & caption Instagram asli~~ — selesai 5 Agu 2026: artikel "Workshopping Our Business Model" ditulis ulang total (ternyata soal marketing rock melon bareng Prof. Dr. Nurazzura, bukan surplus cucumber), artikel baru "An IoT Farming Technology Workshop" ditambahkan (16 Jul, Dr. Mohd Shahrin Abu Hanifah), tanggal & nama tim di "First Met" dikoreksi, hero Journal diganti foto seremoni kerja sama, foto "Our story" About diganti foto lahan kosong (lebih pas temanya), foto kartu "University support" ditukar ke versi indoor, kartu "Community volunteers" & artikel "First Met" sekarang sebut eksplisit **KKN-T IPB University 2026**. Journal sekarang 3 artikel asli live (bukan draf lagi).
-- [ ] Jalankan Rich Results Test ulang & re-audit PageSpeed di domain final (semua foto asli sudah masuk, tidak ada lagi slot stok yang menunggu)
+- [x] ~~Jalankan Rich Results Test ulang & re-audit PageSpeed di domain final~~ — selesai 6 Agu 2026: Lighthouse mobile 93/100/96/100 (perf/a11y/bp/seo), desktop 100/95/100/100, Core Web Vitals semua "Good". Rich Results Test valid di homepage (LocalBusiness+Organization), /products (Product×2+Merchant listings×2), dan artikel journal (Article) — cuma field opsional (priceRange, review, aggregateRating) yang kosong, tidak ada isu kritis. Temuan kecil non-blocking: logo header agak low-res untuk layar HiDPI (44×44px source, idealnya ~54×54px+)
 
 ## 🟡 Pihak Jauhar
 
 - [ ] **Klaim Google Business Profile** — listing "Jauhar Urban Farming's Site" sudah ada di Maps tapi belum diklaim; pakai akun yang dikuasai Jauhar sendiri (bukan akun pribadi mahasiswa KKN), supaya kontrolnya tetap ada pasca-KKN
-- [ ] Konfirmasi alamat resmi (sudah disamakan ke listing Maps: Mahallah Halimah, 50728 Kuala Lumpur) — pastikan ini alamat yang memang mau dipakai jangka panjang
+- [x] ~~Konfirmasi alamat resmi~~ — dikonfirmasi 6 Agu 2026: Mahallah Halimah, 50728 Kuala Lumpur memang alamat resmi jangka panjang
 - [x] ~~Wawancara profil pengelola asli~~ — diputuskan 5 Agu 2026: **tidak perlu**, label peran generik ("Student caretakers", dst.) memang disengaja karena pengurus berganti tiap season
 - [x] ~~Keputusan pickled cucumber / cucumber chips / garden salad pack / cucumber seedlings~~ — diputuskan 5 Agu 2026: **tidak dijual**, file draft sudah dihapus dari repo
-- [ ] Pastikan link Instagram di bio sudah mengarah ke website
+- [x] ~~Pastikan link Instagram di bio sudah mengarah ke website~~ — dikonfirmasi 6 Agu 2026: link sudah ada di bio
 
 ## 🟢 Bersama (menjelang akhir KKN)
 
