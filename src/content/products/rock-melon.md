@@ -1,5 +1,5 @@
 ---
-name: Rock Melon
+name: Fresh Rock Melon
 price: 13
 unit: kg
 description: Sweet fertigation-grown rock melons, hand-picked at peak ripeness
