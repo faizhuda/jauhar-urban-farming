@@ -64,7 +64,13 @@ dikelola developer.
 
 ## Menjalankan & memeriksa
 
-Node minimal 22.12, CI memakai Node 22.
+Node minimal 22.12, CI memakai Node 22 dengan npm 10.9.9 pada pengujian revisi ini.
+Saat memperbarui lockfile, gunakan versi npm yang sama. Pastikan dependency optional
+untuk Linux/WASM ikut tercatat; lock yang dibuat dari instalasi Windows yang sudah
+ada dapat kehilangan catatan `@emnapi` dan membuat `npm ci` di Linux gagal.
+Jika terjadi, regenerasi lock di direktori sementara bersih berisi package.json dan
+lockfile dengan npm versi CI, lalu pastikan versi paket lama tidak berubah.
+Jangan mengganti pemeriksaan CI ke `npm install` untuk menutupi masalah lockfile.
 
 ```bash
 npm ci
