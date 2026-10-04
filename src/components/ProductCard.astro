@@ -61,7 +61,7 @@ const productLd = {
     {
       !inStock && (
         <span class="absolute left-4 top-4 bg-surface-container-highest px-3 py-1 text-label-caps uppercase text-on-surface-variant">
-          Coming soon
+          {category === 'experience' ? 'Bookings paused' : 'Out of stock'}
         </span>
       )
     }
@@ -89,7 +89,7 @@ const productLd = {
           />
         ) : (
           <span class="btn w-full cursor-not-allowed border border-outline-variant bg-surface-container px-6 py-3 text-on-surface-variant sm:w-auto">
-            Coming soon
+            {category === 'experience' ? 'Bookings paused' : 'Out of stock'}
           </span>
         )
       }

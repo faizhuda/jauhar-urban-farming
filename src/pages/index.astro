@@ -7,21 +7,19 @@ import WhatsAppCta from '../components/WhatsAppCta.astro';
 import JsonLd from '../components/JsonLd.astro';
 import Icon from '../components/Icon.astro';
 import { SITE, localBusinessLd } from '../config';
-import hero from '../assets/hero.jpg';
+import { pageContent } from '../utils/page-content';
 import visionA from '../assets/gallery/fertigation-rows.jpg';
 import visionB from '../assets/gallery/seedling-nursery.jpg';
+import { featuredProducts } from '../utils/content';
 
-const featured = (await getCollection('products', ({ data }) => data.featured))
-  .sort((a, b) => a.data.order - b.data.order)
-  .slice(0, 3);
+const featured = featuredProducts(await getCollection('products'));
+const page = await pageContent('home');
+const hero = page.image;
 
 const businessLd = localBusinessLd(new URL(hero.src, Astro.site).href, Astro.site?.href);
 ---
 
-<BaseLayout
-  title="Jauhar Urban Farming — Campus Urban Farm in Gombak"
-  description="Student-run urban farm at IIUM Gombak, Kuala Lumpur. Fresh fertigation-grown cucumbers and pick-your-own farm tours. Order via WhatsApp for campus pickup."
->
+<BaseLayout title={page.title} description={page.description}>
   <JsonLd data={businessLd} />
 
   {
@@ -34,7 +32,7 @@ const businessLd = localBusinessLd(new URL(hero.src, Astro.site).href, Astro.sit
     <div class="absolute -inset-y-[6%] inset-x-0" data-parallax>
       <Image
         src={hero}
-        alt="Rows of grow bags with young seedlings under the fertigation frame"
+        alt={page.imageAlt}
         width={1600}
         height={900}
         widths={[480, 800, 1200, 1600]}
@@ -48,16 +46,17 @@ const businessLd = localBusinessLd(new URL(hero.src, Astro.site).href, Astro.sit
     <div class="hero-scrim absolute inset-0"></div>
     <div class="shell relative z-10 pb-14 pt-32 md:pb-16 md:pt-40">
       <div class="max-w-3xl">
-        <p class="kicker kicker-dark hero-enter mb-4">IIUM Gombak · Kuala Lumpur</p>
-        <h1 class="hero-enter mb-5 font-serif text-display-sm text-on-primary md:text-display-lg">
-          Fresh produce,<br />grown on campus.
+        <p class="kicker kicker-dark hero-enter mb-4">{page.kicker}</p>
+        <h1
+          class="hero-enter mb-5 whitespace-pre-line font-serif text-display-sm text-on-primary md:text-display-lg"
+        >
+          {page.heading}
         </h1>
         <p class="hero-enter mb-5 font-serif text-xl italic text-accent-bright md:text-2xl">
-          Grow Smart, Grow Together
+          {page.strapline}
         </p>
         <p class="hero-enter-delayed mb-7 max-w-xl text-body-lg text-on-primary/85">
-          {SITE.tagline}. Since 2021 our student community has turned unused campus land into
-          productive fertigation beds, and everything we harvest can be yours.
+          {SITE.tagline}. {page.lead}
         </p>
         <div
           class="hero-enter-delayed flex flex-col flex-wrap gap-3 sm:flex-row sm:items-center sm:gap-6"

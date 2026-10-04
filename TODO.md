@@ -1,6 +1,6 @@
 # To-Do List
 
-Status per 5 Agustus 2026. Lihat [PROJECT.md](PROJECT.md) untuk konteks lengkap dan [MAINTENANCE.md](MAINTENANCE.md) untuk cara mengerjakan tiap item teknis.
+Status per 4 Oktober 2026. Catatan selesai pada Agustus dipertahankan sebagai riwayat. Lihat [PROJECT.md](PROJECT.md) untuk konteks lengkap dan [MAINTENANCE.md](MAINTENANCE.md) untuk cara mengerjakan tiap item teknis.
 
 ## 🔴 Faiz / tim teknis
 
@@ -28,12 +28,26 @@ Status per 5 Agustus 2026. Lihat [PROJECT.md](PROJECT.md) untuk konteks lengkap 
 
 ## 🟢 Bersama (menjelang akhir KKN)
 
-- [ ] Sesi pelatihan resmi ke Jauhar: cara update konten via GitHub, cara baca Vercel Analytics dasar
+- [ ] Sesi pelatihan resmi ke Jauhar: Products, Farm Photos, Farm Stories, Business Information dan Page Introductions lewat CMS; cara baca Vercel Analytics dasar
 - [ ] Serah terima akses: repo GitHub, dashboard Vercel, akun registrar domain, Google Business Profile
 - [ ] Catat tanggal expired domain + reminder perpanjangan di dokumen serah terima
 - [ ] Uji multi-perangkat fisik terakhir (Android 4G, iPhone, tablet, desktop 1366/1920px) sebelum dianggap selesai
 
-## 💡 Opsional / nice-to-have
+## Migrasi CMS — 4 Oktober 2026
+
+- [x] Implementasi Sveltia 0.227.3, form dengan label sederhana, pilihan Draft/Published dan Availability, preview serta panduan singkat.
+- [x] Filter draft di Home/Gallery, aturan harga konsisten, kolom Body produk yang tidak terpakai dihapus.
+- [x] Informasi usaha dan pengantar enam halaman bisa diedit dari CMS, dengan validasi build.
+- [x] Pemrosesan upload foto 1600px/WebP dan nama unik; bundle CMS hanya di admin.
+- [x] Paket OAuth yang tidak mendukung Astro 7 diganti endpoint dengan state/PKCE, pemeriksaan akses repo dan validasi pesan popup; workaround legacy peer deps dihapus.
+- [x] Patch dependency kompatibel, termasuk Astro 7.3.5/Sharp 0.35.5 dan override routing 6.3.0; laporan critical sudah hilang.
+- [ ] Pantau patch `http-cache-semantics` GHSA-ch52-4w7c-c8xp; 3 laporan high dari satu rantai dependency masih terbuka (lihat MAINTENANCE).
+- [ ] Verifikasi login akun pengelola, thumbnail media lama, upload foto dan publikasi nyata setelah deployment.
+- [ ] Uji keyboard/pemilih foto/HEIC pada perangkat Android dan iPhone nyata.
+- [ ] Pindahkan kepemilikan OAuth App yang masih memakai akun pribadi Faiz saat serah terima.
+- [ ] Ukur ulang PageSpeed setelah deployment revisi ini.
+
+## 💡 Opsional lanjutan
 
 - [ ] Isi The Harvest Journal secara rutin — hanya kalau ada yang benar-benar niat nulis, lebih baik jarang tapi berisi
 - [ ] Multi-bahasa (ID/MY/EN) — Astro punya dukungan i18n bawaan, belum jadi prioritas

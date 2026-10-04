@@ -1,0 +1,19 @@
+{
+  "name": "Jauhar Urban Farming",
+  "tagline": "Fresh, campus-grown produce from IIUM Gombak",
+  "whatsapp": "60132391877",
+  "address": {
+    "street": "International Islamic University Malaysia (IIUM), Mahallah Halimah",
+    "locality": "Kuala Lumpur",
+    "region": "Wilayah Persekutuan Kuala Lumpur",
+    "postalCode": "50728",
+    "country": "MY"
+  },
+  "hours": {
+    "days": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+    "opens": "09:00",
+    "closes": "17:00"
+  },
+  "socials": { "instagram": "https://instagram.com/jauharurbanfarming" },
+  "geo": { "lat": 3.2576273, "lng": 101.7337326 }
+}

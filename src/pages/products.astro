@@ -3,22 +3,18 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import ProductCard from '../components/ProductCard.astro';
-import heroImage from '../assets/products-hero-photo.jpg';
+import { pageContent } from '../utils/page-content';
+const page = await pageContent('products');
 
 const products = (await getCollection('products', ({ data }) => !data.draft)).sort(
   (a, b) => a.data.order - b.data.order,
 );
 ---
 
-<BaseLayout
-  title="Products"
-  description="Fresh fertigation-grown cucumbers and pick-your-own farm tours from Jauhar Urban Farming, IIUM Gombak. Order easily via WhatsApp."
->
-  <PageHero image={heroImage} kicker="The catalogue">
-    <Fragment slot="title">Grown here.<br />Yours in a chat.</Fragment>
-    Everything below is grown or made at our farm in IIUM Gombak. Tap <strong
-      >Order via WhatsApp</strong
-    > on any item. A chat opens with your order pre-filled, and you pick it up fresh at the farm.
+<BaseLayout title={page.title} description={page.description}>
+  <PageHero image={page.image} imageAlt={page.imageAlt} kicker={page.kicker}>
+    <Fragment slot="title">{page.heading}</Fragment>
+    {page.lead}
   </PageHero>
 
   {/* Katalog */}

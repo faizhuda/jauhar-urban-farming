@@ -3,22 +3,20 @@ import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/PageHero.astro';
-import heroImage from '../../assets/journal-hero-photo.jpg';
+import { pageContent } from '../../utils/page-content';
 import { formatDate } from '../../utils/date';
 import { CARD_GRID_SIZES } from '../../utils/image';
 
 const entries = (await getCollection('journal', ({ data }) => !data.draft)).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
 );
+const page = await pageContent('journal');
 ---
 
-<BaseLayout
-  title="The Harvest Journal"
-  description="Stories, updates, and lessons from campus urban farming at Jauhar Urban Farming, IIUM Gombak."
->
-  <PageHero image={heroImage} kicker="The Harvest Journal">
-    <Fragment slot="title">Stories from the field.</Fragment>
-    Updates, lessons, and behind-the-scenes notes from our fertigation beds at IIUM Gombak.
+<BaseLayout title={page.title} description={page.description}>
+  <PageHero image={page.image} imageAlt={page.imageAlt} kicker={page.kicker}>
+    <Fragment slot="title">{page.heading}</Fragment>
+    {page.lead}
   </PageHero>
 
   <section class="shell py-16 md:py-24">

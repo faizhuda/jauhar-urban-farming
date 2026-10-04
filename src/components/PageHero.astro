@@ -44,7 +44,7 @@ const leadClass = `hero-enter-delayed max-w-${leadMaxWidth} text-body-lg text-on
       alt={imageAlt}
       width={1200}
       height={675}
-      widths={[640, 1200, 1600]}
+      widths={[480, 800, 1200, 1600]}
       sizes="100vw"
       quality={60}
       loading="eager"
@@ -56,7 +56,7 @@ const leadClass = `hero-enter-delayed max-w-${leadMaxWidth} text-body-lg text-on
   <div class="shell relative z-10 pb-14 pt-32 md:pb-16 md:pt-40">
     <div class={wrapClass}>
       <p class="kicker kicker-dark hero-enter mb-5">{kicker}</p>
-      <h1 class={titleClass}><slot name="title" /></h1>
+      <h1 class={`${titleClass} whitespace-pre-line`}><slot name="title" /></h1>
       <p class={leadClass}><slot /></p>
     </div>
   </div>

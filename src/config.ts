@@ -1,46 +1,15 @@
-/**
- * Single source of truth untuk identitas situs.
- *
- * PENTING (PRD §9.3 & §14):
- * - Nomor WhatsApp HANYA boleh diganti di sini — semua tombol order membacanya.
- * - NAP (Name, Address, Phone) harus PERSIS sama dengan Google Business Profile
- *   dan sosial media mitra.
- */
+import business from './data/business.json';
+import { businessSchema, daysLabel } from './utils/site-settings';
+
+// CMS settings are validated at build time and feed both visible content and JSON-LD.
+const settings = businessSchema.parse(business);
 export const SITE = {
-  name: 'Jauhar Urban Farming',
-  tagline: 'Fresh, campus-grown produce from IIUM Gombak',
-
-  // Format: kode negara + nomor, angka saja, tanpa "+" (dipakai untuk link wa.me).
-  whatsapp: '60132391877',
-
-  // Disamakan persis dengan listing Google Maps "Jauhar Urban Farming's Site"
-  // (lihat catatan NAP di chat/handover). Nama kampus tetap "Gombak" secara
-  // geografis, tapi alamat pos resminya terdaftar di bawah Kuala Lumpur.
-  address: {
-    street: 'International Islamic University Malaysia (IIUM), Mahallah Halimah',
-    locality: 'Kuala Lumpur',
-    region: 'Wilayah Persekutuan Kuala Lumpur',
-    postalCode: '50728',
-    country: 'MY',
-  },
-
+  ...settings,
   hours: {
-    days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
-    opens: '09:00',
-    closes: '17:00',
-    label: 'Monday – Friday, 9:00 AM – 5:00 PM',
+    ...settings.hours,
+    label: `${daysLabel(settings.hours.days)}, ${settings.hours.opens} – ${settings.hours.closes}`,
   },
-
-  // Mitra hanya punya Instagram (tidak ada Facebook) — bukan item yang belum dikerjakan.
-  socials: {
-    instagram: 'https://instagram.com/jauharurbanfarming',
-  },
-
-  // Pin persis dari listing Maps "Jauhar Urban Farming's Site" (lihat catatan NAP di README/chat).
-  // Satu-satunya tempat koordinat ditulis — mapsEmbedUrl() dan JSON-LD geo (localBusinessLd)
-  // berasal dari sini, supaya tidak ada dua angka lat/lng yang bisa berbeda.
-  geo: { lat: 3.2576273, lng: 101.7337326 },
-} as const;
+};
 
 /** URL alamat lengkap satu baris, dipakai di Footer dan halaman Contact. */
 export function fullAddress(): string {

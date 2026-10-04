@@ -3,7 +3,7 @@ import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import Icon from '../components/Icon.astro';
-import hero from '../assets/about-hero.jpg';
+import { pageContent } from '../utils/page-content';
 import storyImage from '../assets/about-story.jpg';
 import breakImage from '../assets/gallery/fertigation-rows.jpg';
 import teamA from '../assets/about-team-caretakers.jpg';
@@ -11,21 +11,13 @@ import teamB from '../assets/about-team-volunteers.jpg';
 import teamC from '../assets/about-team-university.jpg';
 import nafasLogo from '../assets/brand/nafas.jpg';
 import citraLogo from '../assets/brand/citra-iium.jpg';
+const page = await pageContent('about');
 ---
 
-<BaseLayout
-  title="About Us"
-  description="The story of Jauhar Urban Farming, a student-led fertigation farm at IIUM Gombak founded in 2021, growing food and community on campus land."
->
-  <PageHero
-    image={hero}
-    imageAlt="Two volunteers bagging freshly harvested cucumbers beside the trellis rows"
-    kicker="Est. 2021 · IIUM Gombak"
-  >
-    <Fragment slot="title">Growing food, growing people.</Fragment>
-    Rooted in the heart of IIUM Gombak, Jauhar Urban Farming is more than an agricultural initiative.
-    It is a commitment to sustainable practices, student empowerment, and a closer relationship between
-    campus and nature.
+<BaseLayout title={page.title} description={page.description}>
+  <PageHero image={page.image} imageAlt={page.imageAlt} kicker={page.kicker}>
+    <Fragment slot="title">{page.heading}</Fragment>
+    {page.lead}
   </PageHero>
 
   {/* Our story */}
