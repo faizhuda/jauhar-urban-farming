@@ -109,4 +109,22 @@ CMS.registerEventListener({
 const demoConfig = demo
   ? JSON.parse(document.querySelector('#demo-config')!.textContent!)
   : undefined;
-void CMS.init(demoConfig ? { config: demoConfig } : undefined);
+const root = document.querySelector<HTMLElement>('#nc-root')!;
+const managerUrl = new URL('/admin/', root.dataset.siteUrl!);
+if (!import.meta.env.DEV && window.location.origin !== managerUrl.origin) {
+  // The OAuth callback belongs to the canonical website, not a preview deployment.
+  const section = document.createElement('section');
+  section.className = 'manager-access';
+  const heading = document.createElement('h1');
+  heading.textContent = 'Manage content on the live website';
+  const description = document.createElement('p');
+  description.textContent =
+    'You are viewing a website preview. Open the live website manager to sign in and edit content.';
+  const link = document.createElement('a');
+  link.href = managerUrl.href;
+  link.textContent = 'Open Website Manager';
+  section.append(heading, description, link);
+  root.replaceChildren(section);
+} else {
+  void CMS.init(demoConfig ? { config: demoConfig } : undefined);
+}

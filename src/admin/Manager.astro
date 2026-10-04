@@ -45,7 +45,7 @@ const demoConfig =
           : 'Save your changes, wait for the website to update, then check the result.'
       }
     </p>
-    <div id="nc-root"></div>
+    <div id="nc-root" data-site-url={siteUrl}></div>
     {
       demoConfig && (
         <script is:inline id="demo-config" type="application/json" set:html={demoConfig} />

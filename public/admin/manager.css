@@ -73,6 +73,32 @@ body {
 #nc-root select {
   min-height: 44px;
 }
+.manager-access {
+  max-width: 640px;
+  padding: 32px 20px;
+  color: #143829;
+}
+.manager-access h1 {
+  font:
+    600 clamp(26px, 5vw, 36px)/1.25 Georgia,
+    serif;
+}
+.manager-access p {
+  line-height: 1.6;
+}
+.manager-access a {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 16px;
+  border-radius: 6px;
+  background: #143829;
+  color: white;
+}
+.manager-access a:focus-visible {
+  outline: 2px solid #806d3e;
+  outline-offset: 3px;
+}
 .jauhar-choices {
   display: flex;
   flex-wrap: wrap;

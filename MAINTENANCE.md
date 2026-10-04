@@ -124,8 +124,10 @@ scope dan model akses perlu ditinjau. OAuth App masih memiliki cakupan lintas re
 publik milik akun; GitHub App dengan akses per repo merupakan opsi jangka panjang.
 
 Login tanpa kredensial mengembalikan pesan gagal yang jelas; website publik tetap
-bisa dibangun. Preview deployment mengarahkan login ke admin domain produksi karena
-callback OAuth App tetap terdaftar di domain tersebut. Untuk pengujian OAuth lokal
+bisa dibangun. Admin pada preview deployment menampilkan tautan ke admin domain
+produksi, karena callback OAuth App tetap terdaftar di domain tersebut. Endpoint
+OAuth yang dibuka langsung pada origin preview juga mengarah ke admin produksi.
+Untuk pengujian OAuth lokal
 nyata gunakan OAuth App development terpisah dengan callback localhost dan `.env`
 (lihat `.env.example`). Jangan mengubah callback App produksi untuk tes lokal.
 
