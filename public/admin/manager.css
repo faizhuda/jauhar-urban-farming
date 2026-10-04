@@ -1,0 +1,138 @@
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.manager-header {
+  flex-shrink: 0;
+  min-height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 6px 16px;
+  color: #fff;
+  background: #143829;
+}
+.manager-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 650;
+}
+.manager-brand img {
+  border-radius: 8px;
+}
+.manager-header nav {
+  display: flex;
+  gap: 8px;
+}
+.manager-header a {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 12px;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 6px;
+}
+.manager-header a:hover,
+.manager-header a:focus-visible {
+  background: #28503c;
+  outline: 2px solid #cdb784;
+  outline-offset: -2px;
+}
+.save-notice {
+  flex-shrink: 0;
+  margin: 0;
+  padding: 8px 16px;
+  font-size: 13px;
+  background: #f5f0e4;
+  color: #143829;
+  min-height: 36px;
+}
+#nc-root {
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  contain: layout;
+  isolation: isolate;
+}
+#nc-root button {
+  min-height: 44px;
+}
+#nc-root input:not([type='radio']):not([type='checkbox']):not([type='file']),
+#nc-root select {
+  min-height: 44px;
+}
+.jauhar-choices {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.jauhar-choice {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border: 1px solid #8c9b90;
+  border-radius: 6px;
+  cursor: pointer;
+  font: inherit;
+}
+.jauhar-choice:has(input:checked) {
+  background: #e9f0eb;
+  color: #143829;
+  border-color: #143829;
+}
+.jauhar-choice:focus-within {
+  outline: 2px solid #806d3e;
+  outline-offset: 2px;
+}
+@media (max-width: 600px) {
+  .manager-header {
+    padding: 6px 10px;
+    flex-wrap: wrap;
+    gap: 0;
+  }
+  .manager-brand {
+    font-size: 15px;
+  }
+  .manager-header nav {
+    margin-left: auto;
+    font-size: 13px;
+    gap: 0;
+  }
+  .manager-header a {
+    padding: 6px 8px;
+  }
+  .save-notice {
+    padding: 8px 10px;
+  }
+  #nc-root input:not([type='checkbox']):not([type='radio']),
+  #nc-root textarea,
+  #nc-root select {
+    font-size: 16px;
+  }
+}
+@media (max-width: 420px) {
+  .manager-header {
+    min-height: 102px;
+  }
+  .manager-header nav {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .save-notice {
+    min-height: 56px;
+  }
+}

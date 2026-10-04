@@ -1,0 +1,8 @@
+---
+import Manager from '../../admin/Manager.astro';
+if (import.meta.env.DEV && Astro.url.searchParams.get('demo') === '1') {
+  return Astro.redirect('/admin/demo/');
+}
+---
+
+<Manager />

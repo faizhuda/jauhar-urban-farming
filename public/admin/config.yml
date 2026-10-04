@@ -1,170 +1,341 @@
+# Sveltia CMS 0.227.3. Validation is also checked by tests and the Astro build.
+app_title: Jauhar Website Manager
+site_url: https://jauharurbanfarming.com
+display_url: https://jauharurbanfarming.com
+logo: { src: /apple-touch-icon.png }
 backend:
   name: github
   branch: main
   repo: faizhuda/jauhar-urban-farming
-  site_domain: jauharurbanfarming.com
   base_url: https://jauharurbanfarming.com
   auth_endpoint: oauth
-
-media_folder: ''
-public_folder: ''
-
+  site_domain: jauharurbanfarming.com
+media_folder: src/assets/uploads
+public_folder: /src/assets/uploads
+media_libraries:
+  default:
+    config:
+      max_file_size: 12582912
+      slugify_filename: true
+      filename_template: '{{filename}}-{{uuid_short}}'
+  all:
+    transformations:
+      raster_image: { format: webp, quality: 82, width: 1600, height: 1600 }
+output: { omit_empty_optional_fields: true }
 collections:
   - name: products
     label: Products
+    label_singular: Product
+    description: Update prices, photos and availability. New products start as drafts.
     folder: src/content/products
+    media_folder: /src/assets/products
+    public_folder: /src/assets/products
     create: true
     slug: '{{fields.name}}'
+    identifier_field: name
     format: frontmatter
     extension: md
-    identifier_field: name
+    thumbnail: image
+    summary: '{{name}} · RM {{price}} / {{unit}}'
+    sortable_fields: [order, name, price]
+    view_filters:
+      - { label: Drafts, field: draft, pattern: true }
+      - { label: Unavailable, field: inStock, pattern: false }
+      - { label: Home selections, field: featured, pattern: true }
     fields:
-      - { label: Name, name: name, widget: string }
-      - { label: 'Price (MYR)', name: price, widget: number, value_type: float, min: 0 }
+      - { label: Product name, name: name, widget: string }
+      - &publication
+        label: Visibility
+        name: draft
+        widget: publication
+        default: true
+        hint: Draft stays hidden everywhere. Published appears after the website finishes updating.
       - {
-          label: Unit,
+          label: Availability,
+          name: inStock,
+          widget: availability,
+          default: true,
+          hint: Unavailable products stay visible with an out-of-stock or bookings-paused label.,
+        }
+      - {
+          label: Price in Ringgit (RM),
+          name: price,
+          widget: number,
+          value_type: float,
+          min: 0.01,
+          step: 0.01,
+          hint: Enter a number greater than zero.,
+        }
+      - {
+          label: Sold per,
           name: unit,
           widget: string,
           default: pack,
-          hint: 'mis. kg, jar, pack, person',
+          hint: 'For example: kg, pack, jar, person, or kg picked.',
         }
       - {
-          label: Description,
-          name: description,
-          widget: text,
-          pattern: ['^.{10,200}$', 'Harus 10-200 karakter'],
+          label: Category,
+          name: category,
+          widget: select,
+          default: fresh,
+          options:
+            [
+              { label: Fresh Harvest, value: fresh },
+              { label: Farm Made, value: processed },
+              { label: Learn & Grow, value: experience },
+            ],
         }
+      - &summary
+        label: Short description
+        name: description
+        widget: text
+        pattern: ['^[\s\S]{10,200}$', 'Write 10–200 characters.']
+        hint: A short description shown on the website. Maximum 200 characters.
+      - &photo
+        label: Photo
+        name: image
+        widget: image
+        accept: '.jpg,.jpeg,.png,.webp,.heic,.heif'
+        choose_url: false
+        hint: Choose a photo from your phone, up to 12 MB. It is resized automatically. Keep the subject near the centre.
+      - &photoDescription
+        label: Describe the photo
+        name: imageAlt
+        widget: string
+        hint: Describe what is visible for people who cannot see the photo. For example, Fresh cucumbers in a harvest basket.
       - {
-          label: Image,
-          name: image,
-          widget: image,
-          media_folder: '/src/assets/products',
-          public_folder: '/src/assets/products',
-        }
-      - {
-          label: 'Image alt text',
-          name: imageAlt,
-          widget: string,
-          hint: 'Deskripsi gambar untuk aksesibilitas & SEO',
-        }
-      - label: Category
-        name: category
-        widget: select
-        options:
-          - { label: 'Fresh Harvest', value: fresh }
-          - { label: 'Farm Made', value: processed }
-          - { label: 'Learn & Grow', value: experience }
-      - {
-          label: 'Hide from catalogue (draft)',
-          name: draft,
-          widget: boolean,
-          default: false,
-          hint: 'Nyalakan untuk sembunyikan produk sepenuhnya, mis. eksperimen yang belum pasti dilanjut',
-        }
-      - { label: 'In stock', name: inStock, widget: boolean, default: true }
-      - {
-          label: 'Featured on homepage (max 3)',
+          label: Show on Home,
           name: featured,
           widget: boolean,
           default: false,
+          hint: 'Home shows the first three published selections, using the position below.',
         }
-      - {
-          label: 'Display order (kecil = lebih dulu)',
-          name: order,
-          widget: number,
-          value_type: int,
-          default: 99,
-        }
-      - { label: Body, name: body, widget: markdown, required: false }
-
+      - &position
+        label: Position on the website
+        name: order
+        widget: number
+        value_type: int
+        min: 1
+        default: 99
+        hint: 'For ordering: 1 appears first, then 2, then 3. Leave 99 to place it later.'
   - name: gallery
-    label: Gallery
+    label: Farm Photos
+    label_singular: Farm Photo
+    description: Add photos with a short caption. Draft photos stay hidden.
     folder: src/content/gallery
+    media_folder: /src/assets/gallery
+    public_folder: /src/assets/gallery
     create: true
-    slug: '{{fields.alt}}'
+    slug: '{{fields.caption}}'
+    identifier_field: caption
     format: frontmatter
     extension: md
-    identifier_field: alt
+    thumbnail: image
+    summary: '{{caption}}'
+    sortable_fields: [order, date, caption]
+    view_filters:
+      - { label: Drafts, field: draft, pattern: true }
     fields:
       - {
-          label: Image,
-          name: image,
-          widget: image,
-          media_folder: '/src/assets/gallery',
-          public_folder: '/src/assets/gallery',
+          label: Caption,
+          name: caption,
+          widget: string,
+          hint: A short title shown below the photo.,
         }
+      - *publication
+      - *photo
       - {
-          label: 'Alt text',
+          label: Describe the photo,
           name: alt,
           widget: string,
-          hint: 'Deskripsi gambar untuk aksesibilitas & SEO',
+          hint: Describe what is visible in this photo.,
         }
-      - { label: Caption, name: caption, widget: string }
-      - {
-          label: Date,
-          name: date,
-          widget: datetime,
-          date_format: 'YYYY-MM-DD',
-          time_format: false,
-          format: 'YYYY-MM-DD',
-        }
-      - {
-          label: 'Display order (kecil = lebih dulu)',
-          name: order,
-          widget: number,
-          value_type: int,
-          default: 99,
-        }
-      - {
-          label: 'Hide from gallery (draft)',
-          name: draft,
-          widget: boolean,
-          default: false,
-          hint: 'Nyalakan untuk sembunyikan foto sepenuhnya, mis. belum siap tampil',
-        }
-
+      - &date
+        label: Date
+        name: date
+        widget: datetime
+        date_format: YYYY-MM-DD
+        time_format: false
+        format: YYYY-MM-DD
+        type: date
+      - *position
   - name: journal
-    label: The Harvest Journal
+    label: Farm Stories
+    label_singular: Farm Story
+    description: Share news from the farm. Save a draft first, then publish when ready.
     folder: src/content/journal
+    media_folder: /src/assets/journal
+    public_folder: /src/assets/journal
     create: true
     slug: '{{fields.title}}'
+    identifier_field: title
     format: frontmatter
     extension: md
-    identifier_field: title
+    thumbnail: image
+    summary: '{{title}}'
+    preview_path: journal/{{slug}}/
+    sortable_fields: [date, title]
+    view_filters:
+      - { label: Drafts, field: draft, pattern: true }
     fields:
-      - { label: Title, name: title, widget: string }
+      - { label: Story title, name: title, widget: string }
+      - *publication
+      - *summary
+      - *date
+      - *photo
+      - *photoDescription
       - {
-          label: Description,
-          name: description,
+          label: Story,
+          name: body,
+          widget: markdown,
+          modes: [rich_text],
+          hint: 'Write normally. Use the toolbar for headings, lists and links.',
+        }
+  - name: settings
+    label: Business Information
+    description: Contact details used across the website. Match your Google Business Profile.
+    files:
+      - name: business
+        label: Contact & Opening Hours
+        file: src/data/business.json
+        format: json
+        fields:
+          - { label: Farm name, name: name, widget: string }
+          - { label: Short tagline, name: tagline, widget: string }
+          - {
+              label: WhatsApp number,
+              name: whatsapp,
+              widget: string,
+              pattern:
+                ['^[1-9]\d{7,14}$', 'Use country code and digits only, for example 60132391877.'],
+              hint: 'Include country code. Leave out +, spaces and dashes.',
+            }
+          - label: Address
+            name: address
+            widget: object
+            fields:
+              - { label: Street / campus address, name: street, widget: string }
+              - { label: City, name: locality, widget: string }
+              - { label: State / territory, name: region, widget: string }
+              - {
+                  label: Postal code,
+                  name: postalCode,
+                  widget: string,
+                  pattern: ['^\d{5}$', 'Enter five digits.'],
+                }
+              - { name: country, widget: hidden, default: MY }
+          - label: Opening hours
+            name: hours
+            widget: object
+            fields:
+              - {
+                  label: Open on,
+                  name: days,
+                  widget: select,
+                  multiple: true,
+                  min: 1,
+                  options: [Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday],
+                }
+              - {
+                  label: Opening time,
+                  name: opens,
+                  widget: string,
+                  pattern: ['^([01]\d|2[0-3]):[0-5]\d$', 'Use 24-hour time, for example 09:00.'],
+                }
+              - {
+                  label: Closing time,
+                  name: closes,
+                  widget: string,
+                  pattern: ['^([01]\d|2[0-3]):[0-5]\d$', 'Use 24-hour time, for example 17:00.'],
+                  hint: Must be after opening time.,
+                }
+          - label: Instagram
+            name: socials
+            widget: object
+            fields:
+              - {
+                  label: Profile link,
+                  name: instagram,
+                  widget: string,
+                  pattern:
+                    [
+                      '^https://(www\.)?instagram\.com/[A-Za-z0-9_.]+/?$',
+                      'Enter an Instagram profile link.',
+                    ],
+                }
+          - label: Map location
+            name: geo
+            widget: object
+            collapsed: true
+            hint: Only change these numbers if the farm moves. Ask for help if unsure.
+            fields:
+              - { label: Latitude, name: lat, widget: number, value_type: float, min: -90, max: 90 }
+              - {
+                  label: Longitude,
+                  name: lng,
+                  widget: number,
+                  value_type: float,
+                  min: -180,
+                  max: 180,
+                }
+  - name: pages
+    label: Page Introductions
+    description: Update opening text, cover photos and search descriptions. Page layout stays consistent.
+    folder: src/content/pages
+    media_folder: /src/assets/pages
+    public_folder: /src/assets/pages
+    format: json
+    extension: json
+    identifier_field: title
+    create: false
+    delete: false
+    thumbnail: image
+    summary: '{{title}}'
+    fields:
+      - {
+          label: Page title,
+          name: title,
+          widget: string,
+          pattern: ['^[\s\S]{1,100}$', 'Use up to 100 characters.'],
+        }
+      - {
+          label: Main heading,
+          name: heading,
           widget: text,
-          pattern: ['^.{10,200}$', 'Harus 10-200 karakter'],
+          pattern: ['^[\s\S]{1,120}$', 'Use up to 120 characters.'],
+          hint: A new line creates a line break. Keep this short for phone screens.,
         }
       - {
-          label: Date,
-          name: date,
-          widget: datetime,
-          date_format: 'YYYY-MM-DD',
-          time_format: false,
-          format: 'YYYY-MM-DD',
+          label: Small label above the heading,
+          name: kicker,
+          widget: string,
+          pattern: ['^[\s\S]{1,80}$', 'Use up to 80 characters.'],
         }
       - {
-          label: Image,
-          name: image,
-          widget: image,
-          media_folder: '/src/assets/journal',
-          public_folder: '/src/assets/journal',
+          label: Introduction,
+          name: lead,
+          widget: text,
+          pattern: ['^[\s\S]{10,500}$', 'Write 10–500 characters.'],
         }
       - {
-          label: 'Image alt text',
+          label: Home slogan,
+          name: strapline,
+          widget: string,
+          required: false,
+          pattern: ['^[\s\S]{0,100}$', 'Use up to 100 characters.'],
+          hint: Used on Home only. Leave empty on other pages.,
+        }
+      - *photo
+      - {
+          label: Describe the photo,
           name: imageAlt,
           widget: string,
-          hint: 'Deskripsi gambar untuk aksesibilitas & SEO',
+          pattern: ['^[\s\S]{1,200}$', 'Use up to 200 characters.'],
         }
       - {
-          label: 'Hide from journal (draft)',
-          name: draft,
-          widget: boolean,
-          default: false,
-          hint: 'Nyalakan untuk sembunyikan artikel sepenuhnya, mis. draf belum siap terbit',
+          label: Search & share description,
+          name: description,
+          widget: text,
+          pattern: ['^[\s\S]{10,200}$', 'Write 10–200 characters.'],
+          hint: Describe this page clearly. Aim for around 155 characters.,
         }
-      - { label: Body, name: body, widget: markdown }

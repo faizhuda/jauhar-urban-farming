@@ -1,0 +1,166 @@
+---
+const siteUrl = Astro.site!.href;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Quick Guide — Jauhar Website Manager</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: #faf8f2;
+        color: #143829;
+        font:
+          17px/1.65 system-ui,
+          sans-serif;
+      }
+      main {
+        max-width: 760px;
+        margin: auto;
+        padding: 24px 20px 64px;
+      }
+      h1,
+      h2 {
+        font-family: Georgia, serif;
+        line-height: 1.25;
+      }
+      h1 {
+        font-size: clamp(30px, 6vw, 44px);
+      }
+      h2 {
+        margin-top: 40px;
+      }
+      a {
+        color: inherit;
+        display: inline-block;
+        min-height: 44px;
+        padding: 8px 0;
+      }
+      a:focus-visible {
+        outline: 2px solid #806d3e;
+        outline-offset: 4px;
+      }
+      .note {
+        padding: 16px 20px;
+        border-left: 4px solid #806d3e;
+        background: #f1e9d7;
+      }
+      li {
+        margin-bottom: 10px;
+      }
+      ol {
+        padding-left: 24px;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <a href="/admin/">← Back to Website Manager</a>
+      <h1>A quick guide to your website</h1>
+      <p>
+        Sign in with your own GitHub account. You can manage products, photos, stories, business
+        information and page introductions from your phone.
+      </p>
+      <p class="note">
+        <strong>Save → wait → check.</strong> Saving starts a website update. The public website usually
+        updates in a few minutes. “Saved” does not mean the new version is already live. Use <a
+          href={siteUrl}
+          target="_blank"
+          rel="noopener">Visit website</a
+        > to check the result.
+      </p>
+      <h2>Change a price or availability</h2>
+      <ol>
+        <li>Open <strong>Products</strong> and choose the product.</li><li>
+          Change <strong>Price in Ringgit (RM)</strong>, <strong>Sold per</strong>, or <strong
+            >Availability</strong
+          >.
+        </li><li>
+          Choose <strong>Published</strong> if it should appear on the website, then tap <strong
+            >Save</strong
+          >.
+        </li><li>Wait for the update, then check the Products page.</li>
+      </ol>
+      <p>
+        <strong>Unavailable</strong> keeps the product visible as “Out of stock”, or pauses bookings for
+        a farm experience. <strong>Draft — hidden</strong> removes it from both Home and Products.
+      </p>
+      <h2>Add a product or farm photo</h2>
+      <ol>
+        <li>
+          Choose <strong>Products</strong> or <strong>Farm Photos</strong>, then <strong>New</strong
+          >.
+        </li><li>
+          Fill in the required fields. Choose <strong>Photo → Browse</strong> to upload from your phone.
+          JPG, PNG, WebP and HEIC are accepted, up to 12 MB.
+        </li><li>
+          Write a short description of what is visible in the photo. Keep the main subject near the
+          centre because the website crops photos to fit.
+        </li><li>
+          Keep <strong>Draft — hidden</strong> selected while preparing it. Once all required fields are
+          complete, tap <strong>Save</strong>.
+        </li><li>
+          Use <strong>Preview</strong> to check the content and visibility. When ready, select
+          <strong>Published</strong> and save again.
+        </li>
+      </ol>
+      <p>
+        Photos are resized automatically. Wait for processing to finish before saving, especially on
+        an older phone. Home shows up to three published products selected with <strong
+          >Show on Home</strong
+        >, using their position numbers.
+      </p>
+      <h2>Write a farm story</h2>
+      <ol>
+        <li>Open <strong>Farm Stories → New</strong>.</li><li>
+          Add a title, short description, date and cover photo.
+        </li><li>
+          Write in <strong>Story</strong> using the formatting toolbar. The page already has its main
+          title; use Heading 2 or Heading 3 inside your story.
+        </li><li>
+          Complete the required fields and save as a draft. Preview it, then select <strong
+            >Published</strong
+          > when ready.
+        </li>
+      </ol>
+      <h2>Update contact details or opening hours</h2>
+      <p>
+        Open <strong>Business Information → Contact &amp; Opening Hours</strong>. Use digits only
+        for WhatsApp, including the country code. Times use the 24-hour clock, such as 09:00 and
+        17:00. These details update the contact page, links and search information together. Keep
+        them consistent with your Google Business Profile.
+      </p>
+      <h2>Change a page introduction</h2>
+      <p>
+        Open <strong>Page Introductions</strong> and select the page. Edit its heading, introduction,
+        cover photo or search description. Keep headings short for phone screens. The preview shows the
+        content; check the full page after saving. Preview helps you review the fields. It does not reproduce
+        the exact website design.
+      </p>
+      <h2>If something goes wrong</h2>
+      <ul>
+        <li>
+          <strong>Cannot sign in:</strong> use the GitHub account invited by the website owner. If the
+          sign-in window expires, close it and sign in again.
+        </li><li>
+          <strong>Photo is rejected:</strong> choose a supported photo under 12 MB. If HEIC processing
+          fails, export the photo as JPG.
+        </li><li>
+          <strong>Changes do not appear:</strong> wait a few minutes, refresh the public page, and check
+          that Visibility is Published. If it still has not updated, ask the website owner to check the
+          Vercel deployment.
+        </li><li>
+          <strong>Made a mistake:</strong> change the field back and save. GitHub keeps a history, so
+          the website owner can restore an earlier version.
+        </li>
+      </ul>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,59 @@
+---
+import { parse } from 'yaml';
+import configYaml from '../../public/admin/config.yml?raw';
+interface Props {
+  demo?: boolean;
+}
+const { demo = false } = Astro.props;
+const siteUrl = Astro.site!.href;
+const demoConfig =
+  import.meta.env.DEV && demo
+    ? JSON.stringify({
+        ...parse(configYaml),
+        backend: { name: 'test-repo' },
+        load_config_file: false,
+      }).replace(/</g, '\\u003c')
+    : undefined;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="theme-color" content="#143829" />
+    <title>Jauhar Website Manager</title>
+    <link rel="icon" href="/favicon-32x32.png" />
+    <link href="/admin/config.yml" type="text/yaml" rel="cms-config-url" />
+    <link rel="stylesheet" href="/admin/manager.css" />
+  </head>
+  <body>
+    <header class="manager-header">
+      <span class="manager-brand"
+        ><img src="/apple-touch-icon.png" alt="" width="36" height="36" />Website Manager</span
+      >
+      <nav aria-label="Manager help">
+        <a href="/admin/help/" target="_blank" rel="noopener">Quick guide</a>
+        <a href={siteUrl} target="_blank" rel="noopener">Visit website ↗</a>
+      </nav>
+    </header>
+    <p id="save-notice" class="save-notice" role="status" aria-live="polite">
+      {
+        demo && import.meta.env.DEV
+          ? 'Demo: practise here without changing the public website.'
+          : 'Save your changes, wait for the website to update, then check the result.'
+      }
+    </p>
+    <div id="nc-root"></div>
+    {
+      demoConfig && (
+        <script is:inline id="demo-config" type="application/json" set:html={demoConfig} />
+      )
+    }
+    <noscript><p>Enable JavaScript to open the website manager.</p></noscript>
+    <script>
+      import './customizations';
+    </script>
+  </body>
+</html>

@@ -1,341 +1,199 @@
-# Maintenance Guide
+# Maintenance & Handover
 
-Panduan praktis mengelola website Jauhar Urban Farming — untuk pengelola non-teknis (isi konten) maupun developer (deploy, teknis). Lihat [PROJECT.md](PROJECT.md) untuk requirement/arsitektur, [TODO.md](TODO.md) untuk daftar kerjaan yang masih terbuka.
+Diperbarui 4 Oktober 2026. Website publik: https://jauharurbanfarming.com.
+Implementasi Sveltia di revisi ini menggantikan Decap; verifikasi login produksi
+tetap dilakukan setelah deployment. Riwayat bisnis/proyek ada di [PROJECT.md](PROJECT.md).
 
----
+## Untuk pengelola konten
 
-## Cara kerja publikasi
+Buka `/admin/` dan login dengan akun GitHub yang sudah diberi akses tulis ke repo.
+Pengelola tidak perlu mengedit file atau menjalankan perintah. Gunakan **Quick guide**
+di panel, atau buka `/admin/help/`. Panduan berbahasa Inggris mengikuti bahasa situs.
 
-1. Konten diedit di repo GitHub `faizhuda/jauhar-urban-farming` (bisa langsung dari browser github.com, tidak perlu install apa pun)
-2. Setiap perubahan di branch `main` otomatis memicu **build & deploy di Vercel** (±2 menit)
-3. Tidak ada server/database yang perlu dirawat — hosting gratis selamanya
+| Kebutuhan                                         | Menu                 |
+| ------------------------------------------------- | -------------------- |
+| Harga, satuan, ketersediaan, foto produk          | Products             |
+| Foto kegiatan dan caption                         | Farm Photos          |
+| Artikel dan foto sampul                           | Farm Stories         |
+| WhatsApp, alamat, jam buka, Instagram, titik peta | Business Information |
+| Judul, pengantar, foto hero, deskripsi pencarian  | Page Introductions   |
 
-## Perubahan yang paling sering dibutuhkan
+**Draft — hidden** menyembunyikan konten dari semua halaman. Konten baru dimulai
+sebagai draft; lengkapi kolom wajib sebelum menyimpannya. **Published** menampilkan
+konten setelah build/deploy selesai. **Unavailable** tetap menampilkan produk dengan
+label Out of stock atau Bookings paused. Home menampilkan tiga pilihan published
+pertama berdasarkan posisi; nomor posisi kecil tampil lebih dahulu.
 
-| Kebutuhan                                                                   | Yang diedit                                                                                                                                           |
-| --------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Tambah/edit produk, harga, stok                                             | 1 file di `src/content/products/` — lihat [format produk](#1-menambaheditsembunyikan-produk) di bawah                                                 |
-| Sembunyikan produk sementara (masih di katalog inti)                        | Set `draft: true` di file produk terkait                                                                                                              |
-| Sembunyikan produk eksperimen sepenuhnya (gambar tidak ikut diproses build) | Pindahkan file ke `src/content/products/_drafts/` — lihat [format produk](#1-menambaheditsembunyikan-produk)                                          |
-| Tambah foto galeri                                                          | 1 file di `src/content/gallery/` + foto di `src/assets/gallery/`                                                                                      |
-| Tulis artikel The Harvest Journal                                           | 1 file di `src/content/journal/`                                                                                                                      |
-| **Ganti nomor WhatsApp**                                                    | `src/config.ts` → `whatsapp` (satu-satunya tempat)                                                                                                    |
-| Ganti jam operasional / alamat / sosmed                                     | `src/config.ts`                                                                                                                                       |
-| Ganti warna atau font situs                                                 | `src/styles/global.css` → blok `@theme` (design tokens)                                                                                               |
-| Ganti foto (produk/galeri/hero)                                             | Timpa file di `src/assets/` dengan nama sama, lihat [Foto](#foto)                                                                                     |
-| Atur animasi & micro-interactions                                           | `src/styles/global.css` (micro-interactions) + `src/layouts/BaseLayout.astro` (splash screen overlay telah dihapus total demi FCP/LCP & touch mobile) |
+**Save tidak sama dengan sudah tayang.** Konten disimpan sebagai commit di `main`,
+lalu Vercel membangun website. Biasanya beberapa menit, tergantung antrian/build.
+Panel menjelaskan proses ini; indikatornya bukan pemeriksaan status deployment.
+Gunakan Visit website untuk memeriksa hasil. Jika belum berubah, cek Visibility,
+lalu minta pemilik situs memeriksa deployment Vercel.
 
-## Menjalankan secara lokal (developer)
+Foto JPG/JPEG, PNG, WebP, HEIC/HEIF diterima hingga 12 MB. CMS membatasi dimensi
+ke 1600px tanpa membesarkan foto kecil, mengonversi ke WebP jika encoder tersedia,
+dan menghapus metadata gambar. Safari bisa menggunakan fallback PNG. HEIC bisa
+memerlukan pemrosesan tambahan; jika gagal, ekspor sebagai JPG. Nama upload mendapat
+akhiran unik untuk mengurangi tabrakan. Foto website tetap diproses `astro:assets`.
+Pertahankan subjek di tengah karena kartu memakai crop 4:3 dan hero lebih lebar.
 
-```bash
-npm install        # sekali saja
-npm run dev        # dev server di http://localhost:4321
-npm run build      # build produksi + validasi seluruh konten
-```
+Pratinjau bawaan CMS menampilkan isian konten dan status publikasi, bukan salinan
+persis desain website. Preview khusus berbasis iframe tidak dipakai karena pada
+browser tertanam pengujian tampil kosong. Selalu cek halaman lengkap melalui Visit
+website setelah publikasi. Tata letak, desain, navigasi, dan isi bagian lain tetap
+dikelola developer.
 
----
+## Arsitektur & sumber data
 
-## Konten
+- Astro 7.3.5 + Tailwind 4, halaman publik dibangun statis. Tidak ada database konten.
+- Sveltia CMS **0.227.3**, dikunci di package/lockfile dan dibundel lokal untuk `/admin/`.
+  Tidak ada script CMS di layout publik. Sveltia masih beta; upgrade perlu pengujian.
+- Produk/galeri/journal: `src/content/{products,gallery,journal}/*.md`.
+- Informasi usaha: `src/data/business.json`, divalidasi `businessSchema`.
+  `src/config.ts` membaca sumber ini untuk tampilan, tautan, dan JSON-LD.
+- Hero dan metadata enam halaman: `src/content/pages/*.json`, memakai collection
+  `pages` dan helper `pageContent`. CMS tidak bisa menambah/menghapus route halaman.
+- Gambar disimpan di `src/assets/`; URL `/src/assets/...` di konten diproses oleh
+  loader image Astro. Jangan pindahkan gambar ke `public/` hanya untuk thumbnail.
+- `public/admin/config.yml`: struktur form, media, filter, nama menu.
+- `src/admin/customizations.ts`: pilihan boolean dan label preview, validasi sebelum simpan,
+  pemberitahuan setelah simpan, dan mode demo development.
+- `/oauth` dan `/oauth/callback`: dua endpoint server kecil untuk login GitHub.
+- Domain canonical berada di `astro.config.mjs`; endpoint OAuth produksi memakai
+  origin tersebut. `config.yml` harus mengikuti domain bila domain berubah.
 
-### 1. Menambah/edit/sembunyikan produk
+## Menjalankan & memeriksa
 
-Satu produk = satu file Markdown di `src/content/products/`:
-
-```markdown
----
-name: Fresh Cucumber
-price: 3.0 # Harga dalam RM, ANGKA SAJA
-unit: kg # kg / jar / pack / person / kg picked / dst.
-description: 10–200 karakter. Tampil di kartu produk & meta description.
-image: ../../assets/products/fresh-cucumber.jpg
-imageAlt: Deskripsi gambar untuk aksesibilitas & SEO
-category: fresh # fresh | processed | experience
-draft: false # true = sembunyikan TOTAL dari katalog
-inStock: true # false = tombol jadi "Coming soon"
-featured: true # true = tampil di Beranda (maks. 3)
-order: 1 # urutan tampil, angka kecil = lebih dulu
----
-```
-
-Kalau ada isian salah (harga bukan angka, foto tidak ada), **build otomatis gagal dengan pesan error jelas** — website live tidak akan rusak.
-
-**Dua cara menyembunyikan produk, beda dampaknya:**
-
-- `draft: true` di file yang tetap ada di `src/content/products/` — produk tersembunyi dari katalog, tapi gambarnya tetap ikut diproses oleh `astro:assets` saat build (masih dianggap "mungkin dipakai sebentar lagi").
-- Pindahkan file ke **`src/content/products/_drafts/`** (folder ini dikecualikan total dari collection lewat pattern di `src/content.config.ts`) — dipakai untuk produk eksperimen yang belum pasti dilanjut, supaya gambarnya tidak ikut membengkakkan hasil build padahal tidak pernah tampil. Folder ini kosong per 5 Agu 2026 (4 produk eksperimen awal — Pickled Cucumber, Cucumber Chips, Garden Salad Pack, Cucumber Seedlings — sudah diputuskan tidak dijual dan filenya dihapus), tapi mekanismenya siap dipakai lagi kalau ada eksperimen produk baru.
-
-**Untuk menampilkan kembali produk dari `_drafts/`**: pindahkan file-nya kembali ke `src/content/products/` (bukan cuma ubah `draft: false` di tempatnya sekarang — selama masih di `_drafts/`, field `draft` diabaikan sepenuhnya karena filenya tidak pernah masuk collection).
-
-### 2. Menambah foto galeri
-
-Satu foto = satu file di `src/content/gallery/`: field `image`, `alt`, `caption`, `date` (YYYY-MM-DD), `order`.
-
-### 3. Menulis artikel The Harvest Journal
-
-Satu artikel = satu file Markdown di `src/content/journal/`, nama file jadi URL (mis. `panen-pertama.md` → `/journal/panen-pertama`):
-
-```markdown
----
-title: First Harvest of the Season
-description: 10–200 karakter, tampil di kartu daftar & meta description.
-date: 2026-07-20
-image: ../../assets/journal/first-harvest-of-the-season.jpg
-imageAlt: Deskripsi gambar untuk aksesibilitas & SEO
-draft: false # true = sembunyikan dari /journal sepenuhnya, mis. draf belum siap terbit
----
-
-Isi artikel di sini, format Markdown biasa (paragraf, **bold**, `## Sub-judul`, dst).
-```
-
-Simpan foto sampul di `src/assets/journal/`. Artikel muncul otomatis di `/journal`, urut dari terbaru (kecuali `draft: true`). Tidak perlu jadwal rutin — isi kalau ada cerita layak dibagikan, lebih baik jarang tapi berisi daripada sering tapi kosong.
-
-### Foto
-
-- Resize maksimal **1600px** sisi terpanjang sebelum masuk repo
-- Rasio seragam: produk & galeri **4:3** (foto 1:1 juga aman, otomatis di-crop tengah)
-- Pencahayaan natural, latar bersih
-- Mengganti foto: timpa file dengan **nama yang sama persis** di `src/assets/`
-
-**Status saat ini (5 Agu 2026): seluruh foto di situs adalah foto asli Jauhar** — tidak ada lagi foto stok. Dua slot galeri yang sempat memakai stok Wikimedia (`campus-bazaar`, `drip-lines`) dihapus karena tidak ada kandidat foto asli yang layak, alih-alih dibiarkan menggantung sebagai placeholder — kalau nanti Jauhar punya foto stan bazaar atau close-up drip line, tinggal tambah entri galeri baru seperti biasa (lihat [Menambah foto galeri](#2-menambah-foto-galeri)). Karena tidak ada lagi foto stok, halaman `/credits` dan kewajiban atribusi CC BY/BY-SA sudah tidak relevan dan sudah dihapus dari repo. Sebagian besar foto sumber di `images/` (di luar repo, lihat arsip Google Drive) masih belum ditriase — jadi arsip untuk konten masa depan (Journal, produk baru).
-
-### Teks
-
-- Meta description ≤155 karakter, **harus sesuai isi aktual halaman** (pernah ada bug: description promosikan produk yang sudah disembunyikan — selalu cek ulang kalau ubah katalog)
-- Bahasa situs: English (keputusan tim)
-- NAP (nama, alamat, telepon) & jam operasional **hanya** diedit di `src/config.ts` — harus persis sama dengan Google Business Profile
-
----
-
-## Setup admin panel — Decap CMS
-
-> **Status: BELUM AKTIF, siap diaktifkan.** Ini bikin mitra bisa edit produk/foto/artikel lewat form web di `/admin`, tanpa perlu sentuh GitHub sama sekali.
-
-**Kenapa belum jalan sekarang:** package `astro-decap-cms-oauth` butuh domain final untuk GitHub OAuth App (callback URL harus URL production, tidak bisa preview URL), dan begitu integrasinya dipasang, **build akan gagal total** sampai 2 env var di bawah diisi di Vercel. Urutan wajib: **domain dulu**, baru CMS ini.
-
-Langkah aktivasi (setelah domain final live):
-
-1. Install: `npm install astro-decap-cms-oauth @astrojs/vercel`
-2. Di `astro.config.mjs`, tambahkan adapter & integrasi:
-
-   ```js
-   import vercel from '@astrojs/vercel';
-   import decapCmsOauth from 'astro-decap-cms-oauth';
-
-   export default defineConfig({
-     // ...konfigurasi yang sudah ada
-     adapter: vercel(),
-     integrations: [sitemap(), decapCmsOauth()],
-   });
-   ```
-
-3. Buat file `public/admin/config.yml`:
-
-   ```yml
-   backend:
-     name: github
-     branch: main
-     repo: faizhuda/jauhar-urban-farming
-     site_domain: <domain-final-tanpa-https>
-     base_url: https://<domain-final>
-     auth_endpoint: oauth
-
-   media_folder: ''
-   public_folder: ''
-
-   collections:
-     - name: products
-       label: Products
-       folder: src/content/products
-       create: true
-       slug: '{{fields.name}}'
-       format: frontmatter
-       extension: md
-       identifier_field: name
-       fields:
-         - { label: Name, name: name, widget: string }
-         - { label: 'Price (MYR)', name: price, widget: number, value_type: float, min: 0 }
-         - {
-             label: Unit,
-             name: unit,
-             widget: string,
-             default: pack,
-             hint: 'mis. kg, jar, pack, person',
-           }
-         - {
-             label: Description,
-             name: description,
-             widget: text,
-             pattern: ['^.{10,200}$', 'Harus 10-200 karakter'],
-           }
-         - {
-             label: Image,
-             name: image,
-             widget: image,
-             media_folder: '/src/assets/products',
-             public_folder: '/src/assets/products',
-           }
-         - {
-             label: 'Image alt text',
-             name: imageAlt,
-             widget: string,
-             hint: 'Deskripsi gambar untuk aksesibilitas & SEO',
-           }
-         - label: Category
-           name: category
-           widget: select
-           options:
-             - { label: 'Fresh Harvest', value: fresh }
-             - { label: 'Farm Made', value: processed }
-             - { label: 'Learn & Grow', value: experience }
-         - {
-             label: 'Hide from catalogue (draft)',
-             name: draft,
-             widget: boolean,
-             default: false,
-             hint: 'Nyalakan untuk sembunyikan produk sepenuhnya, mis. eksperimen yang belum pasti dilanjut',
-           }
-         - { label: 'In stock', name: inStock, widget: boolean, default: true }
-         - {
-             label: 'Featured on homepage (max 3)',
-             name: featured,
-             widget: boolean,
-             default: false,
-           }
-         - {
-             label: 'Display order (kecil = lebih dulu)',
-             name: order,
-             widget: number,
-             value_type: int,
-             default: 99,
-           }
-         - { label: Body, name: body, widget: markdown, required: false }
-
-     - name: gallery
-       label: Gallery
-       folder: src/content/gallery
-       create: true
-       slug: '{{fields.alt}}'
-       format: frontmatter
-       extension: md
-       identifier_field: alt
-       fields:
-         - {
-             label: Image,
-             name: image,
-             widget: image,
-             media_folder: '/src/assets/gallery',
-             public_folder: '/src/assets/gallery',
-           }
-         - {
-             label: 'Alt text',
-             name: alt,
-             widget: string,
-             hint: 'Deskripsi gambar untuk aksesibilitas & SEO',
-           }
-         - { label: Caption, name: caption, widget: string }
-         - {
-             label: Date,
-             name: date,
-             widget: datetime,
-             date_format: 'YYYY-MM-DD',
-             time_format: false,
-             format: 'YYYY-MM-DD',
-           }
-         - {
-             label: 'Display order (kecil = lebih dulu)',
-             name: order,
-             widget: number,
-             value_type: int,
-             default: 99,
-           }
-
-     - name: journal
-       label: The Harvest Journal
-       folder: src/content/journal
-       create: true
-       slug: '{{fields.title}}'
-       format: frontmatter
-       extension: md
-       identifier_field: title
-       fields:
-         - { label: Title, name: title, widget: string }
-         - {
-             label: Description,
-             name: description,
-             widget: text,
-             pattern: ['^.{10,200}$', 'Harus 10-200 karakter'],
-           }
-         - {
-             label: Date,
-             name: date,
-             widget: datetime,
-             date_format: 'YYYY-MM-DD',
-             time_format: false,
-             format: 'YYYY-MM-DD',
-           }
-         - {
-             label: Image,
-             name: image,
-             widget: image,
-             media_folder: '/src/assets/journal',
-             public_folder: '/src/assets/journal',
-           }
-         - {
-             label: 'Image alt text',
-             name: imageAlt,
-             widget: string,
-             hint: 'Deskripsi gambar untuk aksesibilitas & SEO',
-           }
-         - { label: Body, name: body, widget: markdown }
-   ```
-
-4. Buat GitHub OAuth App: [github.com/settings/applications/new](https://github.com/settings/applications/new)
-   - Homepage URL = domain final
-   - Authorization callback URL = domain final + `/oauth/callback`
-5. Di Vercel dashboard → Project → Settings → Environment Variables, set `OAUTH_GITHUB_CLIENT_ID` dan `OAUTH_GITHUB_CLIENT_SECRET` (didapat dari OAuth App di langkah 4)
-6. Deploy, lalu tes login di `https://<domain-final>/admin`
-7. Field `image` di CMS akan nulis path relatif ke frontmatter — cek 1 kali hasil commit pertama sesuai format `../../assets/products/nama-file.jpg` yang dibaca schema di `src/content.config.ts`; kalau beda, sesuaikan `media_folder`/`public_folder` di atas
-
-Catatan: preview thumbnail gambar di admin UI bisa saja tidak muncul (folder `src/assets` bukan folder public yang bisa diakses browser) — kosmetik saja, tidak mempengaruhi isi file yang dicommit.
-
----
-
-## Catatan teknis penting
-
-### Skrip Inline dan Responsivitas Mobile
-
-Script penanganan hamburger menu pada `src/components/Header.astro` sengaja ditulis menggunakan tag `<script is:inline>`. Ini menjamin script dieksekusi secara instan dan unconditionally oleh peramban seluler tanpa bergantung pada penundaan bundler ES Module atau restriksi header CSP pada CDN Edge Vercel.
-
-### Animasi Progressive Enhancement (Zero Blank Space)
-
-Semua animasi entrance (`.hero-enter`, `[data-reveal]`) di `src/styles/global.css` dan `src/layouts/BaseLayout.astro` menggunakan pola **Progressive Enhancement**:
-
-- Baseline CSS default untuk elemen `[data-reveal]` adalah **100% visible (`opacity: 1; transform: none;`)**.
-- Kelas `.js-reveal` dan efek sembunyi `opacity: 0` **hanya ditambahkan secara dinamis di runtime JavaScript** apabila browser mendukung `IntersectionObserver` dan script berhasil berjalan.
-- **Hasilnya**: Jika JavaScript terhambat, diblokir extension, atau mengalami delay jaringan, seluruh konten halaman tetap 100% langsung terlihat tanpa ada area kosong atau jeda animasi 12 detik ("plop"). Konten kritis tidak pernah tersembunyi secara prematur.
-
----
-
-## Memproses foto baru
-
-Seluruh foto di situs sekarang foto asli Jauhar (per 5 Agu 2026, tidak ada lagi foto stok — halaman kredit atribusi `/credits` sudah dihapus karena tidak relevan lagi). Kalau nanti perlu memproses foto baru dari arsip `images/` ke `src/assets/`, gunakan `scripts/prepare-photo.mjs` — resize & crop otomatis ke rasio slot target, sekaligus membuang metadata EXIF/GPS yang tertanam di foto ponsel:
+Node minimal 22.12, CI memakai Node 22.
 
 ```bash
-node scripts/prepare-photo.mjs images/PXL_xxx.jpg src/assets/gallery/nama-slot.jpg 1600 1200
+npm ci
+npm test
+npm run check
+npm run build
+npm run dev
 ```
 
-Argumen: sumber, tujuan, lebar, tinggi. Dimensi standar: hero/about-hero 1600×900, og-default 1200×630, produk 1200×1200, galeri 1600×1200. **Cek hasil crop-nya** — pemotongan otomatis (`sharp` attention strategy) kadang salah fokus ke bangunan/langit alih-alih subjek utama pada foto dengan latar ramai; kalau hasilnya jelek, proses ulang dengan `.extract({ left, top, width, height })` manual sebelum `.resize()` (lihat riwayat commit foto asli untuk contoh koordinat yang sudah dicoba).
+Build statis dan CI tidak memerlukan secret OAuth. `npm test` memeriksa pemilihan
+konten non-draft, kesesuaian aturan form, validasi usaha, state/PKCE, akses repo,
+dan pengamanan handoff popup. Format file yang diedit dengan Prettier.
 
-Semua file di-resize maks. 1600px lalu dikonversi otomatis ke WebP oleh pipeline `astro:assets` saat build.
+Untuk mencoba form tanpa menulis ke GitHub, buka `http://localhost:4321/admin/demo/`
+pada server development dan pilih Work with Test Repository. Data demo tersimpan
+terpisah di browser, bukan repo. Pada build produksi `/admin/demo/` kembali ke admin
+dan parameter demo diabaikan.
+Demo belum membuktikan login nyata, pembacaan media GitHub lama, atau deployment.
 
----
+Kriteria mobile: 360/375/390px, tablet 768px, desktop; tanpa horizontal overflow,
+tombol utama minimal 44px, input tidak memicu zoom iOS, preview bisa dibuka dari
+ponsel, pesan simpan tetap terlihat, dan editor menyesuaikan tinggi header.
+Uji perangkat Android/iPhone nyata tetap diperlukan untuk keyboard, pemilih foto,
+HEIC, dan koneksi lambat.
+
+Hasil lokal revisi 4 Oktober: instalasi bersih berhasil tanpa legacy peer deps,
+8 pengujian regresi lulus, pemeriksaan Astro menghasilkan 0 error/warning/hint,
+dan build produksi berhasil tanpa kredensial OAuth. Editor produk diuji pada
+360/375/390/768/1280px tanpa overflow horizontal, tombol Save 44px dan header
+tetap terlihat. Form informasi usaha, editor artikel dan preview bawaan diperiksa;
+enam halaman publik serta panduan diuji pada 375px. HTML produksi diperiksa untuk
+satu H1, canonical/OG, asset gambar share, srcset hero, status stok, isolasi bundle
+admin, dan pengecualian admin dari sitemap. Ini belum membuktikan login/upload
+produksi atau skor PageSpeed.
+
+## Login GitHub di Vercel
+
+Environment **server**, bukan variabel publik:
+
+```text
+OAUTH_GITHUB_CLIENT_ID
+OAUTH_GITHUB_CLIENT_SECRET
+```
+
+Nama sama dengan integrasi lama, sehingga nilai yang sudah terpasang bisa digunakan.
+GitHub OAuth App: homepage `https://jauharurbanfarming.com`, callback
+`https://jauharurbanfarming.com/oauth/callback`. Undang akun pengelola ke repo
+`faizhuda/jauhar-urban-farming` dengan akses Write dan pastikan GitHub menerima undangan.
+Jangan membagikan password atau token pribadi antar pengelola.
+
+Implementasi memakai state acak, PKCE S256, cookie HttpOnly/SameSite=Lax berumur
+10 menit, penghapusan cookie setelah callback, serta pemeriksaan origin, sumber
+jendela dan pesan handshake. Token hanya diserahkan ke opener admin yang benar;
+respons OAuth tidak boleh dicache. Akses tulis ke repo diperiksa sebelum token
+diserahkan. Scope `public_repo` dipakai karena repo publik; bila repo menjadi private,
+scope dan model akses perlu ditinjau. OAuth App masih memiliki cakupan lintas repo
+publik milik akun; GitHub App dengan akses per repo merupakan opsi jangka panjang.
+
+Login tanpa kredensial mengembalikan pesan gagal yang jelas; website publik tetap
+bisa dibangun. Preview deployment mengarahkan login ke admin domain produksi karena
+callback OAuth App tetap terdaftar di domain tersebut. Untuk pengujian OAuth lokal
+nyata gunakan OAuth App development terpisah dengan callback localhost dan `.env`
+(lihat `.env.example`). Jangan mengubah callback App produksi untuk tes lokal.
+
+Setelah deployment, uji: login akun berakses → baca produk/foto yang ada → simpan
+produk lengkap sebagai draft → pastikan tidak muncul → publish → cek commit dan
+deployment → kembalikan perubahan uji. Uji akun tanpa akses serta pembatalan login.
+Nilai secret harus tetap hanya di Vercel; jangan salin ke repo atau screenshot.
+Pastikan akun pengelola dapat menyimpan commit konten ke `main`. Branch tersebut
+protected, tetapi detail aturan tidak dapat dibaca melalui koneksi GitHub sesi ini.
+Jangan menganggap akses Write otomatis melewati seluruh aturan branch. Jika aturan
+mewajibkan PR, sesuaikan alur penerbitan bersama pemilik repo dan uji akun pengelola;
+jangan mematikan proteksi hanya untuk meloloskan pengujian.
+
+## Pemulihan & perawatan
+
+Jika edit konten membuat build gagal, deployment publik sebelumnya tetap dilayani
+Vercel. Baca error, perbaiki field lewat CMS, lalu save lagi. Untuk mengembalikan
+konten gunakan GitHub history/revert commit; hindari force push. Riwayat Git bukan
+pengganti arsip foto sumber—simpan foto asli di arsip Jauhar sebelum upload.
+
+Untuk rollback migrasi CMS, revert commit migrasi secara utuh melalui PR, install
+kembali dependency sesuai lockfile yang direvert, lalu deploy ulang. Jangan hanya
+mengembalikan panel tanpa endpoint/config yang cocok. Uji login setelah rollback.
+
+Developer masih dapat memakai `scripts/prepare-photo.mjs` untuk foto arsip, crop
+khusus atau gambar OG; pengelola tidak memerlukan script itu untuk upload rutin.
+Folder `images/` berisi foto mentah lokal dan diabaikan Git. Jangan menambahkan
+seluruh arsip tersebut ke repository.
+
+Audit dependency 4 Oktober 2026: Astro diperbarui ke 7.3.5, Sharp ke 0.35.5 dan
+dependency kompatibel lainnya dipatch. Override `path-to-regexp ^6.3.0` khusus
+`@vercel/routing-utils` menangani ReDoS tanpa downgrade adapter/Astro.
+`npm audit` masih melaporkan **3 high** dalam satu rantai
+`@astrojs/vercel → astro → http-cache-semantics 4.2.0`.
+[GHSA-ch52-4w7c-c8xp](https://github.com/advisories/GHSA-ch52-4w7c-c8xp)
+belum mempunyai versi patched. Pada kode Astro yang terpasang, pemakaiannya berada
+di cache gambar remote saat build. Situs ini memakai asset lokal, tidak mempunyai
+shared cache respons pengguna, dan endpoint OAuth memakai `no-store`. Ini penilaian
+terhadap pemakaian saat ini, bukan jaminan bahwa paket tersebut aman untuk semua
+skenario. Pantau patch upstream; jangan memakai `npm audit fix --force` yang saat
+ini menawarkan downgrade besar. Tinjau ulang sebelum memakai gambar remote privat
+atau shared cache untuk respons berautentikasi.
+
+## Performa & SEO
+
+CMS menambah bundle khusus admin; warning chunk besar saat build berasal dari
+aplikasi pengelolaan (entry sekitar 2,34 MB minified / 702 KB gzip pada build lokal).
+Loading awal admin pada koneksi seluler bisa lebih lama. Halaman publik mempertahankan responsive WebP, dimensi gambar,
+lazy loading dan prioritas hero. Optimasi sebelum upload mengurangi ukuran sumber
+dan beban build; manfaatnya berbeda dari ukuran gambar yang diunduh pengunjung.
+Pemrosesan foto besar dapat menambah waktu tunggu di ponsel pengelola.
+
+Heading utama tetap satu per halaman, metadata berasal dari konten tervalidasi,
+alt text wajib, dan informasi usaha mengalir ke JSON-LD yang sama. `/admin/` dan
+panduannya noindex serta dikecualikan dari sitemap. Ukur PageSpeed setelah deploy;
+skor Lighthouse historis bukan hasil verifikasi revisi ini.
 
 ## Checklist serah terima
 
-- [ ] Akses GitHub repo diserahkan ke pengelola
-- [ ] Akses dashboard Vercel diserahkan
-- [ ] Akses registrar domain diserahkan
-- [ ] **Tanggal expired domain: __________** — pasang reminder perpanjangan!
-- [ ] Vercel Web Analytics dikonfirmasi aktif, cara membacanya sudah didemokan
-- [ ] Status Google Business Profile + langkah lanjutan dicatat
-- [ ] `site` di `astro.config.mjs` sudah ke domain final (satu-satunya tempat domain ditulis — `robots.txt` & sitemap otomatis ikut lewat `Astro.site`)
+- [ ] Migrasi terdeploy dan login produksi berhasil dengan akun pengelola.
+- [ ] Pengelola mempraktikkan harga/stok, foto, artikel, informasi usaha.
+- [ ] Uji Android/iPhone dengan foto nyata dan koneksi seluler.
+- [ ] Akses repo, Vercel, GitHub OAuth App dan registrar domain dipindahkan/dicatat.
+- [ ] Pemilik akun, pemulihan akses, tanggal kedaluwarsa domain dan biaya paket dicatat.
+- [ ] Status Google Business Profile dan akses Search Console dicatat.
+- [ ] Sumber foto asli dan prosedur pemulihan diserahkan.
+- [ ] PageSpeed dan tampilan website publik dicek ulang setelah deploy.
+
+Referensi: [Sveltia migration](https://sveltiacms.app/en/docs/migration/netlify-decap-cms),
+[media](https://sveltiacms.app/en/docs/media),
+[GitHub OAuth](https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/authorizing-oauth-apps).

@@ -12,6 +12,7 @@
     "preview": "astro preview",
     "astro": "astro",
     "check": "astro check",
+    "test": "node --experimental-strip-types --test tests/*.test.ts",
     "format": "prettier --write .",
     "favicons": "node scripts/generate-favicons.mjs"
   },
@@ -23,15 +24,22 @@
     "@tailwindcss/vite": "^4.3.3",
     "@vercel/analytics": "^2.0.1",
     "@vercel/speed-insights": "^2.0.0",
-    "astro": "^7.1.6",
-    "astro-decap-cms-oauth": "^0.5.2",
+    "astro": "^7.3.5",
     "tailwindcss": "^4.3.3"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
+    "@sveltia/cms": "0.227.3",
+    "@types/react": "^19.3.0",
     "prettier": "^3.9.6",
     "prettier-plugin-astro": "^0.14.1",
-    "sharp": "^0.35.3",
-    "typescript": "^6.0.3"
+    "sharp": "^0.35.4",
+    "typescript": "^6.0.3",
+    "yaml": "^2.9.1"
+  },
+  "overrides": {
+    "@vercel/routing-utils": {
+      "path-to-regexp": "^6.3.0"
+    }
   }
 }

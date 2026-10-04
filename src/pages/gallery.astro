@@ -5,9 +5,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import Icon from '../components/Icon.astro';
 import { CARD_GRID_SIZES } from '../utils/image';
-import heroImage from '../assets/gallery-hero.jpg';
+import { pageContent } from '../utils/page-content';
+import { isPublished } from '../utils/content';
 
-const entries = (await getCollection('gallery')).sort((a, b) => a.data.order - b.data.order);
+const entries = (await getCollection('gallery', isPublished)).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+const page = await pageContent('gallery');
 
 // Versi besar untuk lightbox, tetap dioptimasi lewat pipeline astro:assets.
 const items = await Promise.all(
@@ -18,14 +22,10 @@ const items = await Promise.all(
 );
 ---
 
-<BaseLayout
-  title="Gallery"
-  description="Photos from our fertigation beds at IIUM Gombak: harvests, our JFI monitoring system, workshops, and daily life at Jauhar Urban Farming."
->
-  <PageHero image={heroImage} kicker="Field notes">
-    <Fragment slot="title">Life at the farm.</Fragment>
-    Harvest mornings, planting days, workshops, and everything in between, all documented by our team.
-    Tap any photo to see it up close.
+<BaseLayout title={page.title} description={page.description}>
+  <PageHero image={page.image} imageAlt={page.imageAlt} kicker={page.kicker}>
+    <Fragment slot="title">{page.heading}</Fragment>
+    {page.lead}
   </PageHero>
 
   <section class="shell py-16 md:py-24">

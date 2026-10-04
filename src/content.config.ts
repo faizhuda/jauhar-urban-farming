@@ -1,5 +1,7 @@
-import { defineCollection, z } from 'astro:content';
+import { defineCollection } from 'astro:content';
+import { z } from 'astro/zod';
 import { glob } from 'astro/loaders';
+import { MIN_PRICE, DESCRIPTION_MIN, DESCRIPTION_MAX } from './utils/content-rules';
 
 /**
  * Content Collections (PROJECT.md NF4): data produk & galeri terpisah dari markup,
@@ -14,11 +16,11 @@ const products = defineCollection({
     z.object({
       name: z.string().min(1),
       /** Harga dalam MYR (Ringgit Malaysia), angka saja. */
-      price: z.number().positive(),
+      price: z.number().min(MIN_PRICE),
       /** Satuan jual, mis. "kg", "jar", "pack". */
       unit: z.string().default('pack'),
       /** Deskripsi singkat — tampil di kartu produk DAN dipakai di JSON-LD. */
-      description: z.string().min(10).max(200),
+      description: z.string().min(DESCRIPTION_MIN).max(DESCRIPTION_MAX),
       image: image(),
       imageAlt: z.string().min(1),
       category: z.enum(['fresh', 'processed', 'experience']),
@@ -28,7 +30,7 @@ const products = defineCollection({
       /** Produk unggulan tampil di Beranda. */
       featured: z.boolean().default(false),
       /** Urutan tampil di katalog (kecil = lebih dulu). */
-      order: z.number().int().default(99),
+      order: z.number().int().min(1).default(99),
     }),
 });
 
@@ -40,7 +42,7 @@ const gallery = defineCollection({
       alt: z.string().min(1),
       caption: z.string().min(1),
       date: z.date(),
-      order: z.number().int().default(99),
+      order: z.number().int().min(1).default(99),
       /** Sembunyikan dari galeri sepenuhnya, mis. belum siap tampil. */
       draft: z.boolean().default(false),
     }),
@@ -52,7 +54,7 @@ const journal = defineCollection({
     z.object({
       title: z.string().min(1),
       /** Ringkasan singkat — tampil di kartu daftar artikel DAN meta description. */
-      description: z.string().min(10).max(200),
+      description: z.string().min(DESCRIPTION_MIN).max(DESCRIPTION_MAX),
       date: z.date(),
       image: image(),
       imageAlt: z.string().min(1),
@@ -61,4 +63,19 @@ const journal = defineCollection({
     }),
 });
 
-export const collections = { products, gallery, journal };
+const pages = defineCollection({
+  loader: glob({ pattern: '*.json', base: './src/content/pages' }),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string().min(1).max(100),
+      description: z.string().min(10).max(200),
+      heading: z.string().min(1).max(120),
+      kicker: z.string().min(1).max(80),
+      lead: z.string().min(10).max(500),
+      image: image(),
+      imageAlt: z.string().min(1).max(200),
+      strapline: z.string().max(100).optional(),
+    }),
+});
+
+export const collections = { products, gallery, journal, pages };

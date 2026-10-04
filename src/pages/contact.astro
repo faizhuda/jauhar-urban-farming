@@ -5,26 +5,26 @@ import PageHero from '../components/PageHero.astro';
 import WhatsAppCta from '../components/WhatsAppCta.astro';
 import WhatsAppIcon from '../components/WhatsAppIcon.astro';
 import { SITE, waOrderLink, mapsEmbedUrl, fullAddress, localBusinessLd } from '../config';
-import heroImage from '../assets/contact-hero.jpg';
+import { pageContent } from '../utils/page-content';
+import { daysLabel, weekdays } from '../utils/site-settings';
 
-const businessLd = localBusinessLd(new URL(heroImage.src, Astro.site).href, Astro.site?.href);
+const page = await pageContent('contact');
+const businessLd = localBusinessLd(new URL(page.image.src, Astro.site).href, Astro.site?.href);
 ---
 
-<BaseLayout
-  title="Contact"
-  description="Find Jauhar Urban Farming at IIUM Gombak, Kuala Lumpur. Opening hours, WhatsApp ordering, social media, and directions to our campus farm."
->
+<BaseLayout title={page.title} description={page.description}>
   <JsonLd data={businessLd} />
 
   <PageHero
-    image={heroImage}
-    kicker="Visit & connect"
+    image={page.image}
+    imageAlt={page.imageAlt}
+    kicker={page.kicker}
     maxWidth="2xl"
     titleMarginBottom="mb-5"
     leadMaxWidth="xl"
   >
-    <Fragment slot="title">Get in touch.</Fragment>
-    The fastest way to reach us is WhatsApp, whether for orders, farm tours, or anything else.
+    <Fragment slot="title">{page.heading}</Fragment>
+    {page.lead}
   </PageHero>
 
   {/* Info + peta */}
@@ -53,13 +53,17 @@ const businessLd = localBusinessLd(new URL(heroImage.src, Astro.site).href, Astr
           </h2>
           <ul class="max-w-xs space-y-3 text-body-md text-on-surface-variant">
             <li class="flex justify-between gap-6 border-b border-outline-variant/30 pb-2">
-              <span>Monday to Friday</span>
+              <span>{daysLabel(SITE.hours.days)}</span>
               <span>{SITE.hours.opens} - {SITE.hours.closes}</span>
             </li>
-            <li class="flex justify-between gap-6 text-outline">
-              <span>Saturday &amp; Sunday</span>
-              <span>Closed</span>
-            </li>
+            {
+              weekdays.some((day) => !SITE.hours.days.includes(day)) && (
+                <li class="flex justify-between gap-6 text-outline">
+                  <span>{daysLabel(weekdays.filter((day) => !SITE.hours.days.includes(day)))}</span>
+                  <span>Closed</span>
+                </li>
+              )
+            }
           </ul>
         </div>
 
